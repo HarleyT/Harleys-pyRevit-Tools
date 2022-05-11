@@ -20,6 +20,7 @@ cl = FilteredElementCollector(doc).OfClass(ViewSheetSet).ToElements()
 
 print(len(cl))
 
+print("stuff")
 
 for el in cl:
     print(el)
