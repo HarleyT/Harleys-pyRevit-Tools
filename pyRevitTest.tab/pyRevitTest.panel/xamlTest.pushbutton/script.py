@@ -20,7 +20,7 @@ class MyWindow(Windows.Window):
         name = self.textbox.Text
         UI.TaskDialog.Show(
             "Hello World",
-            "Hello {}".format(name)
+            "Hello {}".format(name or "World!")
             )
 
 # Let's show the window (modal)
