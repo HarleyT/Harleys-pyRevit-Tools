@@ -17,7 +17,11 @@ class MyWindow(Windows.Window):
         wpf.LoadComponent(self, xamlfile)
 
     def say_hello(self, sender, args):
-        UI.TaskDialog.Show("Hello World", "Hello {}")
+        name = self.textbox.Text
+        UI.TaskDialog.Show(
+            "Hello World",
+            "Hello {}".format(name)
+            )
 
 # Let's show the window (modal)
 MyWindow().ShowDialog()

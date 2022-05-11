@@ -4,7 +4,7 @@
         Title="Hello World">
     <StackPanel Margin="10,0,10,0">
         <Label Content="Enter your name inside the box below"/>
-        <TextBox Height="30" TextWrapping="Wrap" TextAlignment="Center" VerticalContentAlignment="Center" FontSize="20"/>
+        <TextBox x:Name="textbox" Height="30" TextWrapping="Wrap" TextAlignment="Center" VerticalContentAlignment="Center" FontSize="20"/>
         <Button Content="Say Hello" Height="50" Margin="0,10" Click="say_hello"/>
     </StackPanel>
 </Window>
