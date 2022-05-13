@@ -2,18 +2,15 @@
 # Select .rfa file to edit
 # Select .dwg to import into .rfa
 # Reload selected Generic Models
-
 from pyrevit import revit, forms
-import os
 
 doc = revit.doc
-
-homepath = os.getenv('HOME')
-filepath = "C:\Users" + homepath + "\ACCDocs\GHD Services Pty Ltd\12545014 - AML Detail Design 15MTPA\Project Files\02 - DELIVERY"
+user = doc.Username
+filepath = "C:\Users" + user + "\ACCDocs\GHD Services Pty Ltd\12545014 - AML Detail Design 15MTPA\Project Files\02 - DELIVERY"
 
 ACCDocs_dict = {}
 
-for family in revit.query.get_families(revit.doc, only_editable=True):
+for family in FilteredElementCollector(doc).OfClass(typeof(GenericModel)).ToElements():
 
     if family.FamilyCategory:
 
@@ -42,4 +39,3 @@ if ACCDocs_dict:
             print (family.Name)
             
             print (family)
-            # or do whatever
