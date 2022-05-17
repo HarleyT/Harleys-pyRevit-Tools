@@ -90,48 +90,48 @@ family_dict = {}
 # ║║║╠═╣║║║║
 # ╩ ╩╩ ╩╩╝╚╝ MAIN
 # ==================================================
-if __name__ == '__main__':
+#if __name__ == '__main__':
     # START CODE HERE
-    for family in revit.query.get_families(revit.doc, only_editable=True):
+for family in revit.query.get_families(revit.doc, only_editable=True):
 
-        if family.FamilyCategory.Name == "Generic Models":
+    if family.FamilyCategory.Name == "Generic Models":
 
-            family_dict[
+        family_dict[
 
-                "%s: %s" % (family.FamilyCategory.Name, family.Name)
+            "%s: %s" % (family.FamilyCategory.Name, family.Name)
 
-            ] = family
+        ] = family
 
-        if family_dict:
+    if family_dict:
 
-            selected_families = forms.SelectFromList.show(
+        selected_families = forms.SelectFromList.show(
 
-                sorted(family_dict.keys()),
+            sorted(family_dict.keys()),
 
-                title="Select Families",
+            title="Select Families",
 
-                multiselect=True,
+            multiselect=True,
 
-            )
+        )
 
-            if selected_families:
+        if selected_families:
 
-                for idx, family in enumerate([family_dict[x] for x in selected_families]):
-                    
-                    print (user)
-                    print (filepath)
-                    print (family.Name)            
-                    print (family)
+            for idx, family in enumerate([family_dict[x] for x in selected_families]):
+                
+                print (user)
+                print (filepath)
+                print (family.Name)            
+                print (family)
     
-    # AVOID  placing Transaction inside of your loops! It will drastically reduce perfomance of your script.
-    t = Transaction(doc,__title__)  # Transactions are context-like objects that guard any changes made to a Revit model.
+# AVOID  placing Transaction inside of your loops! It will drastically reduce perfomance of your script.
+t = Transaction(doc,__title__)  # Transactions are context-like objects that guard any changes made to a Revit model.
 
-    # You need to use t.Start() and t.Commit() to make changes to a Project.
-    t.Start()  # <- Transaction Start
+# You need to use t.Start() and t.Commit() to make changes to a Project.
+t.Start()  # <- Transaction Start
 
-    #- CHANGES TO REVIT PROJECT HERE
+#- CHANGES TO REVIT PROJECT HERE
 
-    t.Commit()  # <- Transaction End
+t.Commit()  # <- Transaction End
 
-    # Notify user that script is complete.
-    print('Script is finished.')
+# Notify user that script is complete.
+print('Script is finished.')
