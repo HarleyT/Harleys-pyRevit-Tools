@@ -5,8 +5,8 @@
 from pyrevit import revit, forms
 
 doc = revit.doc
-#user = doc.Username
-#filepath = "C:\Users" + user + "\ACCDocs\GHD Services Pty Ltd\12545014 - AML Detail Design 15MTPA\Project Files\02 - DELIVERY"
+user = doc.Username
+filepath = "C:\Users" + user + "\ACCDocs\GHD Services Pty Ltd\12545014 - AML Detail Design 15MTPA\Project Files\02 - DELIVERY"
 
 family_dict = {}
 
@@ -35,7 +35,8 @@ if family_dict:
     if selected_families:
 
         for idx, family in enumerate([family_dict[x] for x in selected_families]):
-
-            print (family.Name)
             
+            print (user)
+            print (filepath)
+            print (family.Name)            
             print (family)
