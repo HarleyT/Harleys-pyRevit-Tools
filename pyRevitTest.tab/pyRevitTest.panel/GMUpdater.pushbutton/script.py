@@ -46,8 +46,8 @@ from Autodesk.Revit.DB import Transaction, FilteredElementCollector     # or Imp
 from pyrevit import revit, forms                                        # import pyRevit modules. (Lots of useful features)
 
 # Custom Imports
-from Snippets._selection import get_selected_elements                   # lib import
-from Snippets._convert import convert_internal_to_m                     # lib import
+# from Snippets._selection import get_selected_elements                   # lib import
+# from Snippets._convert import convert_internal_to_m                     # lib import
 
 # .NET Imports
 import clr                                  # Common Language Runtime. Makes .NET libraries accessinble
