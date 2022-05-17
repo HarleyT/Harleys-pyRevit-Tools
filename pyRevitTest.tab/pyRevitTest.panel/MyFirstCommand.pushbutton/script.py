@@ -12,7 +12,7 @@ family_dict = {}
 
 for family in revit.query.get_families(revit.doc, only_editable=True):
 
-    if family.FamilyCategory.Name == "OST_GenericModel":
+    if family.FamilyCategory.Name == "Generic Models":
 
         family_dict[
 
