@@ -3,9 +3,14 @@
 # Select .dwg to import into .rfa
 # Reload selected Generic Models
 from pyrevit import revit, forms
+import clr
+
+clr.AddReference("RevitServices")
+from RevitServices.Persistence import DocumentManager
+app = DocumentManager.Instance.CurrentUIApplication.Application
 
 doc = revit.doc
-user = doc.Username
+user = app.Username
 filepath = "C:\Users" + user + "\ACCDocs\GHD Services Pty Ltd\12545014 - AML Detail Design 15MTPA\Project Files\02 - DELIVERY"
 
 family_dict = {}
