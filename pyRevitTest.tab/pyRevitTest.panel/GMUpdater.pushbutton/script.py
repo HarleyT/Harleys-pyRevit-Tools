@@ -65,7 +65,7 @@ app = __revit__.Application                 # Represents the Autodesk Revit Appl
 PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where script is placed.
 
 user = app.Username
-filepath = "C:\Users" + user + "\ACCDocs\GHD Services Pty Ltd\12545014 - AML Detail Design 15MTPA\Project Files\02 - DELIVERY"
+filepathstart = "C:\Users\\" + user + "\ACCDocs\GHD Services Pty Ltd\12545014 - AML Detail Design 15MTPA\Project Files\02 - DELIVERY"
 family_dict = {}
 
 # GLOBAL VARIABLES
@@ -102,26 +102,26 @@ for family in revit.query.get_families(revit.doc, only_editable=True):
 
         ] = family
 
-    if family_dict:
+if family_dict:
 
-        selected_families = forms.SelectFromList.show(
+    selected_families = forms.SelectFromList.show(
 
-            sorted(family_dict.keys()),
+        sorted(family_dict.keys()),
 
-            title="Select Families",
+        title="Select Families",
 
-            multiselect=True,
+        multiselect=True,
 
-        )
+    )
 
-        if selected_families:
+    if selected_families:
 
-            for idx, family in enumerate([family_dict[x] for x in selected_families]):
-                
-                print (user)
-                print (filepath)
-                print (family.Name)            
-                print (family)
+        for idx, family in enumerate([family_dict[x] for x in selected_families]):
+            
+            print (user)
+            print (filepath)
+            print (family.Name)            
+            print (family)
     
 # AVOID  placing Transaction inside of your loops! It will drastically reduce perfomance of your script.
 t = Transaction(doc,__title__)  # Transactions are context-like objects that guard any changes made to a Revit model.
