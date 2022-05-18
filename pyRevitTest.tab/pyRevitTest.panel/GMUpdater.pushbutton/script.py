@@ -65,7 +65,7 @@ app = __revit__.Application                 # Represents the Autodesk Revit Appl
 PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where script is placed.
 
 user = app.Username
-filepathstart = "C:\Users\\" + user + "\ACCDocs\GHD Services Pty Ltd\12545014 - AML Detail Design 15MTPA\Project Files\02 - DELIVERY"
+filepath = "C:\Users\\" + user + "\ACCDocs\GHD Services Pty Ltd\12545014 - AML Detail Design 15MTPA\Project Files\02 - DELIVERY"
 family_dict = {}
 
 # GLOBAL VARIABLES
