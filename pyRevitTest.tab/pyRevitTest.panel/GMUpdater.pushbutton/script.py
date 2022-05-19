@@ -117,13 +117,13 @@ if family_dict:
     if selected_families:
 
         for idx, family in enumerate([family_dict[x] for x in selected_families]):
-            #with pyrevit.revit.RevitWrapper() as wrapper:
+            with pyrevit.revit.RevitWrapper() as wrapper:
                 #for fam in selected_families:
                     #revit.doc.EditFamily(fam)
-            open_doc(filepath + family.Name + ".rfa")
-            print("opened family")
-            close_doc(filepath + family.Name + ".rfa")
-            print("closed family")
+                wrapper.open_doc(filepath + family.Name + ".rfa")
+                print("opened family")
+                wrapper.close_doc(filepath + family.Name + ".rfa")
+                print("closed family")
             print (user)
             print (filepath)
             print (family.Name)
