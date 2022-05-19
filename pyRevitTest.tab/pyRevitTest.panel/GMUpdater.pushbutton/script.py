@@ -117,19 +117,17 @@ if family_dict:
     if selected_families:
 
         for idx, family in enumerate([family_dict[x] for x in selected_families]):
-            with RevitWrapper() as wrapper:
+            #with pyrevit.revit.RevitWrapper() as wrapper:
                 #for fam in selected_families:
                     #revit.doc.EditFamily(fam)
-                wrapper.open_doc(filepath + family.Name + ".rfa")
-                print("opened family")
-                wrapper.close_doc(filepath + family.Name + ".rfa")
-                print("closed family")
-            #open_doc(filepath + family.Name + ".rfa")
+            open_doc(filepath + family.Name + ".rfa")
+            print("opened family")
+            close_doc(filepath + family.Name + ".rfa")
+            print("closed family")
             print (user)
             print (filepath)
             print (family.Name)
             print (family)
-            #close_doc(filepath + family.Name + ".rfa")
     
 # AVOID  placing Transaction inside of your loops! It will drastically reduce perfomance of your script.
 t = Transaction(doc,__title__)  # Transactions are context-like objects that guard any changes made to a Revit model.
