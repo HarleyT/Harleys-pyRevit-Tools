@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__title__ = "Generic Model w/ DWG Import Updater"                           # Name of the button displayed in Revit UI
+__title__ = "GenMod DWG Import Updater"                           # Name of the button displayed in Revit UI
 __doc__ = """Version = 1.0
 Date    = 18.05.2022
 _____________________________________________________________________
@@ -28,7 +28,7 @@ Author: Harley Trappitt"""                          # Button Description shown i
 # EXTRA: You can remove them.
 __author__ = "Harley Trappitt"                      # Script's Author
 __helpurl__ = ""                                    # Link that can be opened with F1 when hovered over the tool in Revit UI.
-__highlight__ = "new"                               # Button will have an orange dot + Description in Revit UI
+#__highlight__ = "new"                                  # Button will have an orange dot + Description in Revit UI
 __min_revit_ver__ = 2021                            # Limit your Scripts to certain Revit versions if it's not compatible due to RevitAPI Changes.
 __max_revit_ver = 2023                              # Limit your Scripts to certain Revit versions if it's not compatible due to RevitAPI Changes.
 # __context__     = ['Walls', 'Floors', 'Roofs']    # Make your button available only when certain categories are selected. Or Revit/View Types.
@@ -67,6 +67,7 @@ PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where 
 user = app.Username
 filepath = "C:\Users\\" + user + "\ACCDocs\GHD Services Pty Ltd\12545014 - AML Detail Design 15MTPA\Project Files\02 - DELIVERY\_REFERENCES SHARED\\"
 family_dict = {}
+wrapper = pyrevit.revit.RevitWrapper()
 
 # GLOBAL VARIABLES
 
@@ -117,17 +118,17 @@ if family_dict:
     if selected_families:
 
         for idx, family in enumerate([family_dict[x] for x in selected_families]):
-            with pyrevit.revit.RevitWrapper() as wrapper:
+            #with pyrevit.revit.RevitWrapper() as wrapper:
                 #for fam in selected_families:
                     #revit.doc.EditFamily(fam)
-                wrapper.open_doc(filepath + family.Name + ".rfa")
-                print("opened family")
-                wrapper.close_doc(filepath + family.Name + ".rfa")
-                print("closed family")
-            print (user)
-            print (filepath)
-            print (family.Name)
-            print (family)
+            wrapper.open_doc(filepath + family.Name + ".rfa")
+            print("opened family")
+            wrapper.close_doc(filepath + family.Name + ".rfa")
+            print("closed family")
+        print (user)
+        print (filepath)
+        print (family.Name)
+        print (family)
     
 # AVOID  placing Transaction inside of your loops! It will drastically reduce perfomance of your script.
 t = Transaction(doc,__title__)  # Transactions are context-like objects that guard any changes made to a Revit model.
