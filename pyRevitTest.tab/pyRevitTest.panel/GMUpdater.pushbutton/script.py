@@ -122,7 +122,7 @@ if family_dict:
     if selected_families:
 
         for idx, family in enumerate([family_dict[x] for x in selected_families]):
-            familypath = (filepath + family.Name + ".rfa")
+            familypath = filepath + family.Name + ".rfa"
             ModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(familypath)
             family_open(ModelPath, options)
             print("opened family")
