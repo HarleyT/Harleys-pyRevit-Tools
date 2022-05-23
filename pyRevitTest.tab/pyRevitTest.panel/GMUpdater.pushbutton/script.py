@@ -67,11 +67,11 @@ PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where 
 user = app.Username
 filepath = "C:\Users\\" + user + "\ACCDocs\GHD Services Pty Ltd\12545014 - AML Detail Design 15MTPA\Project Files\02 - DELIVERY\_REFERENCES SHARED\\"
 family_dict = {}
-ModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(familypath)
-familypath = ""
-options = OpenOptions()
-family_open = app.OpenDocumentFile(ModelPath, options)
-family_close = app.CloseDocumentFile(ModelPath, options)
+#ModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(familypath)
+#familypath = ""
+#options = OpenOptions()
+#family_open = app.OpenDocumentFile(ModelPath, options)
+#family_close = app.CloseDocumentFile(ModelPath, options)
 
 # GLOBAL VARIABLES
 
@@ -123,15 +123,16 @@ if family_dict:
 
         for idx, family in enumerate([family_dict[x] for x in selected_families]):
             familypath = filepath + family.Name + ".rfa"
-            ModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(familypath)
-            family_open(ModelPath, options)
-            print("opened family")
-            family_close(ModelPath, options)
-            print("closed family")
-        print (user)
-        print (filepath)
-        print (family.Name)
-        print (family)
+            #ModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(familypath)
+            #family_open(ModelPath, options)
+            #print("opened family")
+            #family_close(ModelPath, options)
+            #print("closed family")
+            print (user)
+            print (filepath)
+            print (family.Name)
+            print (family)
+            print (familypath)
     
 # AVOID  placing Transaction inside of your loops! It will drastically reduce perfomance of your script.
 t = Transaction(doc,__title__)  # Transactions are context-like objects that guard any changes made to a Revit model.
@@ -144,4 +145,5 @@ t.Start()  # <- Transaction Start
 t.Commit()  # <- Transaction End
 
 # Notify user that script is complete.
+print(familypath)
 print('Script is finished.')
