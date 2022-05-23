@@ -67,7 +67,11 @@ PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where 
 user = app.Username
 filepath = "C:\Users\\" + user + "\ACCDocs\GHD Services Pty Ltd\12545014 - AML Detail Design 15MTPA\Project Files\02 - DELIVERY\_REFERENCES SHARED\\"
 family_dict = {}
-wrapper = pyrevit.revit.RevitWrapper()
+ModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(familypath)
+familypath = ""
+options = OpenOptions()
+family_open = app.OpenDocumentFile(ModelPath, options)
+family_close = app.CloseDocumentFile(ModelPath, options)
 
 # GLOBAL VARIABLES
 
@@ -118,12 +122,11 @@ if family_dict:
     if selected_families:
 
         for idx, family in enumerate([family_dict[x] for x in selected_families]):
-            #with pyrevit.revit.RevitWrapper() as wrapper:
-                #for fam in selected_families:
-                    #revit.doc.EditFamily(fam)
-            wrapper.open_doc(filepath + family.Name + ".rfa")
+            familypath = (filepath + family.Name + ".rfa")
+            ModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(familypath)
+            family_open(ModelPath, options)
             print("opened family")
-            wrapper.close_doc(filepath + family.Name + ".rfa")
+            family_close(ModelPath, options)
             print("closed family")
         print (user)
         print (filepath)
