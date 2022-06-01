@@ -1,0 +1,40 @@
+<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="White">
+    <Page.Resources>
+        <ControlTemplate x:Key="ItemTemplate">
+            <TextBlock Text="{Binding name}"
+                       ToolTip="{Binding name}"
+                       VerticalAlignment="Center"
+                       Margin="10,0,0,0">
+            </TextBlock>
+        </ControlTemplate>
+
+        <DataTemplate x:Key="ItemContainerTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Control Grid.Column="0"
+                         VerticalAlignment="Center" VerticalContentAlignment="Center"
+                         Template="{DynamicResource ItemTemplate}">
+                </Control>
+            </Grid>
+        </DataTemplate>
+
+        <ItemsPanelTemplate x:Key="ItemsPanelTemplate">
+            <StackPanel />
+        </ItemsPanelTemplate>
+    </Page.Resources>
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top" 
+                   Text="Selected Elements" 
+                   HorizontalAlignment="Stretch" 
+                   Background="#FFEEEEEE"/>
+        <ListView x:Name="selected_lb" 
+                  HorizontalAlignment="Stretch" 
+                  ItemTemplate ="{DynamicResource ItemContainerTemplate}"
+                  ItemsPanel="{DynamicResource ItemsPanelTemplate}">
+        </ListView>
+    </DockPanel>
+</Page>
