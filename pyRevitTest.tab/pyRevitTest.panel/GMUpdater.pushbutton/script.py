@@ -5,7 +5,6 @@ Date    = 18.05.2022
 _____________________________________________________________________
 Description:
 Update selected Generic Models with their selected .dwg imports.
-
 _____________________________________________________________________
 How-to:
 
@@ -32,6 +31,14 @@ __helpurl__ = ""                                    # Link that can be opened wi
 __min_revit_ver__ = 2021                            # Limit your Scripts to certain Revit versions if it's not compatible due to RevitAPI Changes.
 __max_revit_ver = 2023                              # Limit your Scripts to certain Revit versions if it's not compatible due to RevitAPI Changes.
 # __context__     = ['Walls', 'Floors', 'Roofs']    # Make your button available only when certain categories are selected. Or Revit/View Types.
+
+
+#   You need to use 'os' package to get all files in the given folder with 'os.listdir'.
+#   Then you can filter family files and iterate through them to open each and make a change.
+#ModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(path_to_rfa)
+#options = OpenOptions()
+#rvt_doc = app.OpenDocumentFile(ModelPath, options)
+#   Then make your changes to rvt_doc and close it.
 
 # ╦╔╦╗╔═╗╔═╗╦═╗╔╦╗╔═╗
 # ║║║║╠═╝║ ║╠╦╝ ║ ╚═╗

@@ -1,6 +1,4 @@
-#pylint: disable=import-error,invalid-name,broad-except,superfluous-parens
-#pylint: disable=unused-import,wrong-import-position,unused-argument
-#pylint: disable=missing-docstring
+# -*- coding: UTF-8 -*-
 import System
 import os.path as op
 from pyrevit import HOST_APP, framework, coreutils, PyRevitException
@@ -8,31 +6,10 @@ from pyrevit import revit, DB, UI
 from pyrevit import forms, script
 from pyrevit.framework import wpf, ObservableCollection
 
-sample_panel_id = "1458b7cb-4dbe-4a8e-bad3-837e14b0a1ca"
+sample_panel_id = "1458b7cb-4dbe-4a8e-bad3-837e14b0a1cb"
 
 selected = []
-def idling_eventhandler(sender, args):
-    try: dockable_pane = UI.DockablePane(UI.DockablePaneId(System.Guid(sample_panel_id)))
-    except: return
 
-    global selected
-
-    if HOST_APP.uidoc and dockable_pane.IsShown():
-        try:
-            ids = sorted(HOST_APP.uidoc.Selection.GetElementIds())
-            if ids:
-                if ids != selected:
-                    selected = ids
-                    registered_panel.update_list()
-            else:
-                if selected:
-                    selected = []
-                    registered_panel.update_list()
-        except Exception as e:
-            print e.message
-
-HOST_APP.uiapp.Idling += \
-    framework.EventHandler[UI.Events.IdlingEventArgs](idling_eventhandler)
 
 
 class _WPFPanelProvider(UI.IDockablePaneProvider):
@@ -80,3 +57,26 @@ class DockableExample(forms.WPFPanel):
 
 
 registered_panel = register_dockable_panel(DockableExample)
+
+def idling_eventhandler(sender, args):
+    try: dockable_pane = UI.DockablePane(UI.DockablePaneId(System.Guid(sample_panel_id)))
+    except: return
+
+    global selected
+
+    if HOST_APP.uidoc and dockable_pane.IsShown():
+        try:
+            ids = sorted(HOST_APP.uidoc.Selection.GetElementIds())
+            if ids:
+                if ids != selected:
+                    selected = ids
+                    registered_panel.update_list()
+            else:
+                if selected:
+                    selected = []
+                    registered_panel.update_list()
+        except Exception as e:
+            print e.message
+
+HOST_APP.uiapp.Idling += \
+    framework.EventHandler[UI.Events.IdlingEventArgs](idling_eventhandler)
