@@ -6,9 +6,29 @@ from pyrevit import revit, DB, UI
 from pyrevit import forms, script
 from pyrevit.framework import wpf, ObservableCollection
 
+import clr
+clr.AddReference('DSCoreNodes')
+import DSCore
+from DSCore import Color
+
+clr.AddReference('RevitAPI')
+import Autodesk
+from Autodesk.Revit.DB import *
+
+clr.AddReference('RevitNodes')
+import Revit
+
+clr.AddReference('RevitServices')
+import RevitServices
+from RevitServices.Persistence import DocumentManager
+doc = DocumentManager.Instance.CurrentDBDocument
+uiapp = DocumentManager.Instance.CurrentUIApplication
+app = uiapp.Application
+version=int(app.VersionNumber)
+
 sample_panel_id = "1458b7cb-4dbe-4a8e-bad3-837e14b0a1cb"
 
-selected = []
+current_view = Revit.Document.ActiveView(doc)
 
 
 
@@ -50,8 +70,27 @@ class DockableExample(forms.WPFPanel):
     
     def update_list(self):
         try:
-            template_list = [forms.TemplateListItem(s.IntegerValue) for s in selected]
-            self.selected_lb.ItemsSource = ObservableCollection[forms.TemplateListItem](template_list)
+            #template_list = [forms.TemplateListItem(s.IntegerValue) for s in selected]
+            #self.selected_lb.ItemsSource = ObservableCollection[forms.TemplateListItem](template_list)
+            for v in current_view:
+
+                filters = v.GetFilters()
+                elements, elementName, visibilities = [],[],[]
+                for f in filters:
+                    visibilities.append(v.GetFilterVisibility(f))
+                    element=doc.GetElement(f)
+                    elements.append(element)
+                    elementName.append(element.Name)
+
+                    view_filters = forms.SelectFromList.show(
+
+                        sorted(view_filters.keys()),
+
+                        title="Select Filters",
+
+                        multiselect=True,
+
+                    )
         except Exception as e:
             print e.message
 
