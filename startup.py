@@ -22,9 +22,9 @@ clr.AddReference('RevitServices')
 import RevitServices
 from RevitServices.Persistence import DocumentManager
 doc = DocumentManager.Instance.CurrentDBDocument
-#uiapp = DocumentManager.Instance.CurrentUIApplication
-#app = uiapp.Application
-#version=int(app.VersionNumber)
+uiapp = DocumentManager.Instance.CurrentUIApplication
+app = uiapp.Application
+version=int(app.VersionNumber)
 
 sample_panel_id = "1458b7cb-4dbe-4a8e-bad3-837e14b0a1cb"
 
