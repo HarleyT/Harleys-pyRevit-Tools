@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-__title__ = "GenMod DWG Import Updater"                           # Name of the button displayed in Revit UI
+__title__ = "Family->DWG Import"                           # Name of the button displayed in Revit UI
 __doc__ = """Version = 1.0
 Date    = 18.05.2022
 _____________________________________________________________________
 Description:
-Update selected Generic Models with their selected .dwg imports.
+Update selected Generic Model Families with their selected .dwg imports.
 _____________________________________________________________________
 How-to:
 

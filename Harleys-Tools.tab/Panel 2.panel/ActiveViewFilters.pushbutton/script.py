@@ -1,26 +1,18 @@
 # -*- coding: utf-8 -*-
-__title__ = "GenMod DWG Import Updater"                           # Name of the button displayed in Revit UI
+__title__ = "Active View Filters"                           # Name of the button displayed in Revit UI
 __doc__ = """Version = 1.0
-Date    = 18.05.2022
+Date    = 08.06.2022
 _____________________________________________________________________
 Description:
-Update selected Generic Models with their selected .dwg imports.
-_____________________________________________________________________
-How-to:
-
--> Select ACCDocs folder in AML Project
--> Select .rfa file to edit
--> Select .dwg to import into .rfa
--> Reload selected Generic Models
+Dockable Panel showing all filters for the Active View.
 _____________________________________________________________________
 Last update:
-- [18.05.2022] - 1.0 RELEASE
+- [08.06.2022] - 1.0 RELEASE
 _____________________________________________________________________
 To-Do:
-- Select ACCDocs folder in AML Project
-- Select .rfa file to edit
-- Select .dwg to import into .rfa
-- Reload selected Generic Models
+- Show all filters in active view
+- make it a dockable panel
+- add functionality of original filters (visibility on/off, projection/cut overrides etc.)
 _____________________________________________________________________
 Author: Harley Trappitt"""                          # Button Description shown in Revit UI
 
@@ -97,24 +89,23 @@ current_view = (doc).ActiveView
 #if __name__ == '__main__':
     # START CODE HERE
 for v in current_view:
+    filters = v.GetFilters()
+    elements, elementName, visibilities = [],[],[]
+    for f in filters:
+        visibilities.append(v.GetFilterVisibility(f))
+        element=doc.GetElement(f)
+        elements.append(element)
+        elementName.append(element.Name)
 
-                filters = v.GetFilters()
-                elements, elementName, visibilities = [],[],[]
-                for f in filters:
-                    visibilities.append(v.GetFilterVisibility(f))
-                    element=doc.GetElement(f)
-                    elements.append(element)
-                    elementName.append(element.Name)
+        view_filters = forms.SelectFromList.show(
 
-                    view_filters = forms.SelectFromList.show(
+            sorted(view_filters.keys()),
 
-                        sorted(view_filters.keys()),
+            title="Select Filters",
 
-                        title="Select Filters",
+            multiselect=True,
 
-                        multiselect=True,
-
-                    )
+        )
 
 
 # AVOID  placing Transaction inside of your loops! It will drastically reduce perfomance of your script.
