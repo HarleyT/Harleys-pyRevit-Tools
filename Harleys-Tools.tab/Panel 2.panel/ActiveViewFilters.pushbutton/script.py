@@ -99,24 +99,24 @@ PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where 
 
 current_view = doc.ActiveView.ToDSType(True)
 
-for v in current_view:
-    filters = v.GetFilters()
-    elements, elementName, visibilities = [],[],[]
-    for f in filters:
-        visibilities.append(v.GetFilterVisibility(f))
-        element=doc.GetElement(f)
-        elements.append(element)
-        elementName.append(element.Name)
+#filters = Revit.View.Filters(current_view)
+filters = current_view.GetFilters()
+elements, elementName, visibilities = [],[],[]
+for f in filters:
+    visibilities.append(current_view.GetFilterVisibility(f))
+    element=doc.GetElement(f)
+    elements.append(element)
+    elementName.append(element.Name)
 
-        view_filters = forms.SelectFromList.show(
+    view_filters = forms.SelectFromList.show(
 
-            sorted(view_filters.keys()),
+        sorted(view_filters.keys()),
 
-            title="Select Filters",
+        title="Select Filters",
 
-            multiselect=True,
+        multiselect=True,
 
-        )
+    )
 
 
 # AVOID  placing Transaction inside of your loops! It will drastically reduce perfomance of your script.
