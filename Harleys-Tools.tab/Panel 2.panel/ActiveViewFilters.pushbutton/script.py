@@ -120,7 +120,7 @@ if view_filters:
 
     selected_filters = forms.SelectFromList.show(
 
-        sorted(family_dict.keys()),
+        sorted(view_filters.keys()),
 
         title="Select Filters",
 
