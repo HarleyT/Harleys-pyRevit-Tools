@@ -98,9 +98,8 @@ PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where 
     # START CODE HERE
 
 current_view = doc.ActiveView
+view_filters = {}
 
-#filters = current_view.GetFilter()
-#filters = Revit.View.Filters(current_view)
 filters = current_view.GetFilters()
 elements, elementName, visibilities = [],[],[]
 for f in filters:
@@ -109,15 +108,62 @@ for f in filters:
     elements.append(element)
     elementName.append(element.Name)
 
-    elements = forms.SelectFromList.show(
+    if elements:
 
-        sorted(elements.keys()),
+        view_filters[
+
+            "%s: %s" % (elementName, visibilities)
+
+        ] = element
+
+if view_filters:
+
+    selected_filters = forms.SelectFromList.show(
+
+        sorted(family_dict.keys()),
 
         title="Select Filters",
 
         multiselect=True,
 
     )
+
+################################################################################################
+#family_dict = {}
+
+#for e in revit.query.get_all_elements_in_view(active_view):
+
+#    try:
+
+#        e_type = revit.query.get_type(e)
+
+#        family = e_type.Family
+
+#        if family.FamilyCategory:
+
+#            family_dict[
+
+#                "%s: %s" % (family.FamilyCategory.Name, family.Name)
+
+#            ] = family
+
+#    except:
+
+#        pass
+
+#if family_dict:
+
+#    selected_families = forms.SelectFromList.show(
+
+#        sorted(family_dict.keys()),
+
+#        title="Select Families",
+
+#        multiselect=True,
+
+#    )
+################################################################################################
+
 
 
 # AVOID  placing Transaction inside of your loops! It will drastically reduce perfomance of your script.
