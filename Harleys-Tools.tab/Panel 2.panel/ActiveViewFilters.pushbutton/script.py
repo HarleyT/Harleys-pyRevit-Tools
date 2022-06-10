@@ -111,7 +111,7 @@ for f in filters:
 
     if element:
         view_filters[
-            "%s: %s" % (elementName, visibilities)
+            "%s: %s" % (element.Name, visibilities)
         ] = elements
 
 if view_filters:
