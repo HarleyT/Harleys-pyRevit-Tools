@@ -99,7 +99,8 @@ PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where 
 
 current_view = doc.ActiveView.ToDSType(True)
 
-filters = Revit.View.Filters(current_view)
+filters = current_view.ElementFilter.GetFilter()
+#filters = Revit.View.Filters(current_view)
 #filters = current_view.GetFilters()
 elements, elementName, visibilities = [],[],[]
 for f in filters:
