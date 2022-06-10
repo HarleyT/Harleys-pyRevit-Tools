@@ -97,7 +97,7 @@ PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where 
 #if __name__ == '__main__':
     # START CODE HERE
 
-current_view = doc.ActiveView()
+current_view = doc.ActiveView
 
 #filters = current_view.GetFilter()
 filters = Revit.View.Filters(current_view)
