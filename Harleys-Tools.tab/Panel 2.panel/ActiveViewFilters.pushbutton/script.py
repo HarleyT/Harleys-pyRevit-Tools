@@ -102,6 +102,7 @@ view_filters = {}
 
 filters = current_view.GetFilters()
 elements, elementName, visibilities = [],[],[]
+
 for f in filters:
     visibilities.append(current_view.GetFilterVisibility(f))
     element=doc.GetElement(f)
@@ -109,58 +110,34 @@ for f in filters:
     elementName.append(element.Name)
 
     if element:
-
         view_filters[
-
             "%s: %s" % (elementName, visibilities)
-
-        ] = element
+        ] = elements
 
 if view_filters:
-
     selected_filters = forms.SelectFromList.show(
-
         sorted(view_filters.keys()),
-
         title="Select Filters",
-
         multiselect=True,
-
     )
 
 ################################################################################################
 #family_dict = {}
-
 #for e in revit.query.get_all_elements_in_view(active_view):
-
 #    try:
-
 #        e_type = revit.query.get_type(e)
-
 #        family = e_type.Family
-
 #        if family.FamilyCategory:
-
 #            family_dict[
-
 #                "%s: %s" % (family.FamilyCategory.Name, family.Name)
-
 #            ] = family
-
 #    except:
-
 #        pass
-
 #if family_dict:
-
 #    selected_families = forms.SelectFromList.show(
-
 #        sorted(family_dict.keys()),
-
 #        title="Select Families",
-
 #        multiselect=True,
-
 #    )
 ################################################################################################
 
