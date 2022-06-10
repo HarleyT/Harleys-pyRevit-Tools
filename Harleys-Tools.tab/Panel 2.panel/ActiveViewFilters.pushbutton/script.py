@@ -109,9 +109,9 @@ for f in filters:
     elements.append(element)
     elementName.append(element.Name)
 
-    view_filters = forms.SelectFromList.show(
+    elements = forms.SelectFromList.show(
 
-        sorted(view_filters.keys()),
+        sorted(elements.keys()),
 
         title="Select Filters",
 
