@@ -108,7 +108,7 @@ for f in filters:
     elements.append(element)
     elementName.append(element.Name)
 
-    if elements:
+    if element:
 
         view_filters[
 
