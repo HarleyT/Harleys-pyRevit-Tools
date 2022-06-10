@@ -54,6 +54,14 @@ clr.AddReference("System")                  # Refference System.dll for import.
 from System.Collections.Generic import List # List<ElementType>() <- it's special type of list from .NET framework that RevitAPI requires
 # List_example = List[ElementId]()          # use .Add() instead of append or put python list of ElementIds in parentesis.
 
+clr.AddReference("RevitServices")
+import RevitServices
+#from RevitServices.Persistence import DocumentManager
+#doc = DocumentManager.Instance.CurrentDBDocument
+clr.AddReference("RevitNodes")
+import Revit
+clr.ImportExtensions(Revit.Elements)
+
 # ╦  ╦╔═╗╦═╗╦╔═╗╔╗ ╦  ╔═╗╔═╗
 # ╚╗╔╝╠═╣╠╦╝║╠═╣╠╩╗║  ║╣ ╚═╗
 #  ╚╝ ╩ ╩╩╚═╩╩ ╩╚═╝╩═╝╚═╝╚═╝ VARIABLES
@@ -62,7 +70,7 @@ doc = __revit__.ActiveUIDocument.Document   # Document   class from RevitAPI tha
 uidoc = __revit__.ActiveUIDocument          # UIDocument class from RevitAPI that represents Revit project opened in the Revit UI.
 app = __revit__.Application                 # Represents the Autodesk Revit Application, providing access to documents, options and other application wide data and settings.
 PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where script is placed.
-current_view = (doc).ActiveView
+
 
 # GLOBAL VARIABLES
 
@@ -88,6 +96,9 @@ current_view = (doc).ActiveView
 # ==================================================
 #if __name__ == '__main__':
     # START CODE HERE
+
+current_view = doc.ActiveView.ToDSType(True)
+
 for v in current_view:
     filters = v.GetFilters()
     elements, elementName, visibilities = [],[],[]
