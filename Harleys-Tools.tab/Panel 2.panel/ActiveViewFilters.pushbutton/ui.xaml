@@ -4,9 +4,9 @@
         Title="Active View - Filters">
     <StackPanel Margin="10,0,10,0">
         <StackPanel Height="200">
-            <ListView Height="200">
+            <ListView>
                 <ListView.View>
-                    <GridView>
+                    <GridView AllowsColumnReorder="True">
                         <GridViewColumn/>
                     </GridView>
                 </ListView.View>
