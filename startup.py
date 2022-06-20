@@ -24,7 +24,7 @@ from RevitServices.Persistence import DocumentManager
 #doc = DocumentManager.Instance.CurrentDBDocument
 #uiapp = DocumentManager.Instance.CurrentUIApplication
 #app = uiapp.Application
-version=int(app.VersionNumber)
+#version=int(app.VersionNumber)
 
 #current_view = Revit.Document.ActiveView(doc)
 
