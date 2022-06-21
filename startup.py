@@ -33,6 +33,7 @@ doc = DocumentManager.Instance.CurrentDBDocument
 #app = __revit__.Application                 # Represents the Autodesk Revit Application, providing access to documents, options and other application wide data and settings.
 #PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where script is placed.
 
+#doc = revit.doc
 current_view = doc.ActiveView
 uidoc = HOST_APP.uidoc
 
