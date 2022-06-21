@@ -26,14 +26,14 @@ doc = DocumentManager.Instance.CurrentDBDocument
 #app = uiapp.Application
 #version=int(app.VersionNumber)
 
-#current_view = Revit.Document.ActiveView(doc)
+current_view = Revit.Document.ActiveView(doc)
 
 #doc = __revit__.ActiveUIDocument.Document   # Document   class from RevitAPI that represents project. Used to Create, Delete, Modify and Query elements from the project.
 #uidoc = __revit__.ActiveUIDocument          # UIDocument class from RevitAPI that represents Revit project opened in the Revit UI.
 #app = __revit__.Application                 # Represents the Autodesk Revit Application, providing access to documents, options and other application wide data and settings.
 #PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where script is placed.
 
-current_view = doc.ActiveView
+#current_view = doc.ActiveView
 uidoc = HOST_APP.uidoc
 
 filters = current_view.GetFilters()
