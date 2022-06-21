@@ -34,11 +34,8 @@ doc = DocumentManager.Instance.CurrentDBDocument
 #PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where script is placed.
 
 #doc = revit.doc
-current_view = doc.ActiveView
+current_view = None
 uidoc = HOST_APP.uidoc
-
-filters = current_view.GetFilters()
-FilterVisibility, element, elements, FilterName = [],[],[],[]
 
 
 print('Startup script execution test.')
@@ -63,6 +60,10 @@ class DockableExample(forms.WPFPanel):
     panel_title = "Active View - Filters"
     panel_id = "3110e336-f81c-4927-87da-4e0d30d4d64b"
     panel_source = op.join(op.dirname(__file__), "ui.xaml")
+
+    current_view = doc.ActiveView
+    filters = current_view.GetFilters()
+    FilterVisibility, element, elements, FilterName = [],[],[],[]
 
     def do_something(self, sender, args):
         forms.alert("Voila!!!")
