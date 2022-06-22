@@ -35,7 +35,6 @@ doc = DocumentManager.Instance.CurrentDBDocument
 #PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where script is placed.
 
 #doc = revit.doc
-current_view = None
 uidoc = HOST_APP.uidoc
 
 
@@ -62,14 +61,22 @@ class DockableExample(forms.WPFPanel):
     panel_id = "3110e336-f81c-4927-87da-4e0d30d4d64b"
     panel_source = op.join(op.dirname(__file__), "ui.xaml")
 
-    current_view = doc.ActiveView
-    filters = current_view.GetFilters()
+    current_view = None
+    filters = None
+
+    if doc.ActiveView:
+        current_view = doc.ActiveView
+        filters = current_view.GetFilters()
+    else:
+        current_view = None
+        filters = None
+    
     FilterVisibility, element, elements, FilterName = [],[],[],[]
 
     def do_something(self, sender, args):
         forms.alert("Voila!!!")
 
-    def refresh_active_view():
+    def refresh_active_view(current_view):
         uidoc.RequestViewChange(current_view)
         uidoc.RefreshActiveView()
         doc.Regenerate()
