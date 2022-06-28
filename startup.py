@@ -61,18 +61,6 @@ class DockableExample(forms.WPFPanel):
     panel_id = "3110e336-f81c-4927-87da-4e0d30d4d64b"
     panel_source = op.join(op.dirname(__file__), "ui.xaml")
 
-    current_view = None
-    filters = None
-
-    if doc.ActiveView:
-        current_view = doc.ActiveView
-        filters = current_view.GetFilters()
-    else:
-        current_view = None
-        filters = None
-    
-    FilterVisibility, element, elements, FilterName = [],[],[],[]
-
     def do_something(self, sender, args):
         forms.alert("Voila!!!")
 
@@ -82,16 +70,7 @@ class DockableExample(forms.WPFPanel):
         doc.Regenerate()
 
     def active_filters(self):
-        try:
-            #template_list = [forms.TemplateListItem(s.IntegerValue) for s in selected]
-            #self.selected_lb.ItemsSource = ObservableCollection[forms.TemplateListItem](template_list)
-            for f in filters:
-                FilterVisibility.append(current_view.GetFilterVisibility(f))
-                element=doc.GetElement(f)
-                elements.append(element)
-                FilterName.append(element.Name)
-        except Exception as e:
-            print e.message
+        pass
 
 if not forms.is_registered_dockable_panel(DockableExample):
     forms.register_dockable_panel(DockableExample)
