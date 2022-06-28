@@ -197,7 +197,7 @@ view_filters = {}
 
 filters = current_view.GetFilters()
 
-elements, elementName, visibilities, cats, listtrans, listhalf = [],[],[],[],[],[]
+elements, elementName, visibilities, listtrans, listhalf = [],[],[],[],[]
 
 for f in filters:
     #if element:
@@ -209,9 +209,6 @@ for f in filters:
     element=doc.GetElement(f)
     elements.append(element)
     elementName.append(element.Name)
-    catid=[Revit.Elements.Category.ById(c.IntegerValue).Name for c in element.GetCategories()]
-    cate = catid if len(catid)>1 else catid[0]
-    cats.append(cate)
     filterObject = current_view.GetFilterOverrides(f)
     listtrans.append(filterObject.Transparency)
     listhalf.append(filterObject.Halftone)
