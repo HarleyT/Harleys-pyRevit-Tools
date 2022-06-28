@@ -16,14 +16,6 @@ To-Do:
 _____________________________________________________________________
 Author: Harley Trappitt"""                          # Button Description shown in Revit UI
 
-# EXTRA: You can remove them.
-__author__ = "Harley Trappitt"                      # Script's Author
-__helpurl__ = ""                                    # Link that can be opened with F1 when hovered over the tool in Revit UI.
-#__highlight__ = "new"                                  # Button will have an orange dot + Description in Revit UI
-__min_revit_ver__ = 2021                            # Limit your Scripts to certain Revit versions if it's not compatible due to RevitAPI Changes.
-__max_revit_ver = 2023                              # Limit your Scripts to certain Revit versions if it's not compatible due to RevitAPI Changes.
-# __context__     = ['Walls', 'Floors', 'Roofs']    # Make your button available only when certain categories are selected. Or Revit/View Types.
-
 
 #   You need to use 'os' package to get all files in the given folder with 'os.listdir'.
 #   Then you can filter family files and iterate through them to open each and make a change.
