@@ -197,7 +197,7 @@ view_filters = {}
 
 filters = current_view.GetFilters()
 
-elements, elementName, visibilities, cats, listtrans, listhalf = [],[],[],[]
+elements, elementName, visibilities, cats, listtrans, listhalf = [],[],[],[],[],[]
 
 for f in filters:
     #if element:
