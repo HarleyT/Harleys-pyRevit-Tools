@@ -219,7 +219,7 @@ halfList.Add(listhalf)
 visibilitiesList.append(visibilities)
 elementList.append(elements)
 nameList.append(elementName)
-categories.append(cats)
+
 
 # Let's show the window (modal)
 MyWindow().ShowDialog()
