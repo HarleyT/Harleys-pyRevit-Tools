@@ -130,14 +130,6 @@ class _WPFPanelProvider(UI.IDockablePaneProvider):
         except Exception as e:
             print e.message
 
-    def refresh_active_view(current_view):
-        uidoc.RequestViewChange(current_view)
-        uidoc.RefreshActiveView()
-        doc.Regenerate()
-
-    def active_filters(self):
-        pass
-
 class Reactive(ComponentModel.INotifyPropertyChanged):
     """WPF property updator base mixin"""
     PropertyChanged, _propertyChangedCaller = pyevent.make_event()
@@ -172,6 +164,11 @@ class Command(ICommand):
 class MyWindow(Windows.Window):
     def __init__(self):
         wpf.LoadComponent(self, xamlfile)
+
+    def refresh_active_view(self, current_view):
+        uidoc.RequestViewChange(current_view)
+        uidoc.RefreshActiveView()
+        doc.Regenerate()
 
     def active_filters(self, sender, args):
         pass
