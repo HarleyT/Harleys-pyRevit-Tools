@@ -34,16 +34,7 @@
                       ItemsPanel="{DynamicResource ItemsPanelTemplate}">
                 <ListView.View>
                     <GridView AllowsColumnReorder="True">
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=FilterName}" Width="Auto">
-                            <GridViewColumnHeader>Name
-                                <GridViewColumnHeader.ContextMenu>
-                                    <ContextMenu MenuItem.Click="Name_Click" Name="NameCM">
-                                        <MenuItem Header="Ascending" />
-                                        <MenuItem Header="Descending" />
-                                    </ContextMenu>
-                                </GridViewColumnHeader.ContextMenu>
-                            </GridViewColumnHeader>
-                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=FilterName}" Width="Auto"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=FilterVisibility}" Header="Visibility" Width="100"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=FilterHalftone}" Header="Halftone" Width="100"/>
                     </GridView>
