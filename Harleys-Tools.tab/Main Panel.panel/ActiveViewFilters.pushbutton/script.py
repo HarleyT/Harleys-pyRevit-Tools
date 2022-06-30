@@ -117,50 +117,6 @@ def refresh_active_view():
 
 # - Place local classes here. If you might use any classes in other scripts, consider placing it in the lib folder.
 
-class _WPFPanelProvider(UI.IDockablePaneProvider):
-    def __init__(self, panel_type, default_visible=True):
-        self._panel_type = panel_type
-        self._default_visible = default_visible
-        self.panel = self._panel_type()
-
-    def update_list(self):
-        try:
-            template_list = [forms.TemplateListItem(s.IntegerValue) for s in selected]
-            self.selected_lb.ItemsSource = ObservableCollection[forms.TemplateListItem](template_list)
-        except Exception as e:
-            print e.message
-
-class Reactive(ComponentModel.INotifyPropertyChanged):
-    """WPF property updator base mixin"""
-    PropertyChanged, _propertyChangedCaller = pyevent.make_event()
-
-    def add_PropertyChanged(self, value):
-        self.PropertyChanged += value
-
-    def remove_PropertyChanged(self, value):
-        self.PropertyChanged -= value
-
-    def OnPropertyChanged(self, prop_name):
-        if self._propertyChangedCaller:
-            args = ComponentModel.PropertyChangedEventArgs(prop_name)
-            self._propertyChangedCaller(self, args)
-
-class Command(ICommand):
-    def __init__(self, execute):
-        self.execute = execute
-
-    def Execute(self, parameter):
-        self.execute()
-
-    def add_CanExecuteChanged(self, handler):
-        pass
-
-    def remove_CanExecuteChanged(self, handler):
-        pass
-
-    def CanExecute(self, parameter):
-        return True
-
 class MyWindow(Windows.Window):
     def __init__(self):
         wpf.LoadComponent(self, xamlfile)
@@ -190,19 +146,13 @@ class MyWindow(Windows.Window):
 #if __name__ == '__main__':
     # START CODE HERE
 
-
-
-
-projRGBList, cutRGBList, surForPatList, surBacPatList, cutForPatList, cutBacPatList, transList, halfList, prweList = [],[],[],[],[],[],[],[],[]
-prPatList, cutweList, cutPatList, surForList, surBacList, cutForList, cutBacList, elementList, nameList = [],[],[],[],[],[],[],[],[]
-visibilitiesList, categories = [],[]
-
 current_view = doc.ActiveView
 view_filters = {}
 
 filters = current_view.GetFilters()
 
 elements, elementName, visibilities, listtrans, listhalf = [],[],[],[],[]
+visibilitiesList, elementList, nameList, transList, halfList = [],[],[],[],[]
 
 for f in filters:
     #if element:
