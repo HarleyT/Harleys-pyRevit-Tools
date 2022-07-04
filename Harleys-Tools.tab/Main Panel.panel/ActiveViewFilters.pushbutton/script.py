@@ -118,7 +118,7 @@ class MyWindow(Windows.Window):
         filterName = nameList
 
     def refresh_active_view(self, current_view, args):
-        uidoc.RequestViewChange(current_view)
+        #uidoc.RequestViewChange(current_view)
         uidoc.RefreshActiveView()
         doc.Regenerate()
 
