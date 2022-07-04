@@ -115,9 +115,11 @@ current_view = doc.ActiveView
 class MyWindow(Windows.Window):
     def __init__(self):
         wpf.LoadComponent(self, xamlfile)
-        filterName = nameList
 
     def active_filters(self, sender, args):
+        filtername = nameList
+        filterVisibility = visibilitiesList
+        filterHalftone = halfList
         pass
 
     def add_filters():
