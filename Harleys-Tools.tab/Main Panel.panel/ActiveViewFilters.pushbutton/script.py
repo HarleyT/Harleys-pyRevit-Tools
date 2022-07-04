@@ -98,6 +98,8 @@ current_view = doc.ActiveView
 
 # - Place global variables here.
 
+filters = []
+
 # ╔═╗╦ ╦╔╗╔╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
 # ╠╣ ║ ║║║║║   ║ ║║ ║║║║╚═╗
 # ╚  ╚═╝╝╚╝╚═╝ ╩ ╩╚═╝╝╚╝╚═╝ FUNCTIONS
@@ -115,12 +117,20 @@ current_view = doc.ActiveView
 class MyWindow(Windows.Window):
     def __init__(self):
         wpf.LoadComponent(self, xamlfile)
+        self.filers.ItemsSource = []
 
     def active_filters(self, sender, args):
         filtername = nameList
         filterVisibility = visibilitiesList
         filterHalftone = halfList
         pass
+
+    def update_list(self):
+        try:
+            template_list = [forms.TemplateListItem(f.IntegerValue) for f in filters]
+            self.filters.ItemsSource = ObservableCollection[forms.TemplateListItem](template_list)
+        except Exception as e:
+            print e.message
 
     def add_filters():
         pass
