@@ -135,6 +135,20 @@ class MyWindow(Windows.Window):
     def edit_filters():
         pass
 
+def idling_eventhandler(sender, args):
+    global filters
+    try:
+        if current_view == doc.ActiveView:
+            if ids:
+                if ids != filters:
+                    filters = ids
+                    MyWindow.update_list()
+            else:
+                if filters:
+                    filters = []
+                    MyWindow.update_list()
+    except Exception as e:
+        print e.message
 
 # ╔╦╗╔═╗╦╔╗╔
 # ║║║╠═╣║║║║
@@ -144,8 +158,6 @@ class MyWindow(Windows.Window):
     # START CODE HERE
 
 current_view = doc.ActiveView
-view_filters = {}
-
 filters = current_view.GetFilters()
 
 elements, elementName, visibilities, listtrans, listhalf = [],[],[],[],[]
