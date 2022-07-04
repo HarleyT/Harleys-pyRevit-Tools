@@ -117,11 +117,6 @@ class MyWindow(Windows.Window):
         wpf.LoadComponent(self, xamlfile)
         filterName = nameList
 
-    def refresh_active_view(self, current_view, args):
-        #uidoc.RequestViewChange(current_view)
-        uidoc.RefreshActiveView()
-        doc.Regenerate()
-
     def active_filters(self, sender, args):
         pass
 

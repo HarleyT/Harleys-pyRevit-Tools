@@ -27,7 +27,6 @@
     </Window.Resources>
 
     <StackPanel Margin="10,0,10,0">
-        <Button Content="Refresh to update Active View" Click="refresh_active_view" Margin="0,0,0,5"/>
         <StackPanel Height="250">
             <ListView x:Name="active_filters"
                       ItemTemplate="{DynamicResource ItemContainerTemplate}"
