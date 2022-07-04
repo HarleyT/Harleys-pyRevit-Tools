@@ -25,7 +25,7 @@
 |[pyRevit](https://www.notion.so/pyrevitlabs/pyRevit-bd907d6292ed4ce997c46e84b6ef67a0)|[pyRevit Forums](https://discourse.pyrevitlabs.io)|
 |---|---|
 
-#### Useful 🐍Python🐍 Resources:
+#### Useful 🐍Python🐍 Learning Resources:
 
 |[Datacamp](https://app.datacamp.com/learn)|[Kaggle](https://www.kaggle.com/learn/python)|[Udacity](https://learn.udacity.com)|
 |---|---|---|

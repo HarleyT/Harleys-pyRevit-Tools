@@ -34,7 +34,7 @@
                       ItemsPanel="{DynamicResource ItemsPanelTemplate}">
                 <ListView.View>
                     <GridView AllowsColumnReorder="True">
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=FilterName}" Width="Auto"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=FilterName}" Header="Name" Width="Auto"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=FilterVisibility}" Header="Visibility" Width="100"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=FilterHalftone}" Header="Halftone" Width="100"/>
                     </GridView>

@@ -105,11 +105,6 @@ current_view = doc.ActiveView
 
 # - Place local functions here. If you might use any functions in other scripts, consider placing it in the lib folder.
 
-def refresh_active_view():
-    uidoc.RequestViewChange(current_view)
-    uidoc.RefreshActiveView()
-    doc.Regenerate()
-
 # ╔═╗╦  ╔═╗╔═╗╔═╗╔═╗╔═╗
 # ║  ║  ╠═╣╚═╗╚═╗║╣ ╚═╗
 # ╚═╝╩═╝╩ ╩╚═╝╚═╝╚═╝╚═╝ CLASSES
@@ -120,6 +115,7 @@ def refresh_active_view():
 class MyWindow(Windows.Window):
     def __init__(self):
         wpf.LoadComponent(self, xamlfile)
+        filterName = nameList
 
     def refresh_active_view(self, current_view):
         uidoc.RequestViewChange(current_view)
