@@ -4,17 +4,17 @@ __doc__ = """Version = 1.0
 Date    = 08.06.2022
 _____________________________________________________________________
 Description:
-Dockable Panel showing all filters for the Active View.
+Panel showing all filters for the Active View.
 _____________________________________________________________________
 Last update:
 - [08.06.2022] - 1.0 RELEASE
 _____________________________________________________________________
 To-Do:
 - Show all filters in active view
-- make it a dockable panel
-- add functionality of original filters (visibility on/off, projection/cut overrides etc.)
+- Make it a dockable panel
+- Add functionality of original filters (visibility on/off, projection/cut overrides etc.)
 _____________________________________________________________________
-Author: Harley Trappitt"""                          # Button Description shown in Revit UI
+Author: Harley Trappitt"""                                  # Button Description shown in Revit UI
 
 
 #   You need to use 'os' package to get all files in the given folder with 'os.listdir'.
@@ -32,20 +32,17 @@ Author: Harley Trappitt"""                          # Button Description shown i
 import os, sys, math, datetime, time                                    # Regular Imports
 from Autodesk.Revit.DB import *                                         # Import everything from DB (Very good for beginners)
 from Autodesk.Revit.DB import Transaction, FilteredElementCollector     # or Import only classes that are used.
+from Autodesk.Revit.UI import IExternalEventHandler, ExternalEvent      # noinspection PyUnresolvedReferences
+from Autodesk.Revit.Exceptions import InvalidOperationException         # noinspection PyUnresolvedReferences
 
 # pyRevit
-from pyrevit import revit, forms                                        # import pyRevit modules. (Lots of useful features)
-from pyrevit import DB, UI
-from pyrevit.framework import Input
-from pyrevit import script
+from pyrevit import revit, forms, DB, UI, script                        # import pyRevit modules. (Lots of useful features)
 from pyrevit import HOST_APP, framework, coreutils, PyRevitException
-from pyrevit import revit, DB, UI
-from pyrevit import forms, script
-from pyrevit.framework import wpf, ObservableCollection
+from pyrevit.framework import Input, wpf, ObservableCollection
 
 # Custom Imports
-# from Snippets._selection import get_selected_elements                   # lib import
-# from Snippets._convert import convert_internal_to_m                     # lib import
+# from Snippets._selection import get_selected_elements                 # lib import
+# from Snippets._convert import convert_internal_to_m                   # lib import
 
 # .NET Imports
 import clr                                  # Common Language Runtime. Makes .NET libraries accessinble
@@ -65,9 +62,13 @@ clr.ImportExtensions(Revit.Elements)
 clr.AddReference('System.Windows.Forms')
 clr.AddReference('IronPython.Wpf')
 
+
+
+
+from revitutils import selection, uidoc, doc
+from scriptutils.userinput import WPFWindow
+
 # find the path of ui.xaml
-from pyrevit import UI
-from pyrevit import script
 xamlfile = script.get_bundle_file('ui.xaml')
 
 # import WPF creator and base Window
@@ -92,13 +93,13 @@ app = __revit__.Application                 # Represents the Autodesk Revit Appl
 PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where script is placed.
 #uidoc = HOST_APP.uidoc
 
-current_view = doc.ActiveView
-
 # GLOBAL VARIABLES
 
 # - Place global variables here.
 
-filters = []
+FilterName = []
+FilterVisibilities = []
+FilterHalftone = []
 
 # ╔═╗╦ ╦╔╗╔╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
 # ╠╣ ║ ║║║║║   ║ ║║ ║║║║╚═╗
@@ -107,21 +108,40 @@ filters = []
 
 # - Place local functions here. If you might use any functions in other scripts, consider placing it in the lib folder.
 
-#def idling_eventhandler(sender, args):
-#    global filters
-#    try:
-#        if HOST_APP.uidoc:
-#            ids = sorted(HOST_APP.uidoc.Selection.GetElementIds())
-#            if ids:
-#                if ids != filters:
-#                    filters = ids
-#                    MyWindow.update_list()
-#            else:
-#                if filters:
-#                    filters = []
-#                    MyWindow.update_list()
-#    except Exception as e:
-#        print e.message
+def get_active_filters():
+    FilterName = []
+    FilterVisibilities = []
+    FilterHalftone = []
+
+    current_view = doc.ActiveView
+    filters = current_view.GetFilters()
+
+    elements, elementName, visibilities, listtrans, listhalf = [],[],[],[],[]
+    visibilitiesList, elementList, nameList, transList, halfList = [],[],[],[],[]
+
+    for f in filters:
+        #if element:
+        #    view_filters[
+        #        "%s: %s" % (element.Name, visibilities)
+        #    ] = elements
+
+        visibilities.append(current_view.GetFilterVisibility(f))
+        element=doc.GetElement(f)
+        elements.append(element)
+        elementName.append(element.Name)
+        filterObject = current_view.GetFilterOverrides(f)
+        listtrans.append(filterObject.Transparency)
+        listhalf.append(filterObject.Halftone)
+
+    transList.Add(listtrans)
+    halfList.Add(listhalf)
+    visibilitiesList.append(visibilities)
+    elementList.append(elements)
+    nameList.append(elementName)
+
+    FilterName = [nameList]
+    FilterVisibilities = [visibilitiesList]
+    FilterHalftone = [halfList]
 
 # ╔═╗╦  ╔═╗╔═╗╔═╗╔═╗╔═╗
 # ║  ║  ╠═╣╚═╗╚═╗║╣ ╚═╗
@@ -130,17 +150,48 @@ filters = []
 
 # - Place local classes here. If you might use any classes in other scripts, consider placing it in the lib folder.
 
-class MyWindow(Windows.Window):
-    def __init__(self):
-        wpf.LoadComponent(self, xamlfile)
-        self.active_filters.ItemsSource = []
+# Create a subclass of IExternalEventHandler
+class SimpleEventHandler(IExternalEventHandler):
+    """
+    Simple IExternalEventHandler sample
+    """
 
-    def update_list(self):
+    # __init__ is used to make function from outside of the class to be executed by the handler. \
+    # Instructions could be simply written under Execute method only
+    def __init__(self, do_this):
+        self.do_this = do_this
+
+    # Execute method run in Revit API environment.
+    def Execute(self, uiapp):
         try:
-            template_list = {FilterName:nameList,FilterVisibility:visibilitiesList,FilterHalftone:halfList}
-            self.active_filters.ItemsSource = ObservableCollection[forms.TemplateListItem](template_list)
-        except Exception as e:
-            print e.message
+            self.do_this()
+        except InvalidOperationException:
+            # If you don't catch this exeption Revit may crash.
+            print "InvalidOperationException catched"
+
+    def GetName(self):
+        return "simple function executed by an IExternalEventHandler in a Form"
+
+
+# Now we need to make an instance of this handler. Moreover, it shows that the same class could be used to for
+# different functions using different handler class instances
+simple_event_handler = SimpleEventHandler(get_active_filters)
+# We now need to create the ExternalEvent
+ext_event = ExternalEvent.Create(simple_event_handler)
+
+# A simple WPF form used to call the ExternalEvent
+class ModelessForm(WPFWindow):
+    """
+    Simple modeless form sample
+    """
+    def __init__(self, xaml_file_name):
+        WPFWindow.__init__(self, xaml_file_name)
+        #self.simple_text.Text = "Hello World"
+        self.Show()
+
+    def get_active_filters(self, sender, e):
+        # This Raise() method launch a signal to Revit to tell him you want to do something in the API context
+        ext_event.Raise()
 
     def add_filters():
         pass
@@ -151,6 +202,15 @@ class MyWindow(Windows.Window):
     def edit_filters():
         pass
 
+# Let's launch our beautiful and useful form !
+modeless_form = ModelessForm("ui.xaml")
+
+#class MyWindow(Windows.Window):
+#    def __init__(self):
+#        wpf.LoadComponent(self, xamlfile)
+#        self.active_filters.ItemsSource = []
+
+
 # ╔╦╗╔═╗╦╔╗╔
 # ║║║╠═╣║║║║
 # ╩ ╩╩ ╩╩╝╚╝ MAIN
@@ -158,38 +218,8 @@ class MyWindow(Windows.Window):
 #if __name__ == '__main__':
     # START CODE HERE
 
-current_view = doc.ActiveView
-filters = current_view.GetFilters()
-
-elements, elementName, visibilities, listtrans, listhalf = [],[],[],[],[]
-visibilitiesList, elementList, nameList, transList, halfList = [],[],[],[],[]
-
-for f in filters:
-    #if element:
-    #    view_filters[
-    #        "%s: %s" % (element.Name, visibilities)
-    #    ] = elements
-
-    visibilities.append(current_view.GetFilterVisibility(f))
-    element=doc.GetElement(f)
-    elements.append(element)
-    elementName.append(element.Name)
-    filterObject = current_view.GetFilterOverrides(f)
-    listtrans.append(filterObject.Transparency)
-    listhalf.append(filterObject.Halftone)
-
-		
-transList.Add(listtrans)
-halfList.Add(listhalf)
-visibilitiesList.append(visibilities)
-elementList.append(elements)
-nameList.append(elementName)
-
-#HOST_APP.uiapp.Idling += \
-#    framework.EventHandler[UI.Events.IdlingEventArgs](idling_eventhandler)
-
 # Let's show the window (modal)
-MyWindow().ShowDialog()
+#MyWindow().ShowDialog()
 
 
 ################################################################################################
