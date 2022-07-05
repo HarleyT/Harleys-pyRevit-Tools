@@ -177,7 +177,7 @@ simple_event_handler = SimpleEventHandler(get_active_filters)
 ext_event = ExternalEvent.Create(simple_event_handler)
 
 # A simple WPF form used to call the ExternalEvent
-class ModelessForm(WPFWindow):
+class ModelessForm(Windows.Window):
     """
     Simple modeless form sample
     """
