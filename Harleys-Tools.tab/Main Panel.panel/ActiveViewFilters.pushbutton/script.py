@@ -106,9 +106,9 @@ FilterHalftone = []
 # - Place local functions here. If you might use any functions in other scripts, consider placing it in the lib folder.
 
 def get_active_filters():
-    FilterName = []
-    FilterVisibilities = []
-    FilterHalftone = []
+    FilterName = ["Filter 1","Filter 2"]
+    FilterVisibilities = [True,False]
+    FilterHalftone = [False,False]
 
     current_view = doc.ActiveView
     filters = current_view.GetFilters()
@@ -186,7 +186,7 @@ class ModelessForm(WPFWindow):
         #self.simple_text.Text = "Hello World"
         self.Show()
 
-    def get_active_filters(self, sender, e):
+    def get_active_filters_click(self, sender, e):
         # This Raise() method launch a signal to Revit to tell him you want to do something in the API context
         ext_event.Raise()
 
