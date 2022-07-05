@@ -107,6 +107,22 @@ filters = []
 
 # - Place local functions here. If you might use any functions in other scripts, consider placing it in the lib folder.
 
+#def idling_eventhandler(sender, args):
+#    global filters
+#    try:
+#        if HOST_APP.uidoc:
+#            ids = sorted(HOST_APP.uidoc.Selection.GetElementIds())
+#            if ids:
+#                if ids != filters:
+#                    filters = ids
+#                    MyWindow.update_list()
+#            else:
+#                if filters:
+#                    filters = []
+#                    MyWindow.update_list()
+#    except Exception as e:
+#        print e.message
+
 # ╔═╗╦  ╔═╗╔═╗╔═╗╔═╗╔═╗
 # ║  ║  ╠═╣╚═╗╚═╗║╣ ╚═╗
 # ╚═╝╩═╝╩ ╩╚═╝╚═╝╚═╝╚═╝ CLASSES
@@ -121,7 +137,7 @@ class MyWindow(Windows.Window):
 
     def update_list(self):
         try:
-            template_list = [forms.TemplateListItem(f.IntegerValue) for f in filters]
+            template_list = {FilterName:nameList,FilterVisibility:visibilitiesList,FilterHalftone:halfList}
             self.active_filters.ItemsSource = ObservableCollection[forms.TemplateListItem](template_list)
         except Exception as e:
             print e.message
@@ -134,21 +150,6 @@ class MyWindow(Windows.Window):
 
     def edit_filters():
         pass
-
-def idling_eventhandler(sender, args):
-    global filters
-    try:
-        if current_view == doc.ActiveView:
-            if ids:
-                if ids != filters:
-                    filters = ids
-                    MyWindow.update_list()
-            else:
-                if filters:
-                    filters = []
-                    MyWindow.update_list()
-    except Exception as e:
-        print e.message
 
 # ╔╦╗╔═╗╦╔╗╔
 # ║║║╠═╣║║║║
@@ -184,6 +185,8 @@ visibilitiesList.append(visibilities)
 elementList.append(elements)
 nameList.append(elementName)
 
+#HOST_APP.uiapp.Idling += \
+#    framework.EventHandler[UI.Events.IdlingEventArgs](idling_eventhandler)
 
 # Let's show the window (modal)
 MyWindow().ShowDialog()
