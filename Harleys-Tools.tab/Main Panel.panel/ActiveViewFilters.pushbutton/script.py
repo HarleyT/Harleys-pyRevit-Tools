@@ -71,6 +71,7 @@ xamlfile = script.get_bundle_file('ui.xaml')
 # import WPF creator and base Window
 import wpf
 from System import Windows
+from scriptutils.userinput import WPFWindow
 
 from System.Collections.ObjectModel import ObservableCollection
 from System.ComponentModel import INotifyPropertyChanged, PropertyChangedEventArgs
@@ -177,7 +178,7 @@ simple_event_handler = SimpleEventHandler(get_active_filters)
 ext_event = ExternalEvent.Create(simple_event_handler)
 
 # A simple WPF form used to call the ExternalEvent
-class ModelessForm(Windows.Window):
+class ModelessForm(WPFWindow):
     """
     Simple modeless form sample
     """
