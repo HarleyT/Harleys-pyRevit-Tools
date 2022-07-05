@@ -62,11 +62,8 @@ clr.ImportExtensions(Revit.Elements)
 clr.AddReference('System.Windows.Forms')
 clr.AddReference('IronPython.Wpf')
 
-
-
-
-from revitutils import selection, uidoc, doc
-from scriptutils.userinput import WPFWindow
+#from revitutils import selection, uidoc, doc
+#from scriptutils.userinput import WPFWindow
 
 # find the path of ui.xaml
 xamlfile = script.get_bundle_file('ui.xaml')
