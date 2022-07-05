@@ -39,6 +39,8 @@ from Autodesk.Revit.Exceptions import InvalidOperationException         # noinsp
 from pyrevit import revit, forms, DB, UI, script                        # import pyRevit modules. (Lots of useful features)
 from pyrevit import HOST_APP, framework, coreutils, PyRevitException
 from pyrevit.framework import Input, wpf, ObservableCollection
+from pyrevit import scriptutils
+from scriptutils.userinput import WPFWindow
 
 # Custom Imports
 # from Snippets._selection import get_selected_elements                 # lib import
@@ -71,8 +73,6 @@ xamlfile = script.get_bundle_file('ui.xaml')
 # import WPF creator and base Window
 import wpf
 from System import Windows
-from scriptutils.userinput import WPFWindow
-
 from System.Collections.ObjectModel import ObservableCollection
 from System.ComponentModel import INotifyPropertyChanged, PropertyChangedEventArgs
 from System.Windows.Input import ICommand
