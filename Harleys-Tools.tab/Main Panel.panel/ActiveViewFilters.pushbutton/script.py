@@ -106,9 +106,14 @@ FilterHalftone = []
 # - Place local functions here. If you might use any functions in other scripts, consider placing it in the lib folder.
 
 def get_active_filters():
+
+    t = Transaction(doc, "Failing script")
+    t.Start()
     FilterName = ["Filter 1","Filter 2"]
     FilterVisibilities = [True,False]
     FilterHalftone = [False,False]
+    t.Commit()
+
 
     #current_view = doc.ActiveView
     #filters = current_view.GetFilters()
