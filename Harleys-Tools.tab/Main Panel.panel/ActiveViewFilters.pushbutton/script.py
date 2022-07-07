@@ -164,6 +164,7 @@ def get_active_filters():
     # START CODE HERE
 
 get_active_filters()
+print(get_active_filters())
 print(FilterName)
 print(FilterVisibilities)
 print(FilterHalftone)
