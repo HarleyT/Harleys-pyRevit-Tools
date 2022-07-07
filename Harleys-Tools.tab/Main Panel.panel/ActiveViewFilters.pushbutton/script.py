@@ -105,43 +105,44 @@ FilterHalftone = []
 
 # - Place local functions here. If you might use any functions in other scripts, consider placing it in the lib folder.
 
-def get_active_filters():
+#def get_active_filters():
 
-    FilterName = ["Filter 1","Filter 2"]
-    FilterVisibilities = [True,False]
-    FilterHalftone = [False,False]
+current_view = doc.ActiveView
+filters = current_view.GetFilters()
 
-    current_view = doc.ActiveView
-    filters = current_view.GetFilters()
-    elementName = []
-    nameList = []
+FilterName = ["Filter 1","Filter 2"]
+FilterVisibilities = [True,False]
+FilterHalftone = [False,False]
 
-    #elements, elementName, visibilities, listtrans, listhalf = [],[],[],[],[]
-    #visibilitiesList, elementList, nameList, transList, halfList = [],[],[],[],[]
+elementName = []
+nameList = []
 
-    for f in filters:
-        #if element:
-        #    view_filters[
-        #        "%s: %s" % (element.Name, visibilities)
-        #    ] = elements
+#elements, elementName, visibilities, listtrans, listhalf = [],[],[],[],[]
+#visibilitiesList, elementList, nameList, transList, halfList = [],[],[],[],[]
 
-    #    visibilities.append(current_view.GetFilterVisibility(f))
-    #    element=doc.GetElement(f)
-    #    elements.append(element)
-        elementName.append(element.Name)
-    #    filterObject = current_view.GetFilterOverrides(f)
-    #    listtrans.append(filterObject.Transparency)
-    #    listhalf.append(filterObject.Halftone)
+for f in filters:
+    #if element:
+    #    view_filters[
+    #        "%s: %s" % (element.Name, visibilities)
+    #    ] = elements
 
-    #transList.Add(listtrans)
-    #halfList.Add(listhalf)
-    #visibilitiesList.append(visibilities)
-    #elementList.append(elements)
-    nameList.append(elementName)
+#    visibilities.append(current_view.GetFilterVisibility(f))
+#    element=doc.GetElement(f)
+#    elements.append(element)
+    elementName.append(element.Name)
+#    filterObject = current_view.GetFilterOverrides(f)
+#    listtrans.append(filterObject.Transparency)
+#    listhalf.append(filterObject.Halftone)
 
-    FilterName = [nameList]
-    #FilterVisibilities = [visibilitiesList]
-    #FilterHalftone = [halfList]
+#transList.Add(listtrans)
+#halfList.Add(listhalf)
+#visibilitiesList.append(visibilities)
+#elementList.append(elements)
+nameList.append(elementName)
+
+FilterName = [nameList]
+#FilterVisibilities = [visibilitiesList]
+#FilterHalftone = [halfList]
 
 # ╔═╗╦  ╔═╗╔═╗╔═╗╔═╗╔═╗
 # ║  ║  ╠═╣╚═╗╚═╗║╣ ╚═╗
@@ -163,8 +164,6 @@ def get_active_filters():
 #if __name__ == '__main__':
     # START CODE HERE
 
-get_active_filters()
-print(get_active_filters())
 print(FilterName)
 print(FilterVisibilities)
 print(FilterHalftone)
