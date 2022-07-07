@@ -121,7 +121,7 @@ PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where 
 #if __name__ == '__main__':
     # START CODE HERE
 
-current_view = doc.Active_View
+current_view = doc.ActiveView
 
 FilterName = ["Filter 1","Filter 2"]
 FilterVisibilities = [True,False]
