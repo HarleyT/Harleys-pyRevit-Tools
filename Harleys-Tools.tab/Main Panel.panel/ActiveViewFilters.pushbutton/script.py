@@ -114,6 +114,7 @@ FilterName = ["Filter 1","Filter 2"]
 FilterVisibilities = [True,False]
 FilterHalftone = [False,False]
 
+element = []
 elementName = []
 nameList = []
 
