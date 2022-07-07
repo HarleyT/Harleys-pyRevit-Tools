@@ -128,7 +128,7 @@ FilterVisibilities = [True,False]
 FilterHalftone = [False,False]
 
 views = DB.FilteredElementCollector(revit.doc)\
-          .OfClass(DB.View)\
+          .OfClass(DB.ActiveView)\
           .WhereElementIsNotElementType()\
           .ToElements()
 
