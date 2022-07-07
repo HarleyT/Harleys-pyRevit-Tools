@@ -137,7 +137,7 @@ view_filters = {}
 element = []
 elements = []
 
-for e in revit.query.GetFilters(current_view):
+for e in revit.get_view_filters(current_view):
     if element:
         view_filters[
             "%s: %s" % (element.Name)
@@ -154,7 +154,10 @@ FilterName = [elements]
 #FilterHalftone = [halfList]
 
 print(filters)
-print(current_view)
+print(current_view.Name)
+print(current_view.Id)
+print(current_view.Parameters)
+print(current_view.GetFilters())
 
 print(FilterName)
 print(FilterVisibilities)
