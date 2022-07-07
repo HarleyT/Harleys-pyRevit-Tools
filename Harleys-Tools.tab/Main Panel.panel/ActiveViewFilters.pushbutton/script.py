@@ -150,8 +150,7 @@ FilterName = [elements]
 print(filters)
 print(current_view.Name)
 print(current_view.Id)
-print(current_view.Parameters)
-print(current_view.GetFilters())
+print(current_view.Parameters.Name)
 
 print(FilterName)
 print(FilterVisibilities)
