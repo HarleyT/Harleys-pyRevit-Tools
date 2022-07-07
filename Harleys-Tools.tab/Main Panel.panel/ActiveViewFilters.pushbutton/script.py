@@ -137,12 +137,6 @@ view_filters = {}
 element = []
 elements = []
 
-for e in revit.get_view_filters(current_view):
-    if element:
-        view_filters[
-            "%s: %s" % (element.Name)
-        ] = elements
-
 #for f in filters:
 #    if element:
 #        view_filters[
