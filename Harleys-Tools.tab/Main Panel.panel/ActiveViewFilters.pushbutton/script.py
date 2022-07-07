@@ -127,7 +127,7 @@ FilterName = ["Filter 1","Filter 2"]
 FilterVisibilities = [True,False]
 FilterHalftone = [False,False]
 
-views = DB.FilteredElementCollector(current_view)\
+views = DB.FilteredElementCollector(revit.doc)\
           .OfClass(DB.View)\
           .WhereElementIsNotElementType()\
           .ToElements()
@@ -153,6 +153,8 @@ if not allFilters:
     forms.alert('There are no filters available.')
     script.exit()
 
+print(usedFiltersSet)
+print(allFilters)
 
 print(FilterName)
 print(FilterVisibilities)
