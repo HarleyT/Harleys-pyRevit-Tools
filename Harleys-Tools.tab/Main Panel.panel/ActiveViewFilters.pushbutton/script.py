@@ -94,10 +94,6 @@ PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where 
 
 # - Place global variables here.
 
-FilterName = []
-FilterVisibilities = []
-FilterHalftone = []
-
 # ╔═╗╦ ╦╔╗╔╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
 # ╠╣ ║ ║║║║║   ║ ║║ ║║║║╚═╗
 # ╚  ╚═╝╝╚╝╚═╝ ╩ ╩╚═╝╝╚╝╚═╝ FUNCTIONS
@@ -125,32 +121,38 @@ FilterHalftone = []
 #if __name__ == '__main__':
     # START CODE HERE
 
-current_view = doc.ActiveView
-filters = current_view.GetFilters()
-
+current_view = doc.Active_View
 
 FilterName = ["Filter 1","Filter 2"]
 FilterVisibilities = [True,False]
 FilterHalftone = [False,False]
 
-view_filters = {}
-element = []
-elements = []
+views = DB.FilteredElementCollector(current_view)\
+          .OfClass(DB.View)\
+          .WhereElementIsNotElementType()\
+          .ToElements()
 
-#for f in filters:
-#    if element:
-#        view_filters[
-#            "%s: %s" % (element.Name)
-#        ] = elements
+filters = DB.FilteredElementCollector(revit.doc)\
+            .OfClass(DB.ParameterFilterElement)\
+            .ToElements()
 
-FilterName = [elements]
-#FilterVisibilities = [visibilitiesList]
-#FilterHalftone = [halfList]
+usedFiltersSet = set()
+allFilters = set()
+for flt in filters:
+    allFilters.add(flt.Id.IntegerValue)
 
-print(filters)
-print(current_view.Name)
-print(current_view.Id)
-print(current_view.Parameters.Name)
+# print('{} Filters found.'.format(len(allFilters)))
+
+for v in views:
+    if v.AreGraphicsOverridesAllowed():
+        view_filters = v.GetFilters()
+        for filter_id in view_filters:
+            usedFiltersSet.add(filter_id.IntegerValue)
+
+if not allFilters:
+    forms.alert('There are no filters available.')
+    script.exit()
+
 
 print(FilterName)
 print(FilterVisibilities)
