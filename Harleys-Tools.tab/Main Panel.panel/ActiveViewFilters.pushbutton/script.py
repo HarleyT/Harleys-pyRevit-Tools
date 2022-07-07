@@ -137,11 +137,17 @@ view_filters = {}
 element = []
 elements = []
 
-for f in filters:
+for e in revit.query.get_view_filters():
     if element:
         view_filters[
             "%s: %s" % (element.Name)
         ] = elements
+
+#for f in filters:
+#    if element:
+#        view_filters[
+#            "%s: %s" % (element.Name)
+#        ] = elements
 
 FilterName = [elements]
 #FilterVisibilities = [visibilitiesList]
