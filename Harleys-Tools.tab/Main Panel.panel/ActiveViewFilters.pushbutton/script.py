@@ -164,6 +164,9 @@ FilterName = [nameList]
 #if __name__ == '__main__':
     # START CODE HERE
 
+print(filters)
+print(current_view)
+
 print(FilterName)
 print(FilterVisibilities)
 print(FilterHalftone)
