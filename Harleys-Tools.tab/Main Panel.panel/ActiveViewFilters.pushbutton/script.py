@@ -122,15 +122,11 @@ PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where 
     # START CODE HERE
 
 current_view = doc.ActiveView
+current_filters = current_view.GetFilters()
 
 FilterName = ["Filter 1","Filter 2"]
 FilterVisibilities = [True,False]
 FilterHalftone = [False,False]
-
-views = DB.FilteredElementCollector(revit.doc)\
-          .OfClass(DB.ActiveView)\
-          .WhereElementIsNotElementType()\
-          .ToElements()
 
 filters = DB.FilteredElementCollector(revit.doc)\
             .OfClass(DB.ParameterFilterElement)\
@@ -138,12 +134,10 @@ filters = DB.FilteredElementCollector(revit.doc)\
 
 usedFiltersSet = set()
 allFilters = set()
-for flt in filters:
+for flt in current_filters:
     allFilters.add(flt.Id.IntegerValue)
 
-# print('{} Filters found.'.format(len(allFilters)))
-
-for v in views:
+for v in current_view:
     if v.AreGraphicsOverridesAllowed():
         view_filters = v.GetFilters()
         for filter_id in view_filters:
@@ -153,8 +147,8 @@ if not allFilters:
     forms.alert('There are no filters available.')
     script.exit()
 
-print(usedFiltersSet)
-print(allFilters)
+print('{} Filters found.'.format(len(allFilters)))
+
 
 print(FilterName)
 print(FilterVisibilities)
