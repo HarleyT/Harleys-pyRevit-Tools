@@ -1,103 +1,259 @@
+# -*- coding: utf-8 -*-
+__title__ = "Active View Filters"                           # Name of the button displayed in Revit UI
+__doc__ = """Version = 1.0
+Date    = 08.06.2022
+_____________________________________________________________________
+Description:
+Panel showing all filters for the Active View.
+_____________________________________________________________________
+Last update:
+- [08.06.2022] - 1.0 RELEASE
+_____________________________________________________________________
+To-Do:
+- Show all filters in active view
+- Make it a dockable panel
+- Add functionality of original filters (visibility on/off, projection/cut overrides etc.)
+_____________________________________________________________________
+Author: Harley Trappitt"""                                  # Button Description shown in Revit UI
 
-projRGBList, cutRGBList, surForPatList, surBacPatList, cutForPatList, cutBacPatList, transList, halfList, prweList = [],[],[],[],[],[],[],[],[]
-prPatList, cutweList, cutPatList, surForList, surBacList, cutForList, cutBacList, elementList, nameList = [],[],[],[],[],[],[],[],[]
-visibilitiesList, categories = [],[]
 
-current_view = doc.ActiveView
-view_filters = {}
+#   You need to use 'os' package to get all files in the given folder with 'os.listdir'.
+#   Then you can filter family files and iterate through them to open each and make a change.
+#ModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(path_to_rfa)
+#options = OpenOptions()
+#rvt_doc = app.OpenDocumentFile(ModelPath, options)
+#   Then make your changes to rvt_doc and close it.
 
-filters = current_view.GetFilters()
+# ╦╔╦╗╔═╗╔═╗╦═╗╔╦╗╔═╗
+# ║║║║╠═╝║ ║╠╦╝ ║ ╚═╗
+# ╩╩ ╩╩  ╚═╝╩╚═ ╩ ╚═╝ IMPORTS
+# ==================================================
+# Regular + Autodesk
+import os, sys, math, datetime, time                                    # Regular Imports
+from Autodesk.Revit.DB import *                                         # Import everything from DB (Very good for beginners)
+from Autodesk.Revit.DB import Transaction, FilteredElementCollector     # or Import only classes that are used.
+from Autodesk.Revit.UI import IExternalEventHandler, ExternalEvent      # noinspection PyUnresolvedReferences
+from Autodesk.Revit.Exceptions import InvalidOperationException         # noinspection PyUnresolvedReferences
 
-elements, elementName, visibilities, listprojRGB, listcutRGB, listtrans, listhalf, listprwe, listprPat, listcutwe = [],[],[],[],[],[],[],[],[],[]
-listcutPat, rgbsurForList, rgbsurBacList, rgbCutForList, rgbCutBacList, listSurForPat,listSurBacPat,listCutForPat = [],[],[],[],[],[],[],[],[],[]
-listCutBacPat,cats = [],[]
+# pyRevit
+from pyrevit import revit, forms, DB, UI, script                        # import pyRevit modules. (Lots of useful features)
+from pyrevit import HOST_APP, framework, coreutils, PyRevitException
+from pyrevit.framework import Input, wpf, ObservableCollection
+from pyrevit.forms import WPFWindow
 
-for f in filters:
-    #if element:
-    #    view_filters[
-    #        "%s: %s" % (element.Name, visibilities)
-    #    ] = elements
+# Custom Imports
+# from Snippets._selection import get_selected_elements                 # lib import
+# from Snippets._convert import convert_internal_to_m                   # lib import
 
-    visibilities.append(current_view.GetFilterVisibility(f))
-    element=doc.GetElement(f)
-    elements.append(element)
-    elementName.append(element.Name)
-    catid=[Revit.Elements.Category.ById(c.IntegerValue).Name for c in element.GetCategories()]
-    cate = catid if len(catid)>1 else catid[0]
-    cats.append(cate)
-    filterObject = current_view.GetFilterOverrides(f)
-    projCol = filterObject.ProjectionLineColor
-    if projCol.IsValid:
-        projrgb = DSCore.Color.ByARGB(255, projCol.Red, projCol.Green, projCol.Blue)
-    else:
-        projrgb = None
-    listprojRGB.Add(projrgb)
+# .NET Imports
+import clr                                  # Common Language Runtime. Makes .NET libraries accessinble
+clr.AddReference("System")                  # Refference System.dll for import.
+from System.Collections.Generic import List # List<ElementType>() <- it's special type of list from .NET framework that RevitAPI requires
+# List_example = List[ElementId]()          # use .Add() instead of append or put python list of ElementIds in parentesis.
 
-    cutCol= filterObject.CutLineColor
-    if cutCol.IsValid:
-        cutrgb = DSCore.Color.ByARGB(255, cutCol.Red, cutCol.Green, cutCol.Blue)
-    else:
-        cutrgb = None
-    listcutRGB.Add(cutrgb)
-    listtrans.append(filterObject.Transparency)
-    listhalf.append(filterObject.Halftone)
-    listprwe.append(filterObject.ProjectionLineWeight)
-    listprPat.append(doc.GetElement(filterObject.ProjectionLinePatternId))
-    listcutwe.append(filterObject.CutLineWeight)
-    listcutPat.append(doc.GetElement(filterObject.CutLinePatternId))
+clr.AddReference("RevitServices")
+import RevitServices
+#from RevitServices.Persistence import DocumentManager
+#doc = DocumentManager.Instance.CurrentDBDocument
+clr.AddReference("RevitNodes")
+import Revit
+clr.ImportExtensions(Revit.Elements)
 
-    col = filterObject.SurfaceForegroundPatternColor
-    if col.IsValid:
-        rgbSurFor = DSCore.Color.ByARGB(255, col.Red, col.Green, col.Blue)
-    else:
-        rgbSurFor = None
-    rgbsurForList.Add(rgbSurFor)
+# WPF Dependencies
+clr.AddReference('System.Windows.Forms')
+clr.AddReference('IronPython.Wpf')
 
-    surBacCol = filterObject.SurfaceBackgroundPatternColor
-    if surBacCol.IsValid:
-        rgbSurBac = DSCore.Color.ByARGB(255, surBacCol.Red, surBacCol.Green, surBacCol.Blue)
-    else:
-        rgbSurBac = None
-    rgbsurBacList.Add(rgbSurBac)
+#from revitutils import selection, uidoc, doc
+#from scriptutils.userinput import WPFWindow
 
-    cut = filterObject.CutForegroundPatternColor
-    if cut.IsValid:
-        rgbcut = DSCore.Color.ByARGB(255, cut.Red, cut.Green, cut.Blue)
-    else:
-        rgbcut = None
-    rgbCutForList.Add(rgbcut)
+# find the path of ui.xaml
+xamlfile = script.get_bundle_file('ui.xaml')
 
-    cutBac = filterObject.CutBackgroundPatternColor
-    if cutBac.IsValid:
-        rgbCutBac = DSCore.Color.ByARGB(255, cutBac.Red, cutBac.Green, cutBac.Blue)
-    else:
-        rgbCutBac = None
-    rgbCutBacList.Add(rgbCutBac)
-    listSurForPat.append(doc.GetElement(filterObject.SurfaceForegroundPatternId))
-    listSurBacPat.append(doc.GetElement(filterObject.SurfaceBackgroundPatternId))
-    listCutForPat.append(doc.GetElement(filterObject.CutForegroundPatternId))
-    listCutBacPat.append(doc.GetElement(filterObject.CutBackgroundPatternId))
-		
-prPatList.append(listprPat)
-projRGBList.Add(listprojRGB)
-prweList.append(listprwe)
-surForPatList.append(listSurForPat)
-surForList.Add(rgbsurForList)
-surBacPatList.append(listSurBacPat)
-surBacList.Add(rgbsurBacList)
+# import WPF creator and base Window
+import wpf
+from System import Windows
+from System.Collections.ObjectModel import ObservableCollection
+from System.ComponentModel import INotifyPropertyChanged, PropertyChangedEventArgs
+from System.Windows.Input import ICommand
+from System.Windows import Controls
+from System import ComponentModel
+import pyevent
 
-cutPatList.append(listcutPat)
-cutweList.append(listcutwe)
-cutRGBList.Add(listcutRGB)
-cutForPatList.append(listCutForPat)
-cutForList.Add(rgbCutForList)
-cutBacPatList.append(listCutBacPat)
-cutBacList.Add(rgbCutBacList)
 
-transList.Add(listtrans)
-halfList.Add(listhalf)
-visibilitiesList.append(visibilities)
-elementList.append(elements)
-nameList.append(elementName)
-categories.append(cats)
+# ╦  ╦╔═╗╦═╗╦╔═╗╔╗ ╦  ╔═╗╔═╗
+# ╚╗╔╝╠═╣╠╦╝║╠═╣╠╩╗║  ║╣ ╚═╗
+#  ╚╝ ╩ ╩╩╚═╩╩ ╩╚═╝╩═╝╚═╝╚═╝ VARIABLES
+# ==================================================
+doc = __revit__.ActiveUIDocument.Document   # Document   class from RevitAPI that represents project. Used to Create, Delete, Modify and Query elements from the project.
+uidoc = __revit__.ActiveUIDocument          # UIDocument class from RevitAPI that represents Revit project opened in the Revit UI.
+app = __revit__.Application                 # Represents the Autodesk Revit Application, providing access to documents, options and other application wide data and settings.
+PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where script is placed.
+#uidoc = HOST_APP.uidoc
 
+# GLOBAL VARIABLES
+
+# - Place global variables here.
+
+FilterName = []
+FilterVisibilities = []
+FilterHalftone = []
+
+# ╔═╗╦ ╦╔╗╔╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
+# ╠╣ ║ ║║║║║   ║ ║║ ║║║║╚═╗
+# ╚  ╚═╝╝╚╝╚═╝ ╩ ╩╚═╝╝╚╝╚═╝ FUNCTIONS
+# ==================================================
+
+# - Place local functions here. If you might use any functions in other scripts, consider placing it in the lib folder.
+
+def get_active_filters():
+
+    #t = Transaction(doc, "Failing script")
+    #t.Start()
+    #FilterName = ["Filter 1","Filter 2"]
+    #FilterVisibilities = [True,False]
+    #FilterHalftone = [False,False]
+    #t.Commit()
+
+
+    #current_view = doc.ActiveView
+    #filters = current_view.GetFilters()
+
+    #elements, elementName, visibilities, listtrans, listhalf = [],[],[],[],[]
+    #visibilitiesList, elementList, nameList, transList, halfList = [],[],[],[],[]
+
+    #for f in filters:
+        #if element:
+        #    view_filters[
+        #        "%s: %s" % (element.Name, visibilities)
+        #    ] = elements
+
+    #    visibilities.append(current_view.GetFilterVisibility(f))
+    #    element=doc.GetElement(f)
+    #    elements.append(element)
+    #    elementName.append(element.Name)
+    #    filterObject = current_view.GetFilterOverrides(f)
+    #    listtrans.append(filterObject.Transparency)
+    #    listhalf.append(filterObject.Halftone)
+
+    #transList.Add(listtrans)
+    #halfList.Add(listhalf)
+    #visibilitiesList.append(visibilities)
+    #elementList.append(elements)
+    #nameList.append(elementName)
+
+    #FilterName = [nameList]
+    #FilterVisibilities = [visibilitiesList]
+    #FilterHalftone = [halfList]
+
+# ╔═╗╦  ╔═╗╔═╗╔═╗╔═╗╔═╗
+# ║  ║  ╠═╣╚═╗╚═╗║╣ ╚═╗
+# ╚═╝╩═╝╩ ╩╚═╝╚═╝╚═╝╚═╝ CLASSES
+# ==================================================
+
+# - Place local classes here. If you might use any classes in other scripts, consider placing it in the lib folder.
+
+# Create a subclass of IExternalEventHandler
+class SimpleEventHandler(IExternalEventHandler):
+    """
+    Simple IExternalEventHandler sample
+    """
+
+    # __init__ is used to make function from outside of the class to be executed by the handler. \
+    # Instructions could be simply written under Execute method only
+    def __init__(self, do_this):
+        self.do_this = do_this
+
+    # Execute method run in Revit API environment.
+    def Execute(self, uiapp):
+        try:
+            self.do_this()
+        except InvalidOperationException:
+            # If you don't catch this exeption Revit may crash.
+            print "InvalidOperationException catched"
+
+    def GetName(self):
+        return "simple function executed by an IExternalEventHandler in a Form"
+
+
+# Now we need to make an instance of this handler. Moreover, it shows that the same class could be used to for
+# different functions using different handler class instances
+simple_event_handler = SimpleEventHandler(get_active_filters)
+# We now need to create the ExternalEvent
+ext_event = ExternalEvent.Create(simple_event_handler)
+
+# A simple WPF form used to call the ExternalEvent
+class ModelessForm(WPFWindow):
+    """
+    Simple modeless form sample
+    """
+    def __init__(self, xaml_file_name):
+        WPFWindow.__init__(self, xaml_file_name)
+        #self.simple_text.Text = "Hello World"
+        self.Show()
+
+    def get_active_filters_click(self, sender, e):
+        # This Raise() method launch a signal to Revit to tell him you want to do something in the API context
+        ext_event.Raise()
+
+    def add_filters():
+        pass
+
+    def remove_filters():
+        pass
+
+    def edit_filters():
+        pass
+
+# Let's launch our beautiful and useful form !
+modeless_form = ModelessForm("ui.xaml")
+
+#class MyWindow(Windows.Window):
+#    def __init__(self):
+#        wpf.LoadComponent(self, xamlfile)
+#        self.active_filters.ItemsSource = []
+
+
+# ╔╦╗╔═╗╦╔╗╔
+# ║║║╠═╣║║║║
+# ╩ ╩╩ ╩╩╝╚╝ MAIN
+# ==================================================
+#if __name__ == '__main__':
+    # START CODE HERE
+
+# Let's show the window (modal)
+#MyWindow().ShowDialog()
+
+
+################################################################################################
+#family_dict = {}
+#for e in revit.query.get_all_elements_in_view(active_view):
+#    try:
+#        e_type = revit.query.get_type(e)
+#        family = e_type.Family
+#        if family.FamilyCategory:
+#            family_dict[
+#                "%s: %s" % (family.FamilyCategory.Name, family.Name)
+#            ] = family
+#    except:
+#        pass
+#if family_dict:
+#    selected_families = forms.SelectFromList.show(
+#        sorted(family_dict.keys()),
+#        title="Select Families",
+#        multiselect=True,
+#    )
+################################################################################################
+
+
+# AVOID  placing Transaction inside of your loops! It will drastically reduce perfomance of your script.
+#t = Transaction(doc,__title__)  # Transactions are context-like objects that guard any changes made to a Revit model.
+
+# You need to use t.Start() and t.Commit() to make changes to a Project.
+#t.Start()  # <- Transaction Start
+
+#- CHANGES TO REVIT PROJECT HERE
+
+#t.Commit()  # <- Transaction End
+
+# Notify user that script is complete.
+#print('Script is finished.')

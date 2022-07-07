@@ -107,21 +107,19 @@ FilterHalftone = []
 
 def get_active_filters():
 
-    t = Transaction(doc, "Failing script")
-    t.Start()
     FilterName = ["Filter 1","Filter 2"]
     FilterVisibilities = [True,False]
     FilterHalftone = [False,False]
-    t.Commit()
 
-
-    #current_view = doc.ActiveView
-    #filters = current_view.GetFilters()
+    current_view = doc.ActiveView
+    filters = current_view.GetFilters()
+    elementName = []
+    nameList = []
 
     #elements, elementName, visibilities, listtrans, listhalf = [],[],[],[],[]
     #visibilitiesList, elementList, nameList, transList, halfList = [],[],[],[],[]
 
-    #for f in filters:
+    for f in filters:
         #if element:
         #    view_filters[
         #        "%s: %s" % (element.Name, visibilities)
@@ -130,7 +128,7 @@ def get_active_filters():
     #    visibilities.append(current_view.GetFilterVisibility(f))
     #    element=doc.GetElement(f)
     #    elements.append(element)
-    #    elementName.append(element.Name)
+        elementName.append(element.Name)
     #    filterObject = current_view.GetFilterOverrides(f)
     #    listtrans.append(filterObject.Transparency)
     #    listhalf.append(filterObject.Halftone)
@@ -139,9 +137,9 @@ def get_active_filters():
     #halfList.Add(listhalf)
     #visibilitiesList.append(visibilities)
     #elementList.append(elements)
-    #nameList.append(elementName)
+    nameList.append(elementName)
 
-    #FilterName = [nameList]
+    FilterName = [nameList]
     #FilterVisibilities = [visibilitiesList]
     #FilterHalftone = [halfList]
 
@@ -151,61 +149,6 @@ def get_active_filters():
 # ==================================================
 
 # - Place local classes here. If you might use any classes in other scripts, consider placing it in the lib folder.
-
-# Create a subclass of IExternalEventHandler
-class SimpleEventHandler(IExternalEventHandler):
-    """
-    Simple IExternalEventHandler sample
-    """
-
-    # __init__ is used to make function from outside of the class to be executed by the handler. \
-    # Instructions could be simply written under Execute method only
-    def __init__(self, do_this):
-        self.do_this = do_this
-
-    # Execute method run in Revit API environment.
-    def Execute(self, uiapp):
-        try:
-            self.do_this()
-        except InvalidOperationException:
-            # If you don't catch this exeption Revit may crash.
-            print "InvalidOperationException catched"
-
-    def GetName(self):
-        return "simple function executed by an IExternalEventHandler in a Form"
-
-
-# Now we need to make an instance of this handler. Moreover, it shows that the same class could be used to for
-# different functions using different handler class instances
-simple_event_handler = SimpleEventHandler(get_active_filters)
-# We now need to create the ExternalEvent
-ext_event = ExternalEvent.Create(simple_event_handler)
-
-# A simple WPF form used to call the ExternalEvent
-class ModelessForm(WPFWindow):
-    """
-    Simple modeless form sample
-    """
-    def __init__(self, xaml_file_name):
-        WPFWindow.__init__(self, xaml_file_name)
-        #self.simple_text.Text = "Hello World"
-        self.Show()
-
-    def get_active_filters_click(self, sender, e):
-        # This Raise() method launch a signal to Revit to tell him you want to do something in the API context
-        ext_event.Raise()
-
-    def add_filters():
-        pass
-
-    def remove_filters():
-        pass
-
-    def edit_filters():
-        pass
-
-# Let's launch our beautiful and useful form !
-modeless_form = ModelessForm("ui.xaml")
 
 #class MyWindow(Windows.Window):
 #    def __init__(self):
@@ -219,6 +162,10 @@ modeless_form = ModelessForm("ui.xaml")
 # ==================================================
 #if __name__ == '__main__':
     # START CODE HERE
+
+print(FilterName)
+print(FilterVisibilities)
+print(FilterHalftone)
 
 # Let's show the window (modal)
 #MyWindow().ShowDialog()
@@ -246,14 +193,14 @@ modeless_form = ModelessForm("ui.xaml")
 
 
 # AVOID  placing Transaction inside of your loops! It will drastically reduce perfomance of your script.
-t = Transaction(doc,__title__)  # Transactions are context-like objects that guard any changes made to a Revit model.
+#t = Transaction(doc,__title__)  # Transactions are context-like objects that guard any changes made to a Revit model.
 
 # You need to use t.Start() and t.Commit() to make changes to a Project.
-t.Start()  # <- Transaction Start
+#t.Start()  # <- Transaction Start
 
 #- CHANGES TO REVIT PROJECT HERE
 
-t.Commit()  # <- Transaction End
+#t.Commit()  # <- Transaction End
 
 # Notify user that script is complete.
-print('Script is finished.')
+#print('Script is finished.')
