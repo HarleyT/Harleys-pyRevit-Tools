@@ -163,6 +163,7 @@ def get_active_filters():
 #if __name__ == '__main__':
     # START CODE HERE
 
+get_active_filters()
 print(FilterName)
 print(FilterVisibilities)
 print(FilterHalftone)
