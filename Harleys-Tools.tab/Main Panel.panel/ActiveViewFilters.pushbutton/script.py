@@ -149,6 +149,7 @@ if not allFilters:
 
 print('{} Filters found.'.format(len(allFilters)))
 
+FilterName.append(allFilters)
 
 print(FilterName)
 print(FilterVisibilities)
