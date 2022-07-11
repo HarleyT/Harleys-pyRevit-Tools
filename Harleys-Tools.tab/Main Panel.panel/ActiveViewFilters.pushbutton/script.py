@@ -137,19 +137,17 @@ allFilters = set()
 #for flt in current_filters:
 #    allFilters.add(flt.Id.IntegerValue)
 
-for v in current_view:
-    if v.AreGraphicsOverridesAllowed():
-        view_filters = v.GetFilters()
-        for filter_id in view_filters:
-            usedFiltersSet.add(filter_id.IntegerValue)
+for filter_id in current_filters:
+    usedFiltersSet.add(filter_id.IntegerValue)
 
 #if not allFilters:
 #    forms.alert('There are no filters available.')
 #    script.exit()
 
-print('{} Filters found.'.format(len(usedFilters)))
+print('{} Filters found.'.format(len(usedFiltersSet)))
 
-FilterName.append(usedFilters)
+print(filters)
+print(usedFiltersSet)
 
 print(FilterName)
 print(FilterVisibilities)
