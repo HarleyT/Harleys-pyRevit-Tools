@@ -140,13 +140,16 @@ allFilters = set()
 for filter_id in current_filters:
     usedFiltersSet.add(filter_id.IntegerValue)
 
+for f in filters:
+    filterId = f.Id
+
 #if not allFilters:
 #    forms.alert('There are no filters available.')
 #    script.exit()
 
 print('{} Filters found.'.format(len(usedFiltersSet)))
 
-print(filters.Id)
+print(filterId)
 print(usedFiltersSet)
 
 print(FilterName)
