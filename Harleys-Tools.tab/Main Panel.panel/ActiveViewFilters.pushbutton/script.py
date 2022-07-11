@@ -152,6 +152,8 @@ print('{} Filters found.'.format(len(usedFiltersSet)))
 print(filterId)
 print(usedFiltersSet)
 
+print(current_view)
+print(current_filters)
 print(FilterName)
 print(FilterVisibilities)
 print(FilterHalftone)
