@@ -134,8 +134,8 @@ filters = DB.FilteredElementCollector(revit.doc)\
 
 usedFiltersSet = set()
 allFilters = set()
-for flt in current_filters:
-    allFilters.add(flt.Id.IntegerValue)
+#for flt in current_filters:
+#    allFilters.add(flt.Id.IntegerValue)
 
 for v in current_view:
     if v.AreGraphicsOverridesAllowed():
@@ -143,13 +143,13 @@ for v in current_view:
         for filter_id in view_filters:
             usedFiltersSet.add(filter_id.IntegerValue)
 
-if not allFilters:
-    forms.alert('There are no filters available.')
-    script.exit()
+#if not allFilters:
+#    forms.alert('There are no filters available.')
+#    script.exit()
 
-print('{} Filters found.'.format(len(allFilters)))
+print('{} Filters found.'.format(len(usedFilters)))
 
-FilterName.append(allFilters)
+FilterName.append(usedFilters)
 
 print(FilterName)
 print(FilterVisibilities)
