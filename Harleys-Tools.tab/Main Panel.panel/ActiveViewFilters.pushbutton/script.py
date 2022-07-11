@@ -146,7 +146,7 @@ for filter_id in current_filters:
 
 print('{} Filters found.'.format(len(usedFiltersSet)))
 
-print(filters)
+print(filters.Id)
 print(usedFiltersSet)
 
 print(FilterName)
