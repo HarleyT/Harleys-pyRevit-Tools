@@ -103,18 +103,6 @@ elements = []
 
 # - Place local functions here. If you might use any functions in other scripts, consider placing it in the lib folder.
 
-def get_active_filters_click():
-    pass
-
-def add_filters():
-    pass
-
-def remove_filters():
-    pass
-
-def edit_filters():
-    pass
-
 # ╔═╗╦  ╔═╗╔═╗╔═╗╔═╗╔═╗
 # ║  ║  ╠═╣╚═╗╚═╗║╣ ╚═╗
 # ╚═╝╩═╝╩ ╩╚═╝╚═╝╚═╝╚═╝ CLASSES
@@ -153,7 +141,7 @@ class Command(ICommand):
     def CanExecute(self, parameter):
         return True
 
-class ActiveFiltersInfo():
+class ActiveFiltersInfo(Reactive):
     def __init__(self):
         for f in current_filters:
             FilterVisibility.append(current_view.GetFilterVisibility(f))
@@ -182,6 +170,15 @@ class ActiveFilters(Windows.Window, Reactive):
             doc.Regenerate()
         except Exception as e:
             print e.message
+    
+    def add_filters():
+        pass
+
+    def remove_filters():
+        pass
+
+    def edit_filters():
+        pass
 
 # ╔╦╗╔═╗╦╔╗╔
 # ║║║╠═╣║║║║
