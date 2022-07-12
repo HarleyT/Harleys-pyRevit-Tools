@@ -134,16 +134,19 @@ class MyWindow(Windows.Window):
         except Exception as e:
             print e.message
 
-class ActiveFilters(FilterName, FilterVisibility, FilterHalfTone, FilterTransparency):
+class ActiveFilters():
+    def __init__(self):
+        for f in current_filters:
+            FilterVisibility.append(current_view.GetFilterVisibility(f))
+            element = doc.GetElement(f)
+            elements.append(element)
+            FilterName.append(element.Name)
+            filterObject = current_view.GetFilterOverrides(f)
+            FilterTransparency.append(filterObject.Transparency)
+            FilterHalfTone.append(filterObject.Halftone)
 
-    for f in current_filters:
-        FilterVisibility.append(current_view.GetFilterVisibility(f))
-        element = doc.GetElement(f)
-        elements.append(element)
-        FilterName.append(element.Name)
-        filterObject = current_view.GetFilterOverrides(f)
-        FilterTransparency.append(filterObject.Transparency)
-        FilterHalfTone.append(filterObject.Halftone)
+        return FilterName, FilterVisibility, FilterHalfTone, FilterTransparency
+
 
 
 # ╔╦╗╔═╗╦╔╗╔
