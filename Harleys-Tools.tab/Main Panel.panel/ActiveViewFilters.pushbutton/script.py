@@ -54,7 +54,6 @@ from System.Collections.Generic import List # List<ElementType>() <- it's specia
 clr.AddReference("RevitServices")
 import RevitServices
 #from RevitServices.Persistence import DocumentManager
-#doc = DocumentManager.Instance.CurrentDBDocument
 clr.AddReference("RevitNodes")
 import Revit
 clr.ImportExtensions(Revit.Elements)
@@ -62,9 +61,6 @@ clr.ImportExtensions(Revit.Elements)
 # WPF Dependencies
 clr.AddReference('System.Windows.Forms')
 clr.AddReference('IronPython.Wpf')
-
-#from revitutils import selection, uidoc, doc
-#from scriptutils.userinput import WPFWindow
 
 # find the path of ui.xaml
 xamlfile = script.get_bundle_file('ui.xaml')
@@ -94,12 +90,30 @@ PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where 
 
 # - Place global variables here.
 
+current_view = doc.ActiveView
+current_filters = current_view.GetFilters()
+
+FilterName,FilterVisibility,FilterHalfTone,FilterTransparency = [],[],[],[]
+elements = []
+
 # ╔═╗╦ ╦╔╗╔╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
 # ╠╣ ║ ║║║║║   ║ ║║ ║║║║╚═╗
 # ╚  ╚═╝╝╚╝╚═╝ ╩ ╩╚═╝╝╚╝╚═╝ FUNCTIONS
 # ==================================================
 
 # - Place local functions here. If you might use any functions in other scripts, consider placing it in the lib folder.
+
+def get_active_filters_click():
+    pass
+
+def add_filters():
+    pass
+
+def remove_filters():
+    pass
+
+def edit_filters():
+    pass
 
 # ╔═╗╦  ╔═╗╔═╗╔═╗╔═╗╔═╗
 # ║  ║  ╠═╣╚═╗╚═╗║╣ ╚═╗
@@ -108,10 +122,28 @@ PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where 
 
 # - Place local classes here. If you might use any classes in other scripts, consider placing it in the lib folder.
 
-#class MyWindow(Windows.Window):
-#    def __init__(self):
-#        wpf.LoadComponent(self, xamlfile)
-#        self.active_filters.ItemsSource = []
+class MyWindow(Windows.Window):
+    def __init__(self):
+        wpf.LoadComponent(self, xamlfile)
+        self.active_filters.ItemsSource = []
+
+    def get_active_filters_click():
+        try:
+            uidoc.RefreshActiveView(current_view)
+            doc.Regenerate()
+        except Exception as e:
+            print e.message
+
+class ActiveFilters(FilterName, FilterVisibility, FilterHalfTone, FilterTransparency):
+
+    for f in current_filters:
+        FilterVisibility.append(current_view.GetFilterVisibility(f))
+        element = doc.GetElement(f)
+        elements.append(element)
+        FilterName.append(element.Name)
+        filterObject = current_view.GetFilterOverrides(f)
+        FilterTransparency.append(filterObject.Transparency)
+        FilterHalfTone.append(filterObject.Halftone)
 
 
 # ╔╦╗╔═╗╦╔╗╔
@@ -121,36 +153,24 @@ PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where 
 #if __name__ == '__main__':
     # START CODE HERE
 
-current_view = doc.ActiveView
-current_filters = current_view.GetFilters()
-
-FilterName = ["Filter 1","Filter 2"]
-FilterVisibilities = [True,False]
-FilterHalftone = [False,False]
-filterTransparency = [True, False]
-
-elements = []
-
 for f in current_filters:
-    FilterVisibilities.append(current_view.GetFilterVisibility(f))
+    FilterVisibility.append(current_view.GetFilterVisibility(f))
     element = doc.GetElement(f)
     elements.append(element)
     FilterName.append(element.Name)
     filterObject = current_view.GetFilterOverrides(f)
-    filterTransparency.append(filterObject.Transparency)
-    FilterHalftone.append(filterObject.Halftone)
-
+    FilterTransparency.append(filterObject.Transparency)
+    FilterHalfTone.append(filterObject.Halftone)
 
 print('{} Filters found.'.format(len(current_filters)))
 
 print(FilterName)
-print(FilterVisibilities)
-print(FilterHalftone)
-print(filterTransparency)
-
+print(FilterVisibility)
+print(FilterHalfTone)
+print(FilterTransparency)
 
 # Let's show the window (modal)
-#MyWindow().ShowDialog()
+MyWindow().ShowDialog()
 
 ################################################################################################
 #family_dict = {}

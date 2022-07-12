@@ -5,33 +5,11 @@
         mc:Ignorable="d"
         Width="450" ResizeMode="NoResize" Height="400"
         Title="Active View - Available Filters">
-    <Window.Resources>
-        <ControlTemplate x:Key="ItemTemplate">
-            <TextBlock Text="{Binding name}"
-                       ToolTip="{Binding name}">
-            </TextBlock>
-        </ControlTemplate>
-        <DataTemplate x:Key="ItemContainerTemplate">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Control Grid.Column="0"
-                         Template="{DynamicResource ItemTemplate}">
-                </Control>
-            </Grid>
-        </DataTemplate>
-        <ItemsPanelTemplate x:Key="ItemsPanelTemplate">
-            <StackPanel />
-        </ItemsPanelTemplate>
-    </Window.Resources>
 
     <StackPanel Margin="10,0,10,0">
         <Button Height="25"  Margin="0,10,0,10" Content="Refresh Filter List" Click="get_active_filters_click"/>
         <StackPanel Height="225">
-            <ListView x:Name="active_filters"
-                      ItemTemplate="{DynamicResource ItemContainerTemplate}"
-                      ItemsPanel="{DynamicResource ItemsPanelTemplate}">
+            <ListView ItemsSource="{Binding Source={StaticResource ActiveFilters}}">
                 <ListView.View>
                     <GridView AllowsColumnReorder="True">
                         <GridViewColumn DisplayMemberBinding="{Binding Path=FilterName}" Header="Name" Width="Auto"/>
