@@ -162,10 +162,10 @@ class ActiveFilters(Windows.Window, Reactive):
         wpf.LoadComponent(self, xamlfile)
         self.af = ActiveFiltersInfo()
 
-        self.FilterName.ItemsSource = self.af.FilterName
-        self.FilterVisibility.ItemsSource = self.af.FilterVisibility
-        self.FilterHalfTone.ItemsSource = self.af.FilterHalfTone
-        self.FilterTransparency.ItemsSource = self.af.FilterTransparency
+        self.FilterName = self.af.FilterName
+        self.FilterVisibility = self.af.FilterVisibility
+        self.FilterHalfTone = self.af.FilterHalfTone
+        self.FilterTransparency = self.af.FilterTransparency
 
     def get_active_filters_click():
         try:
