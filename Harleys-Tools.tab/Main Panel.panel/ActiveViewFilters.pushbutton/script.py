@@ -127,37 +127,26 @@ current_filters = current_view.GetFilters()
 FilterName = ["Filter 1","Filter 2"]
 FilterVisibilities = [True,False]
 FilterHalftone = [False,False]
+filterTransparency = [True, False]
 
-filters = DB.FilteredElementCollector(revit.doc)\
-            .OfClass(DB.ParameterFilterElement)\
-            .ToElements()
+elements = []
 
-usedFiltersSet = set()
-allFilters = set()
-#for flt in current_filters:
-#    allFilters.add(flt.Id.IntegerValue)
+for f in current_filters:
+    FilterVisibilities.append(current_view.GetFilterVisibility(f))
+    element = doc.GetElement(f)
+    elements.append(element)
+    FilterName.append(element.Name)
+    filterObject = current_view.GetFilterOverrides(f)
+    filterTransparency.append(filterObject.Transparency)
+    FilterHalftone.append(filterObject.Halftone)
 
-for filter_id in current_filters:
-    usedFiltersSet.add(filter_id.IntegerValue)
 
-for f in filters:
-    filterId = f.Id
+print('{} Filters found.'.format(len(current_filters)))
 
-#if not allFilters:
-#    forms.alert('There are no filters available.')
-#    script.exit()
-
-print('{} Filters found.'.format(len(usedFiltersSet)))
-
-print(filterId)
-print(usedFiltersSet)
-
-print(current_view)
-print(current_filters)
 print(FilterName)
 print(FilterVisibilities)
 print(FilterHalftone)
-
+print(filterTransparency)
 
 
 # Let's show the window (modal)
