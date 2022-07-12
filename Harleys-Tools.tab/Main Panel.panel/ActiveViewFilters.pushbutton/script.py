@@ -152,7 +152,10 @@ class ActiveFiltersInfo(Reactive):
             FilterTransparency.append(filterObject.Transparency)
             FilterHalfTone.append(filterObject.Halftone)
 
-        return FilterName, FilterVisibility, FilterHalfTone, FilterTransparency
+        self.FilterName = FilterName
+        self.FilterVisibility = FilterVisibility
+        self.FilterHalfTone = FilterHalfTone
+        self.FilterTransparency = FilterTransparency
 
 class ActiveFilters(Windows.Window, Reactive):
     def __init__(self):
