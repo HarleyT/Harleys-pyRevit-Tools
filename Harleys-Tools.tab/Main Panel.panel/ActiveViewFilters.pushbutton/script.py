@@ -167,7 +167,7 @@ class ActiveFilters(Windows.Window, Reactive):
         self.FilterHalfTone = self.af.FilterHalfTone
         self.FilterTransparency = self.af.FilterTransparency
 
-    def get_active_filters_click():
+    def get_active_filters_click(self, sender, args):
         try:
             uidoc.RefreshActiveView(current_view)
             doc.Regenerate()
