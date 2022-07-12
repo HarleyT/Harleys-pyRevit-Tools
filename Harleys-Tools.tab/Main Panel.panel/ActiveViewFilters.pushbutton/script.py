@@ -153,7 +153,7 @@ class Command(ICommand):
     def CanExecute(self, parameter):
         return True
 
-class ActiveFiltersInfo(FilterName, FilterVisibility, FilterHalfTone, FilterTransparency):
+class ActiveFiltersInfo():
     def __init__(self):
         for f in current_filters:
             FilterVisibility.append(current_view.GetFilterVisibility(f))
