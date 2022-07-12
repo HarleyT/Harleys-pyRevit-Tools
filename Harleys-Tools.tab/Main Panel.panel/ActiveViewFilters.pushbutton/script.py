@@ -122,19 +122,38 @@ def edit_filters():
 
 # - Place local classes here. If you might use any classes in other scripts, consider placing it in the lib folder.
 
-class MyWindow(Windows.Window):
-    def __init__(self):
-        wpf.LoadComponent(self, xamlfile)
-        self.active_filters.ItemsSource = []
+class Reactive(ComponentModel.INotifyPropertyChanged):
+    """WPF property updator base mixin"""
+    PropertyChanged, _propertyChangedCaller = pyevent.make_event()
 
-    def get_active_filters_click():
-        try:
-            uidoc.RefreshActiveView(current_view)
-            doc.Regenerate()
-        except Exception as e:
-            print e.message
+    def add_PropertyChanged(self, value):
+        self.PropertyChanged += value
 
-class ActiveFilters():
+    def remove_PropertyChanged(self, value):
+        self.PropertyChanged -= value
+
+    def OnPropertyChanged(self, prop_name):
+        if self._propertyChangedCaller:
+            args = ComponentModel.PropertyChangedEventArgs(prop_name)
+            self._propertyChangedCaller(self, args)
+
+class Command(ICommand):
+    def __init__(self, execute):
+        self.execute = execute
+
+    def Execute(self, parameter):
+        self.execute()
+
+    def add_CanExecuteChanged(self, handler):
+        pass
+
+    def remove_CanExecuteChanged(self, handler):
+        pass
+
+    def CanExecute(self, parameter):
+        return True
+
+class ActiveFiltersInfo(FilterName, FilterVisibility, FilterHalfTone, FilterTransparency):
     def __init__(self):
         for f in current_filters:
             FilterVisibility.append(current_view.GetFilterVisibility(f))
@@ -147,7 +166,22 @@ class ActiveFilters():
 
         return FilterName, FilterVisibility, FilterHalfTone, FilterTransparency
 
+class ActiveFilters(Windows.Window, Reactive):
+    def __init__(self):
+        wpf.LoadComponent(self, xamlfile)
+        self.af = ActiveFiltersInfo()
 
+        self.FilterName.ItemsSource = self.af.FilterName
+        self.FilterVisibility.ItemsSource = self.af.FilterVisibility
+        self.FilterHalfTone.ItemsSource = self.af.FilterHalfTone
+        self.FilterTransparency.ItemsSource = self.af.FilterTransparency
+
+    def get_active_filters_click():
+        try:
+            uidoc.RefreshActiveView(current_view)
+            doc.Regenerate()
+        except Exception as e:
+            print e.message
 
 # ╔╦╗╔═╗╦╔╗╔
 # ║║║╠═╣║║║║
@@ -156,24 +190,8 @@ class ActiveFilters():
 #if __name__ == '__main__':
     # START CODE HERE
 
-for f in current_filters:
-    FilterVisibility.append(current_view.GetFilterVisibility(f))
-    element = doc.GetElement(f)
-    elements.append(element)
-    FilterName.append(element.Name)
-    filterObject = current_view.GetFilterOverrides(f)
-    FilterTransparency.append(filterObject.Transparency)
-    FilterHalfTone.append(filterObject.Halftone)
-
-print('{} Filters found.'.format(len(current_filters)))
-
-print(FilterName)
-print(FilterVisibility)
-print(FilterHalfTone)
-print(FilterTransparency)
-
 # Let's show the window (modal)
-MyWindow().ShowDialog()
+ActiveFilters().ShowDialog()
 
 ################################################################################################
 #family_dict = {}
