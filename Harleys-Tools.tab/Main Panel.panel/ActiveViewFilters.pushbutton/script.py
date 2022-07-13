@@ -90,9 +90,6 @@ PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where 
 
 # - Place global variables here.
 
-current_view = doc.ActiveView
-current_filters = current_view.GetFilters()
-
 FilterName,FilterVisibility,FilterHalfTone,FilterTransparency = [],[],[],[]
 elements = []
 
@@ -168,23 +165,23 @@ class ActiveFilters(Windows.Window, Reactive):
 
     def get_active_filters_click():
         try:
-            uidoc.RefreshActiveView(current_view)
-            doc.Regenerate()
+            current_view = doc.ActiveView
+            current_filters = current_view.GetFilters()
+            #uidoc.RefreshActiveView(current_view)
+            #doc.Regenerate()
+
+            for f in current_filters:
+                FilterVisibility.append(current_view.GetFilterVisibility(f))
+                element = doc.GetElement(f)
+                elements.append(element)
+                FilterName.append(element.Name)
+                filterObject = current_view.GetFilterOverrides(f)
+                FilterTransparency.append(filterObject.Transparency)
+                FilterHalfTone.append(filterObject.Halftone)
+
+            return FilterName, FilterVisibility, FilterHalfTone, FilterTransparency
         except Exception as e:
             print e.message
-    
-    def get_active_filters():
-        for f in current_filters:
-            FilterVisibility.append(current_view.GetFilterVisibility(f))
-            element = doc.GetElement(f)
-            elements.append(element)
-            FilterName.append(element.Name)
-            filterObject = current_view.GetFilterOverrides(f)
-            FilterTransparency.append(filterObject.Transparency)
-            FilterHalfTone.append(filterObject.Halftone)
-
-        return FilterName, FilterVisibility, FilterHalfTone, FilterTransparency
-
 
     def add_filters():
         pass
