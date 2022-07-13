@@ -160,20 +160,32 @@ class ActiveFiltersInfo(Reactive):
 class ActiveFilters(Windows.Window, Reactive):
     def __init__(self):
         wpf.LoadComponent(self, xamlfile)
-        self.af = ActiveFiltersInfo()
 
-        self.FilterName = self.af.FilterName
-        self.FilterVisibility = self.af.FilterVisibility
-        self.FilterHalfTone = self.af.FilterHalfTone
-        self.FilterTransparency = self.af.FilterTransparency
+        self.FilterName = FilterName
+        self.FilterVisibility = FilterVisibility
+        self.FilterHalfTone = FilterHalfTone
+        self.FilterTransparency = FilterTransparency
 
-    def get_active_filters_click(self, sender, args):
+    def get_active_filters_click():
         try:
             uidoc.RefreshActiveView(current_view)
             doc.Regenerate()
         except Exception as e:
             print e.message
     
+    def get_active_filters():
+        for f in current_filters:
+            FilterVisibility.append(current_view.GetFilterVisibility(f))
+            element = doc.GetElement(f)
+            elements.append(element)
+            FilterName.append(element.Name)
+            filterObject = current_view.GetFilterOverrides(f)
+            FilterTransparency.append(filterObject.Transparency)
+            FilterHalfTone.append(filterObject.Halftone)
+
+        return FilterName, FilterVisibility, FilterHalfTone, FilterTransparency
+
+
     def add_filters():
         pass
 

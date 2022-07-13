@@ -54,7 +54,6 @@ from System.Collections.Generic import List # List<ElementType>() <- it's specia
 clr.AddReference("RevitServices")
 import RevitServices
 #from RevitServices.Persistence import DocumentManager
-#doc = DocumentManager.Instance.CurrentDBDocument
 clr.AddReference("RevitNodes")
 import Revit
 clr.ImportExtensions(Revit.Elements)
@@ -62,9 +61,6 @@ clr.ImportExtensions(Revit.Elements)
 # WPF Dependencies
 clr.AddReference('System.Windows.Forms')
 clr.AddReference('IronPython.Wpf')
-
-#from revitutils import selection, uidoc, doc
-#from scriptutils.userinput import WPFWindow
 
 # find the path of ui.xaml
 xamlfile = script.get_bundle_file('ui.xaml')
@@ -94,9 +90,11 @@ PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where 
 
 # - Place global variables here.
 
-FilterName = []
-FilterVisibilities = []
-FilterHalftone = []
+current_view = doc.ActiveView
+current_filters = current_view.GetFilters()
+
+FilterName,FilterVisibility,FilterHalfTone,FilterTransparency = [],[],[],[]
+elements = []
 
 # ╔═╗╦ ╦╔╗╔╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
 # ╠╣ ║ ║║║║║   ║ ║║ ║║║║╚═╗
@@ -105,46 +103,6 @@ FilterHalftone = []
 
 # - Place local functions here. If you might use any functions in other scripts, consider placing it in the lib folder.
 
-def get_active_filters():
-
-    #t = Transaction(doc, "Failing script")
-    #t.Start()
-    #FilterName = ["Filter 1","Filter 2"]
-    #FilterVisibilities = [True,False]
-    #FilterHalftone = [False,False]
-    #t.Commit()
-
-
-    #current_view = doc.ActiveView
-    #filters = current_view.GetFilters()
-
-    #elements, elementName, visibilities, listtrans, listhalf = [],[],[],[],[]
-    #visibilitiesList, elementList, nameList, transList, halfList = [],[],[],[],[]
-
-    #for f in filters:
-        #if element:
-        #    view_filters[
-        #        "%s: %s" % (element.Name, visibilities)
-        #    ] = elements
-
-    #    visibilities.append(current_view.GetFilterVisibility(f))
-    #    element=doc.GetElement(f)
-    #    elements.append(element)
-    #    elementName.append(element.Name)
-    #    filterObject = current_view.GetFilterOverrides(f)
-    #    listtrans.append(filterObject.Transparency)
-    #    listhalf.append(filterObject.Halftone)
-
-    #transList.Add(listtrans)
-    #halfList.Add(listhalf)
-    #visibilitiesList.append(visibilities)
-    #elementList.append(elements)
-    #nameList.append(elementName)
-
-    #FilterName = [nameList]
-    #FilterVisibilities = [visibilitiesList]
-    #FilterHalftone = [halfList]
-
 # ╔═╗╦  ╔═╗╔═╗╔═╗╔═╗╔═╗
 # ║  ║  ╠═╣╚═╗╚═╗║╣ ╚═╗
 # ╚═╝╩═╝╩ ╩╚═╝╚═╝╚═╝╚═╝ CLASSES
@@ -152,49 +110,70 @@ def get_active_filters():
 
 # - Place local classes here. If you might use any classes in other scripts, consider placing it in the lib folder.
 
-# Create a subclass of IExternalEventHandler
-class SimpleEventHandler(IExternalEventHandler):
-    """
-    Simple IExternalEventHandler sample
-    """
+class Reactive(ComponentModel.INotifyPropertyChanged):
+    """WPF property updator base mixin"""
+    PropertyChanged, _propertyChangedCaller = pyevent.make_event()
 
-    # __init__ is used to make function from outside of the class to be executed by the handler. \
-    # Instructions could be simply written under Execute method only
-    def __init__(self, do_this):
-        self.do_this = do_this
+    def add_PropertyChanged(self, value):
+        self.PropertyChanged += value
 
-    # Execute method run in Revit API environment.
-    def Execute(self, uiapp):
+    def remove_PropertyChanged(self, value):
+        self.PropertyChanged -= value
+
+    def OnPropertyChanged(self, prop_name):
+        if self._propertyChangedCaller:
+            args = ComponentModel.PropertyChangedEventArgs(prop_name)
+            self._propertyChangedCaller(self, args)
+
+class Command(ICommand):
+    def __init__(self, execute):
+        self.execute = execute
+
+    def Execute(self, parameter):
+        self.execute()
+
+    def add_CanExecuteChanged(self, handler):
+        pass
+
+    def remove_CanExecuteChanged(self, handler):
+        pass
+
+    def CanExecute(self, parameter):
+        return True
+
+class ActiveFiltersInfo(Reactive):
+    def __init__(self):
+        for f in current_filters:
+            FilterVisibility.append(current_view.GetFilterVisibility(f))
+            element = doc.GetElement(f)
+            elements.append(element)
+            FilterName.append(element.Name)
+            filterObject = current_view.GetFilterOverrides(f)
+            FilterTransparency.append(filterObject.Transparency)
+            FilterHalfTone.append(filterObject.Halftone)
+
+        self.FilterName = FilterName
+        self.FilterVisibility = FilterVisibility
+        self.FilterHalfTone = FilterHalfTone
+        self.FilterTransparency = FilterTransparency
+
+class ActiveFilters(Windows.Window, Reactive):
+    def __init__(self):
+        wpf.LoadComponent(self, xamlfile)
+        self.af = ActiveFiltersInfo()
+
+        self.FilterName = self.af.FilterName
+        self.FilterVisibility = self.af.FilterVisibility
+        self.FilterHalfTone = self.af.FilterHalfTone
+        self.FilterTransparency = self.af.FilterTransparency
+
+    def get_active_filters_click(self, sender, args):
         try:
-            self.do_this()
-        except InvalidOperationException:
-            # If you don't catch this exeption Revit may crash.
-            print "InvalidOperationException catched"
-
-    def GetName(self):
-        return "simple function executed by an IExternalEventHandler in a Form"
-
-
-# Now we need to make an instance of this handler. Moreover, it shows that the same class could be used to for
-# different functions using different handler class instances
-simple_event_handler = SimpleEventHandler(get_active_filters)
-# We now need to create the ExternalEvent
-ext_event = ExternalEvent.Create(simple_event_handler)
-
-# A simple WPF form used to call the ExternalEvent
-class ModelessForm(WPFWindow):
-    """
-    Simple modeless form sample
-    """
-    def __init__(self, xaml_file_name):
-        WPFWindow.__init__(self, xaml_file_name)
-        #self.simple_text.Text = "Hello World"
-        self.Show()
-
-    def get_active_filters_click(self, sender, e):
-        # This Raise() method launch a signal to Revit to tell him you want to do something in the API context
-        ext_event.Raise()
-
+            uidoc.RefreshActiveView(current_view)
+            doc.Regenerate()
+        except Exception as e:
+            print e.message
+    
     def add_filters():
         pass
 
@@ -204,15 +183,6 @@ class ModelessForm(WPFWindow):
     def edit_filters():
         pass
 
-# Let's launch our beautiful and useful form !
-modeless_form = ModelessForm("ui.xaml")
-
-#class MyWindow(Windows.Window):
-#    def __init__(self):
-#        wpf.LoadComponent(self, xamlfile)
-#        self.active_filters.ItemsSource = []
-
-
 # ╔╦╗╔═╗╦╔╗╔
 # ║║║╠═╣║║║║
 # ╩ ╩╩ ╩╩╝╚╝ MAIN
@@ -221,29 +191,7 @@ modeless_form = ModelessForm("ui.xaml")
     # START CODE HERE
 
 # Let's show the window (modal)
-#MyWindow().ShowDialog()
-
-
-################################################################################################
-#family_dict = {}
-#for e in revit.query.get_all_elements_in_view(active_view):
-#    try:
-#        e_type = revit.query.get_type(e)
-#        family = e_type.Family
-#        if family.FamilyCategory:
-#            family_dict[
-#                "%s: %s" % (family.FamilyCategory.Name, family.Name)
-#            ] = family
-#    except:
-#        pass
-#if family_dict:
-#    selected_families = forms.SelectFromList.show(
-#        sorted(family_dict.keys()),
-#        title="Select Families",
-#        multiselect=True,
-#    )
-################################################################################################
-
+ActiveFilters().ShowDialog()
 
 # AVOID  placing Transaction inside of your loops! It will drastically reduce perfomance of your script.
 #t = Transaction(doc,__title__)  # Transactions are context-like objects that guard any changes made to a Revit model.
