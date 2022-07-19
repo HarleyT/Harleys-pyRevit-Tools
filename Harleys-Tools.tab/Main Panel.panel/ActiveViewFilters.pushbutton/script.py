@@ -147,7 +147,7 @@ class ActiveFilters(Windows.Window, Reactive):
         self.FilterHalfTone = FilterHalfTone
         self.FilterTransparency = FilterTransparency
 
-    def get_active_filters_click():
+    def get_active_filters_click(args):
         try:
             current_view = doc.ActiveView
             current_filters = current_view.GetFilters()
