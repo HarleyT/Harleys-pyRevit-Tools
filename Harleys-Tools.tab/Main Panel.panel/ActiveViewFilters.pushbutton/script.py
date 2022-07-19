@@ -138,22 +138,6 @@ class Command(ICommand):
     def CanExecute(self, parameter):
         return True
 
-class ActiveFiltersInfo(Reactive):
-    def __init__(self):
-        for f in current_filters:
-            FilterVisibility.append(current_view.GetFilterVisibility(f))
-            element = doc.GetElement(f)
-            elements.append(element)
-            FilterName.append(element.Name)
-            filterObject = current_view.GetFilterOverrides(f)
-            FilterTransparency.append(filterObject.Transparency)
-            FilterHalfTone.append(filterObject.Halftone)
-
-        self.FilterName = FilterName
-        self.FilterVisibility = FilterVisibility
-        self.FilterHalfTone = FilterHalfTone
-        self.FilterTransparency = FilterTransparency
-
 class ActiveFilters(Windows.Window, Reactive):
     def __init__(self):
         wpf.LoadComponent(self, xamlfile)
@@ -198,6 +182,22 @@ class ActiveFilters(Windows.Window, Reactive):
 # ==================================================
 #if __name__ == '__main__':
     # START CODE HERE
+
+current_view = doc.ActiveView
+current_filters = current_view.GetFilters()
+#uidoc.RefreshActiveView(current_view)
+#doc.Regenerate()
+
+for f in current_filters:
+    FilterVisibility.append(current_view.GetFilterVisibility(f))
+    element = doc.GetElement(f)
+    elements.append(element)
+    FilterName.append(element.Name)
+    filterObject = current_view.GetFilterOverrides(f)
+    FilterTransparency.append(filterObject.Transparency)
+    FilterHalfTone.append(filterObject.Halftone)
+
+print(FilterName, FilterVisibility, FilterHalfTone, FilterTransparency)
 
 # Let's show the window (modal)
 ActiveFilters().ShowDialog()
