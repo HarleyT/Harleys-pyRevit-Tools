@@ -163,7 +163,6 @@ class ActiveFilters(Windows.Window, Reactive):
                 FilterTransparency.append(filterObject.Transparency)
                 FilterHalfTone.append(filterObject.Halftone)
 
-            return FilterName, FilterVisibility, FilterHalfTone, FilterTransparency
         except Exception as e:
             print e.message
 
