@@ -147,7 +147,7 @@ class ActiveFilters(Windows.Window, Reactive):
         self.FilterHalfTone = FilterHalfTone
         self.FilterTransparency = FilterTransparency
 
-    def get_active_filters_click(FilterName, FilterVisibility, FilterHalfTone, FilterTransparency):
+    def get_active_filters_click():
         try:
             current_view = doc.ActiveView
             current_filters = current_view.GetFilters()
@@ -196,8 +196,6 @@ for f in current_filters:
     filterObject = current_view.GetFilterOverrides(f)
     FilterTransparency.append(filterObject.Transparency)
     FilterHalfTone.append(filterObject.Halftone)
-
-print(FilterName, FilterVisibility, FilterHalfTone, FilterTransparency)
 
 # Let's show the window (modal)
 ActiveFilters().ShowDialog()
