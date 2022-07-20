@@ -150,23 +150,8 @@ class ActiveFilters(Windows.Window, Reactive):
 
     def get_active_filters_click(self, sender, args):
         try:
-            current_view = doc.ActiveView
-            current_filters = current_view.GetFilters()
-            #uidoc.RefreshActiveView(current_view)
-            #doc.Regenerate()
-
-            for f in current_filters:
-                FilterVisibility.append(current_view.GetFilterVisibility(f))
-                element = doc.GetElement(f)
-                elements.append(element)
-                FilterName.append(element.Name)
-                filterObject = current_view.GetFilterOverrides(f)
-                FilterTransparency.append(filterObject.Transparency)
-                FilterHalfTone.append(filterObject.Halftone)
-            #self.FilterName = FilterName
-            #self.FilterVisibility = FilterVisibility
-            #self.FilterHalfTone = FilterHalfTone
-            #self.FilterTransparency = FilterTransparency
+            uidoc.RefreshActiveView(current_view)
+            doc.Regenerate()
 
         except Exception as e:
             print e.message
@@ -187,19 +172,19 @@ class ActiveFilters(Windows.Window, Reactive):
 #if __name__ == '__main__':
     # START CODE HERE
 
-#current_view = doc.ActiveView
-#current_filters = current_view.GetFilters()
+current_view = doc.ActiveView
+current_filters = current_view.GetFilters()
 #uidoc.RefreshActiveView(current_view)
 #doc.Regenerate()
 
-#for f in current_filters:
-#    FilterVisibility.append(current_view.GetFilterVisibility(f))
-#    element = doc.GetElement(f)
-#    elements.append(element)
-#    FilterName.append(element.Name)
-#    filterObject = current_view.GetFilterOverrides(f)
-#    FilterTransparency.append(filterObject.Transparency)
-#    FilterHalfTone.append(filterObject.Halftone)
+for f in current_filters:
+    FilterVisibility.append(current_view.GetFilterVisibility(f))
+    element = doc.GetElement(f)
+    elements.append(element)
+    FilterName.append(element.Name)
+    filterObject = current_view.GetFilterOverrides(f)
+    FilterTransparency.append(filterObject.Transparency)
+    FilterHalfTone.append(filterObject.Halftone)
 
 # Let's show the window (modal)
 ActiveFilters().ShowDialog()
