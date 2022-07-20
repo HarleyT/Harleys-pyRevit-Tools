@@ -150,7 +150,7 @@ class ActiveFilters(Windows.Window, Reactive):
 
     def get_active_filters_click(self, sender, args):
         try:
-            uidoc.RefreshActiveView(current_view)
+            uidoc.RefreshActiveView()
             doc.Regenerate()
 
         except Exception as e:
