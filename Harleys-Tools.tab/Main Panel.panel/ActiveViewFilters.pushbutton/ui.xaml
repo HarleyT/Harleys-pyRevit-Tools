@@ -37,12 +37,12 @@
         <StackPanel Height="225">
             <ListView x:Name="FilterName">
             </ListView>
-            <CheckBox x:Name="FilterVisibility">
-            </CheckBox>
-            <CheckBox x:Name="FilterHalfTone">
-            </CheckBox>
-            <ListView x:Name="FilterTransparency">
-            </ListView>
+            <TreeView x:Name="FilterVisibility">
+            </TreeView>
+            <TreeView x:Name="FilterHalfTone">
+            </TreeView>
+            <ListBox x:Name="FilterTransparency">
+            </ListBox>
         </StackPanel>
         <Grid Height="100">
             <Button Content="Add" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="add_filters"/>
