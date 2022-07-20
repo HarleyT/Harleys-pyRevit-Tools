@@ -187,24 +187,6 @@ class ActiveFilters(Windows.Window, Reactive):
 #if __name__ == '__main__':
     # START CODE HERE
 
-current_view = doc.ActiveView
-current_filters = current_view.GetFilters()
-#uidoc.RefreshActiveView(current_view)
-#doc.Regenerate()
-FilterName,FilterVisibility,FilterHalfTone,FilterTransparency = [],[],[],[]
-elements = []
-
-for f in current_filters:
-    FilterVisibility.append(current_view.GetFilterVisibility(f))
-    element = doc.GetElement(f)
-    elements.append(element)
-    FilterName.append(element.Name)
-    filterObject = current_view.GetFilterOverrides(f)
-    FilterTransparency.append(filterObject.Transparency)
-    FilterHalfTone.append(filterObject.Halftone)
-
-print(FilterName,FilterVisibility,FilterHalfTone,FilterTransparency)
-
 #                <ListView.View>
 #                    <GridView AllowsColumnReorder="True">
 #                        <GridViewColumn x:Name="FilterName" Header="Name" Width="Auto"/>
@@ -213,6 +195,15 @@ print(FilterName,FilterVisibility,FilterHalfTone,FilterTransparency)
 #                        <GridViewColumn x:Name="FilterTransparency" Header="Transparency" Width="Auto"/>
 #                    </GridView>
 #                </ListView.View>
+
+#            <ListView x:Name="FilterName">
+#            </ListView>
+#            <ListView x:Name="FilterVisibility">
+#            </ListView>
+#            <ListView x:Name="FilterHalfTone">
+#            </ListView>
+#            <ListView x:Name="FilterTransparency">
+#            </ListView>
 
 # Let's show the window (modal)
 ActiveFilters().ShowDialog()
