@@ -146,6 +146,10 @@ class ActiveFilters(Windows.Window, Reactive):
         #self.FilterVisibility = FilterVisibility
         #self.FilterHalfTone = FilterHalfTone
         #self.FilterTransparency = FilterTransparency
+        FilterName = self.FilterName.Text
+        FilterVisibility = self.FilterVisibility.Text
+        FilterHalfTone = self.FilterHalfTone.Text
+        FilterTransparency = self.FilterTransparency.Text
 
     def get_active_filters_click(self, sender, args):
         try:
@@ -163,10 +167,7 @@ class ActiveFilters(Windows.Window, Reactive):
                 FilterTransparency.append(filterObject.Transparency)
                 FilterHalfTone.append(filterObject.Halftone)
             
-            FilterName = self.FilterName.Text
-            FilterVisibility = self.FilterVisibility.Text
-            FilterHalfTone = self.FilterHalfTone.Text
-            FilterTransparency = self.FilterTransparency.Text
+
         except Exception as e:
             print e.message
 
