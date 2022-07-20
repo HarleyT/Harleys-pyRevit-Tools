@@ -163,6 +163,11 @@ class ActiveFilters(Windows.Window, Reactive):
                 FilterTransparency.append(filterObject.Transparency)
                 FilterHalfTone.append(filterObject.Halftone)
 
+            self.FilterName.ItemsSource = FilterName
+            self.FilterVisibility.ItemsSource = FilterVisibility
+            self.FilterHalfTone.ItemsSource = FilterHalfTone
+            self.FilterTransparency.ItemsSource = FilterTransparency
+
         except Exception as e:
             print e.message
 
