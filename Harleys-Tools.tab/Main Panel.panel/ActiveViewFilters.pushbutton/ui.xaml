@@ -35,15 +35,13 @@
     <StackPanel Margin="10,0,10,0">
         <Button Height="25"  Margin="0,10,0,10" Content="Refresh Filter List" Click="get_active_filters_click"/>
         <StackPanel Height="225">
-            <ListView ItemsSource="{Binding ActiveFilters}">
-                <ListView.View>
-                    <GridView AllowsColumnReorder="True">
-                        <GridViewColumn x:Name="FilterName" Header="Name" Width="Auto"/>
-                        <GridViewColumn x:Name="FilterVisibility" Header="Visibility" Width="Auto"/>
-                        <GridViewColumn x:Name="FilterHalfTone" Header="Halftone" Width="Auto"/>
-                        <GridViewColumn x:Name="FilterTransparency" Header="Transparency" Width="Auto"/>
-                    </GridView>
-                </ListView.View>
+            <ListView x:Name="FilterName">
+            </ListView>
+            <CheckBox x:Name="FilterVisibility">
+            </CheckBox>
+            <CheckBox x:Name="FilterHalfTone">
+            </CheckBox>
+            <ListView x:Name="FilterTransparency">
             </ListView>
         </StackPanel>
         <Grid Height="100">
