@@ -43,7 +43,7 @@
                 <TreeView x:Name="FilterHalfTone">
                 </TreeView>
                 <ListView>
-                    <Slider Value="{Binding FilterTansparency.ItemSource}" Minimum="0" Maximum="100"/>
+                    <Slider Value="{Binding FilterTansparency.ItemsSource}" Minimum="0" Maximum="100"/>
                 </ListView>
             </StackPanel>
         </ScrollViewer>
