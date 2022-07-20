@@ -187,7 +187,23 @@ class ActiveFilters(Windows.Window, Reactive):
 #if __name__ == '__main__':
     # START CODE HERE
 
-print(ActiveFilters.get_active_filters_click.FilterName)
+current_view = doc.ActiveView
+current_filters = current_view.GetFilters()
+#uidoc.RefreshActiveView(current_view)
+#doc.Regenerate()
+FilterName,FilterVisibility,FilterHalfTone,FilterTransparency = [],[],[],[]
+elements = []
+
+for f in current_filters:
+    FilterVisibility.append(current_view.GetFilterVisibility(f))
+    element = doc.GetElement(f)
+    elements.append(element)
+    FilterName.append(element.Name)
+    filterObject = current_view.GetFilterOverrides(f)
+    FilterTransparency.append(filterObject.Transparency)
+    FilterHalfTone.append(filterObject.Halftone)
+
+print(FilterName,FilterVisibility,FilterHalfTone,FilterTransparency)
 
 #                <ListView.View>
 #                    <GridView AllowsColumnReorder="True">
