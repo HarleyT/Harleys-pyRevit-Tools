@@ -90,8 +90,6 @@ PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where 
 
 # - Place global variables here.
 
-FilterName,FilterVisibility,FilterHalfTone,FilterTransparency = [],[],[],[]
-elements = []
 
 # ╔═╗╦ ╦╔╗╔╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
 # ╠╣ ║ ║║║║║   ║ ║║ ║║║║╚═╗
@@ -142,15 +140,28 @@ class ActiveFilters(Windows.Window, Reactive):
     def __init__(self):
         wpf.LoadComponent(self, xamlfile)
 
-        self.FilterName.ItemsSource = FilterName
-        self.FilterVisibility.ItemsSource = FilterVisibility
-        self.FilterHalfTone.ItemsSource = FilterHalfTone
-        self.FilterTransparency.ItemsSource = FilterTransparency
+        self.FilterName.ItemsSource = []
+        self.FilterVisibility.ItemsSource = []
+        self.FilterHalfTone.ItemsSource = []
+        self.FilterTransparency.ItemsSource = []
 
     def get_active_filters_click(self, sender, args):
         try:
-            uidoc.RefreshActiveView()
-            doc.Regenerate()
+            current_view = doc.ActiveView
+            current_filters = current_view.GetFilters()
+            #uidoc.RefreshActiveView(current_view)
+            #doc.Regenerate()
+            FilterName,FilterVisibility,FilterHalfTone,FilterTransparency = [],[],[],[]
+            elements = []
+
+            for f in current_filters:
+                FilterVisibility.append(current_view.GetFilterVisibility(f))
+                element = doc.GetElement(f)
+                elements.append(element)
+                FilterName.append(element.Name)
+                filterObject = current_view.GetFilterOverrides(f)
+                FilterTransparency.append(filterObject.Transparency)
+                FilterHalfTone.append(filterObject.Halftone)
 
         except Exception as e:
             print e.message
@@ -170,20 +181,6 @@ class ActiveFilters(Windows.Window, Reactive):
 # ==================================================
 #if __name__ == '__main__':
     # START CODE HERE
-
-current_view = doc.ActiveView
-current_filters = current_view.GetFilters()
-#uidoc.RefreshActiveView(current_view)
-#doc.Regenerate()
-
-for f in current_filters:
-    FilterVisibility.append(current_view.GetFilterVisibility(f))
-    element = doc.GetElement(f)
-    elements.append(element)
-    FilterName.append(element.Name)
-    filterObject = current_view.GetFilterOverrides(f)
-    FilterTransparency.append(filterObject.Transparency)
-    FilterHalfTone.append(filterObject.Halftone)
 
 # Let's show the window (modal)
 ActiveFilters().ShowDialog()

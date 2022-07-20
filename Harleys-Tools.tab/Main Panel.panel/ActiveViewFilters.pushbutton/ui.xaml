@@ -1,17 +1,41 @@
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        
         Width="450" ResizeMode="NoResize" SizeToContent="Height"
         Title="Active View - Available Filters">
+    <Window.Resources>
+        <ControlTemplate x:Key="ItemTemplate">
+            <TextBlock Text="{Binding name}"
+                       ToolTip="{Binding name}"
+                       VerticalAlignment="Center"
+                       Margin="10,0,0,0">
+            </TextBlock>
+        </ControlTemplate>
+
+        <DataTemplate x:Key="ItemContainerTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Control Grid.Column="0"
+                         VerticalAlignment="Center" VerticalContentAlignment="Center"
+                         Template="{DynamicResource ItemTemplate}">
+                </Control>
+            </Grid>
+        </DataTemplate>
+
+        <ItemsPanelTemplate x:Key="ItemsPanelTemplate">
+            <StackPanel />
+        </ItemsPanelTemplate>
+    </Window.Resources>
 
     <StackPanel Margin="10,0,10,0">
         <Button Height="25"  Margin="0,10,0,10" Content="Refresh Filter List" Click="get_active_filters_click"/>
         <StackPanel Height="225">
-            <ListView Height="225" ItemsSource="FilterName">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding}"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
+            <ListView Height="225" ItemTemplate="{DynamicResource ItemContainerTemplate}" ItemsPanel="{DynamicResource ItemsPanelTemplate}">
                 <ListView.View>
                     <GridView AllowsColumnReorder="True">
                         <GridViewColumn x:Name="FilterName" Header="Name" Width="Auto"/>
