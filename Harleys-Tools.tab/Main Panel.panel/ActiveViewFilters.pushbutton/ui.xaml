@@ -34,16 +34,19 @@
 
     <StackPanel Margin="10,0,10,0">
         <Button Height="25"  Margin="0,10,0,10" Content="Refresh Filter List" Click="get_active_filters_click"/>
-        <StackPanel Height="225">
-            <ListView x:Name="FilterName">
-            </ListView>
-            <TreeView x:Name="FilterVisibility">
-            </TreeView>
-            <TreeView x:Name="FilterHalfTone">
-            </TreeView>
-            <ListBox x:Name="FilterTransparency">
-            </ListBox>
-        </StackPanel>
+        <ScrollViewer>
+            <StackPanel Height="225">
+                <ListView x:Name="FilterName">
+                </ListView>
+                <ListView x:Name="FilterVisibility">
+                </ListView>
+                <TreeView x:Name="FilterHalfTone">
+                </TreeView>
+                <ListView x:Name="FilterTransparency">
+                    <Slider Value="{Binding FilterTansparency}" Minimum="0" Maximum="100"/>
+                </ListView>
+            </StackPanel>
+        </ScrollViewer>
         <Grid Height="100">
             <Button Content="Add" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="add_filters"/>
             <Button Content="Remove" HorizontalAlignment="Left" Margin="90,10,0,0" VerticalAlignment="Top" Width="75" Click="remove_filters"/>
