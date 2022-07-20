@@ -142,11 +142,10 @@ class ActiveFilters(Windows.Window, Reactive):
     def __init__(self):
         wpf.LoadComponent(self, xamlfile)
 
-
-        self.FilterName = FilterName
-        self.FilterVisibility = FilterVisibility
-        self.FilterHalfTone = FilterHalfTone
-        self.FilterTransparency = FilterTransparency
+        self.FilterName.ItemsSource = FilterName
+        self.FilterVisibility.ItemsSource = FilterVisibility
+        self.FilterHalfTone.ItemsSource = FilterHalfTone
+        self.FilterTransparency.ItemsSource = FilterTransparency
 
     def get_active_filters_click(self, sender, args):
         try:
