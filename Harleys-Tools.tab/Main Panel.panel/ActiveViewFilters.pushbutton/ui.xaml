@@ -1,15 +1,12 @@
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-        mc:Ignorable="d"
-        Width="450" ResizeMode="NoResize" Height="400"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Width="450" ResizeMode="NoResize" SizeToContent="Height"
         Title="Active View - Available Filters">
 
     <StackPanel Margin="10,0,10,0">
         <Button Height="25"  Margin="0,10,0,10" Content="Refresh Filter List" Click="get_active_filters_click"/>
         <StackPanel Height="225">
-            <ListView>
+            <ListView Height="225">
                 <ListView.View>
                     <GridView AllowsColumnReorder="True">
                         <GridViewColumn x:Name="FilterName" Header="Name" Width="Auto"/>
