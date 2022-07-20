@@ -187,7 +187,7 @@ class ActiveFilters(Windows.Window, Reactive):
 #if __name__ == '__main__':
     # START CODE HERE
 
-print(ActiveFilters.FilterName)
+print(ActiveFilters.get_active_filters_click.FilterName)
 
 #                <ListView.View>
 #                    <GridView AllowsColumnReorder="True">
