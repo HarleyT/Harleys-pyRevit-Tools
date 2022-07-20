@@ -142,10 +142,7 @@ class ActiveFilters(Windows.Window, Reactive):
     def __init__(self):
         wpf.LoadComponent(self, xamlfile)
 
-        #self.FilterName = FilterName
-        #self.FilterVisibility = FilterVisibility
-        #self.FilterHalfTone = FilterHalfTone
-        #self.FilterTransparency = FilterTransparency
+
         FilterName = self.FilterName
         FilterVisibility = self.FilterVisibility
         FilterHalfTone = self.FilterHalfTone
@@ -166,7 +163,10 @@ class ActiveFilters(Windows.Window, Reactive):
                 filterObject = current_view.GetFilterOverrides(f)
                 FilterTransparency.append(filterObject.Transparency)
                 FilterHalfTone.append(filterObject.Halftone)
-            
+            self.FilterName = FilterName
+            self.FilterVisibility = FilterVisibility
+            self.FilterHalfTone = FilterHalfTone
+            self.FilterTransparency = FilterTransparency
 
         except Exception as e:
             print e.message
