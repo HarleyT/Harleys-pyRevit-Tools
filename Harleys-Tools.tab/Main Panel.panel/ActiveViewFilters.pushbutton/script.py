@@ -187,6 +187,15 @@ class ActiveFilters(Windows.Window, Reactive):
 #if __name__ == '__main__':
     # START CODE HERE
 
+#                <ListView.View>
+#                    <GridView AllowsColumnReorder="True">
+#                        <GridViewColumn x:Name="FilterName" Header="Name" Width="Auto"/>
+#                        <GridViewColumn x:Name="FilterVisibility" Header="Visibility" Width="Auto"/>
+#                        <GridViewColumn x:Name="FilterHalfTone" Header="Halftone" Width="Auto"/>
+#                        <GridViewColumn x:Name="FilterTransparency" Header="Transparency" Width="Auto"/>
+#                    </GridView>
+#                </ListView.View>
+
 # Let's show the window (modal)
 ActiveFilters().ShowDialog()
 
