@@ -158,7 +158,7 @@ class ActiveFilters(Windows.Window, Reactive):
                 FilterVisibility.append(current_view.GetFilterVisibility(f))
                 element = doc.GetElement(f)
                 elements.append(element)
-                FilterName.append(str(element.Name))
+                FilterName.append(element.Name)
                 filterObject = current_view.GetFilterOverrides(f)
                 FilterTransparency.append(filterObject.Transparency)
                 FilterHalfTone.append(filterObject.Halftone)

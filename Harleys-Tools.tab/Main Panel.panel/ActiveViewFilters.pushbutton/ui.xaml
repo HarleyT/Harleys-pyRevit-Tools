@@ -35,7 +35,7 @@
     <StackPanel Margin="10,0,10,0">
         <Button Height="25"  Margin="0,10,0,10" Content="Refresh Filter List" Click="get_active_filters_click"/>
         <StackPanel Height="225">
-            <ListView x:Name="FilterName" ItemTemplate="{DynamicResource ItemContainerTemplate}" ItemsPanel="{DynamicResource ItemsPanelTemplate}">
+            <ListView x:Name="FilterName">
             </ListView>
             <ListView x:Name="FilterVisibility" ItemTemplate="{DynamicResource ItemContainerTemplate}" ItemsPanel="{DynamicResource ItemsPanelTemplate}">
             </ListView>
