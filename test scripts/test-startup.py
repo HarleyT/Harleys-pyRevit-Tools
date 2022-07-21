@@ -1,78 +1,82 @@
 # -*- coding: UTF-8 -*-
 import System
-import sys
 import os.path as op
 from pyrevit import HOST_APP, framework, coreutils, PyRevitException
 from pyrevit import revit, DB, UI
 from pyrevit import forms, script
 from pyrevit.framework import wpf, ObservableCollection
 
-import clr
-clr.AddReference('DSCoreNodes')
-import DSCore
-from DSCore import Color
+sample_panel_id = "3110e336-f81c-4927-87da-4e0d30d4d64b"
 
-clr.AddReference('RevitAPI')
-import Autodesk
-from Autodesk.Revit.DB import *
-
-clr.AddReference('RevitNodes')
-import Revit
-
-clr.AddReference('RevitServices')
-import RevitServices
-from RevitServices.Persistence import DocumentManager
-doc = DocumentManager.Instance.CurrentDBDocument
-#uiapp = DocumentManager.Instance.CurrentUIApplication
-#app = uiapp.Application
-#version=int(app.VersionNumber)
-
-#current_view = Revit.Document.ActiveView(doc)
-
-#doc = __revit__.ActiveUIDocument.Document   # Document   class from RevitAPI that represents project. Used to Create, Delete, Modify and Query elements from the project.
-#uidoc = __revit__.ActiveUIDocument          # UIDocument class from RevitAPI that represents Revit project opened in the Revit UI.
-#app = __revit__.Application                 # Represents the Autodesk Revit Application, providing access to documents, options and other application wide data and settings.
-#PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where script is placed.
-
-#doc = revit.doc
-uidoc = HOST_APP.uidoc
+selected = []
 
 
-print('Startup script execution test.')
-print('\n'.join(sys.path))
 
-# test code for creating event handlers =======================================
-# define event handler
-def docopen_eventhandler(sender, args):
-    forms.alert('Document Opened: {}'.format(args.PathName))
+class _WPFPanelProvider(UI.IDockablePaneProvider):
+    def __init__(self, panel_type, default_visible=True):
+        self._panel_type = panel_type
+        self._default_visible = default_visible
+        self.panel = self._panel_type()
 
-# add to DocumentOpening
-# type is EventHandler[DocumentOpeningEventArgs] so create that correctly
-HOST_APP.app.DocumentOpening += \
-    framework.EventHandler[DB.Events.DocumentOpeningEventArgs](
-        docopen_eventhandler
-        )
+    def SetupDockablePane(self, data):
+        data.FrameworkElement = self.panel
+        data.VisibleByDefault = self._default_visible
 
+def register_dockable_panel(panel_type, default_visible=True):
+    if not issubclass(panel_type, forms.WPFPanel):
+        raise PyRevitException(
+            "Dockable pane must be a subclass of forms.WPFPanel"
+            )
 
-# test dockable panel =========================================================
+    panel_uuid = coreutils.Guid.Parse(panel_type.panel_id)
+    dockable_panel_id = UI.DockablePaneId(panel_uuid)
+    panel_provider = _WPFPanelProvider(panel_type, default_visible)
+    HOST_APP.uiapp.RegisterDockablePane(
+        dockable_panel_id,
+        panel_type.panel_title,
+        panel_provider
+        ) 
+    return panel_provider.panel
 
 class DockableExample(forms.WPFPanel):
-    panel_title = "Active View - Filters"
-    panel_id = "3110e336-f81c-4927-87da-4e0d30d4d64b"
-    panel_source = op.join(op.dirname(__file__), "ui.xaml")
+    panel_source = op.join(op.dirname(__file__), "DockablePaneSample.xaml")
+    panel_title = "Dockable Pane Sample"
+    panel_id = sample_panel_id
+    def __init__(self):
+        wpf.LoadComponent(self, self.panel_source)
+        self.thread_id = framework.get_current_thread_id()
+        self.selected_lb.ItemsSource = []
 
-    def do_something(self, sender, args):
-        forms.alert("Voila!!!")
+    
+    def update_list(self):
+        try:
+            template_list = [forms.TemplateListItem(s.IntegerValue) for s in selected]
+            self.selected_lb.ItemsSource = ObservableCollection[forms.TemplateListItem](template_list)
+        except Exception as e:
+            print e.message
 
-    def refresh_active_view(current_view):
-        uidoc.RequestViewChange(current_view)
-        uidoc.RefreshActiveView()
-        doc.Regenerate()
 
-    def active_filters(self):
-        pass
+registered_panel = register_dockable_panel(DockableExample)
 
-if not forms.is_registered_dockable_panel(DockableExample):
-    forms.register_dockable_panel(DockableExample)
-else:
-    print("Skipped registering dockable pane. Already exists.")
+def idling_eventhandler(sender, args):
+    try: dockable_pane = UI.DockablePane(UI.DockablePaneId(System.Guid(sample_panel_id)))
+    except: return
+
+    global selected
+
+    if HOST_APP.uidoc and dockable_pane.IsShown():
+        try:
+            ids = sorted(HOST_APP.uidoc.Selection.GetElementIds())
+            if ids:
+                if ids != selected:
+                    selected = ids
+                    registered_panel.update_list()
+            else:
+                if selected:
+                    selected = []
+                    registered_panel.update_list()
+        except Exception as e:
+            print e.message
+
+HOST_APP.uiapp.Idling += \
+    framework.EventHandler[UI.Events.IdlingEventArgs](idling_eventhandler)
