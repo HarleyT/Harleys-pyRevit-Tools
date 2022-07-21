@@ -6,11 +6,6 @@ from pyrevit import revit, DB, UI
 from pyrevit import forms, script
 from pyrevit.framework import wpf, ObservableCollection
 
-doc = __revit__.ActiveUIDocument.Document   # Document   class from RevitAPI that represents project. Used to Create, Delete, Modify and Query elements from the project.
-uidoc = __revit__.ActiveUIDocument          # UIDocument class from RevitAPI that represents Revit project opened in the Revit UI.
-app = __revit__.Application                 # Represents the Autodesk Revit Application, providing access to documents, options and other application wide data and settings.
-
-
 sample_panel_id = "3110e336-f81c-4927-87da-4e0d30d4d64b"
 
 selected = []
@@ -56,6 +51,7 @@ class DockableExample(forms.WPFPanel):
 
     def get_active_filters_click(self, sender, args):
         try:
+            doc = __revit__.ActiveUIDocument.Document
             current_view = doc.ActiveView
             current_filters = current_view.GetFilters()
             #uidoc.RefreshActiveView(current_view)
@@ -100,6 +96,7 @@ def idling_eventhandler(sender, args):
 
     if HOST_APP.uidoc and dockable_pane.IsShown():
         try:
+            doc = __revit__.ActiveUIDocument.Document
             current_view = doc.ActiveView
             if current_view:
                 if current_view != selected:
