@@ -4,7 +4,7 @@ import os.path as op
 from pyrevit import HOST_APP, framework, coreutils, PyRevitException
 from pyrevit import revit, DB, UI
 from pyrevit import forms, script
-from pyrevit.framework import wpf, ObservableCollection, WPFWindow
+from pyrevit.framework import wpf, ObservableCollection
 
 doc = __revit__.ActiveUIDocument.Document   # Document   class from RevitAPI that represents project. Used to Create, Delete, Modify and Query elements from the project.
 uidoc = __revit__.ActiveUIDocument          # UIDocument class from RevitAPI that represents Revit project opened in the Revit UI.
