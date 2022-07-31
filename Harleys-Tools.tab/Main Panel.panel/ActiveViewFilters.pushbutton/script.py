@@ -187,47 +187,8 @@ class ActiveFilters(Windows.Window, Reactive):
 #if __name__ == '__main__':
     # START CODE HERE
 
-#                <ListView.View>
-#                    <GridView AllowsColumnReorder="True">
-#                        <GridViewColumn x:Name="FilterName" Header="Name" Width="Auto"/>
-#                        <GridViewColumn x:Name="FilterVisibility" Header="Visibility" Width="Auto"/>
-#                        <GridViewColumn x:Name="FilterHalfTone" Header="Halftone" Width="Auto"/>
-#                        <GridViewColumn x:Name="FilterTransparency" Header="Transparency" Width="Auto"/>
-#                    </GridView>
-#                </ListView.View>
-
-#            <ListView x:Name="FilterName">
-#            </ListView>
-#            <ListView x:Name="FilterVisibility">
-#            </ListView>
-#            <ListView x:Name="FilterHalfTone">
-#            </ListView>
-#            <ListView x:Name="FilterTransparency">
-#            </ListView>
-
 # Let's show the window (modal)
 ActiveFilters().ShowDialog()
-
-################################################################################################
-#family_dict = {}
-#for e in revit.query.get_all_elements_in_view(active_view):
-#    try:
-#        e_type = revit.query.get_type(e)
-#        family = e_type.Family
-#        if family.FamilyCategory:
-#            family_dict[
-#                "%s: %s" % (family.FamilyCategory.Name, family.Name)
-#            ] = family
-#    except:
-#        pass
-#if family_dict:
-#    selected_families = forms.SelectFromList.show(
-#        sorted(family_dict.keys()),
-#        title="Select Families",
-#        multiselect=True,
-#    )
-################################################################################################
-
 
 # AVOID  placing Transaction inside of your loops! It will drastically reduce perfomance of your script.
 #t = Transaction(doc,__title__)  # Transactions are context-like objects that guard any changes made to a Revit model.
