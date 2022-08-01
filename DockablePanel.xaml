@@ -33,14 +33,19 @@
             <Button Height="25"  Margin="0,10,0,10" Content="Refresh Filter List" Click="get_active_filters_click"/>
             <ScrollViewer>
                 <StackPanel Height="225">
-                    <ListView x:Name="FilterName">
-                    </ListView>
-                    <ListView x:Name="FilterVisibility">
-                    </ListView>
-                    <ListView x:Name="FilterHalfTone">
-                    </ListView>
-                    <ListView x:Name="FilterTransparency">
-                    </ListView>
+                    <Grid>
+                        <ListView x:Name="FilterName">
+                        </ListView>
+                        <GridSplitter/>
+                        <ListView x:Name="FilterVisibility">
+                        </ListView>
+                        <GridSplitter/>
+                        <ListView x:Name="FilterHalfTone">
+                        </ListView>
+                        <GridSplitter/>
+                        <ListView x:Name="FilterTransparency">
+                        </ListView>
+                    </Grid>
                 </StackPanel>
             </ScrollViewer>
             <Grid Height="100">
