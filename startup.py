@@ -51,28 +51,27 @@ class DockableExample(forms.WPFPanel):
 
     def get_active_filters_click(self, sender, args):
         try:
-            pass
-            #doc = __revit__.ActiveUIDocument.Document
-            #current_view = doc.ActiveView
-            #current_filters = current_view.GetFilters()
-            ##uidoc.RefreshActiveView(current_view)
-            ##doc.Regenerate()
-            #FilterName,FilterVisibility,FilterHalfTone,FilterTransparency = [],[],[],[]
-            #elements = []
+            doc = __revit__.ActiveUIDocument.Document
+            current_view = doc.ActiveView
+            current_filters = current_view.GetFilters()
+            #uidoc.RefreshActiveView(current_view)
+            #doc.Regenerate()
+            FilterName,FilterVisibility,FilterHalfTone,FilterTransparency = [],[],[],[]
+            elements = []
 
-            #for f in current_filters:
-            #    FilterVisibility.append(current_view.GetFilterVisibility(f))
-            #    element = doc.GetElement(f)
-            #    elements.append(element)
-            #    FilterName.append(element.Name)
-            #    filterObject = current_view.GetFilterOverrides(f)
-            #    FilterTransparency.append(filterObject.Transparency)
-            #    FilterHalfTone.append(filterObject.Halftone)
+            for f in current_filters:
+                FilterVisibility.append(current_view.GetFilterVisibility(f))
+                element = doc.GetElement(f)
+                elements.append(element)
+                FilterName.append(element.Name)
+                filterObject = current_view.GetFilterOverrides(f)
+                FilterTransparency.append(filterObject.Transparency)
+                FilterHalfTone.append(filterObject.Halftone)
 
-            #self.FilterName.ItemsSource = FilterName
-            #self.FilterVisibility.ItemsSource = FilterVisibility
-            #self.FilterHalfTone.ItemsSource = FilterHalfTone
-            #self.FilterTransparency.ItemsSource = FilterTransparency
+            self.FilterName.ItemsSource = FilterName
+            self.FilterVisibility.ItemsSource = FilterVisibility
+            self.FilterHalfTone.ItemsSource = FilterHalfTone
+            self.FilterTransparency.ItemsSource = FilterTransparency
 
         except Exception as e:
             print e.message
@@ -97,30 +96,18 @@ def idling_eventhandler(sender, args):
 
     if HOST_APP.uidoc and dockable_pane.IsShown():
         try:
-            ids = sorted(HOST_APP.uidoc.Selection.GetElementIds())
-            if ids:
-                if ids != selected:
-                    selected = ids
-                    registered_panel.update_list()
+            doc = __revit__.ActiveUIDocument.Document
+            current_view = doc.ActiveView
+            if current_view:
+                if current_view != selected:
+                    selected = current_view
+                    registered_panel.get_active_filters_click()
             else:
                 if selected:
                     selected = []
-                    registered_panel.update_list()
+                    registered_panel.get_active_filters_click()
         except Exception as e:
             print e.message
-        #try:
-        #    doc = __revit__.ActiveUIDocument.Document
-        #    current_view = doc.ActiveView
-        #    if current_view:
-        #        if current_view != selected:
-        #            selected = current_view
-        #            registered_panel.get_active_filters_click()
-        #    else:
-        #        if selected:
-        #            selected = []
-        #            registered_panel.get_active_filters_click()
-        #except Exception as e:
-        #    print e.message
 
 HOST_APP.uiapp.Idling += \
     framework.EventHandler[UI.Events.IdlingEventArgs](idling_eventhandler)
