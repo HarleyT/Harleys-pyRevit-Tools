@@ -35,10 +35,18 @@
                 <ListView>
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn x:Name="FilterName" Header="Filter Name"/>
-                            <GridViewColumn x:Name="FilterVisibility" Header="Filter Visibility"/>
-                            <GridViewColumn x:Name="FilterTransparency" Header="Filter Transparency"/>
-                            <GridViewColumn x:Name="FilterHalfTone" Header="Filter HalfTone"/>
+                            <GridViewColumn>
+                                <ListView x:Name="FilterName"/>
+                            </GridViewColumn>
+                            <GridViewColumn>
+                                <ListView x:Name="FilterVisibility"/>
+                            </GridViewColumn>
+                            <GridViewColumn>
+                                <ListView x:Name="FilterTransparency"/>
+                            </GridViewColumn>
+                            <GridViewColumn>
+                                <ListView x:Name="FilterHalfTone"/>
+                            </GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>
