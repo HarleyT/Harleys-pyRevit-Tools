@@ -76,11 +76,11 @@ class DockableExample(forms.WPFPanel):
         except Exception as e:
             print e.message
 
-    def SetFilterVisibility():
-        pass
-
-    def SetFilterTransparency():
-        pass
+    def apply_filters_click(self, sender, args):
+        try:
+            self.get_active_filters_click().current_view.SetFilterVisibility = self.get_active_filters_click().FilterVisibility.ItemsSource
+        except Exception as e:
+            print e.message
 
 
 registered_panel = register_dockable_panel(DockableExample)

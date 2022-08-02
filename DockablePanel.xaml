@@ -39,10 +39,10 @@
                                 <ListBox x:Name="FilterName"/>
                             </GridViewColumn>
                             <GridViewColumn Width="100">
-                                <DataGridCheckBoxColumn x:Name="FilterVisibility" Binding="{Binding SetFilterVisibility}"/>
+                                <DataGridCheckBoxColumn x:Name="FilterVisibility"/>
                             </GridViewColumn>
                             <GridViewColumn Width="100">
-                                <DataGridCheckBoxColumn x:Name="FilterTransparency" Binding="{Binding SetFilterTransparency}"/>
+                                <DataGridCheckBoxColumn x:Name="FilterTransparency"/>
                             </GridViewColumn>
                             <GridViewColumn Width="100">
                                 <DataGridCheckBoxColumn x:Name="FilterHalfTone"/>
@@ -51,6 +51,7 @@
                     </ListView.View>
                 </ListView>
             </ScrollViewer>
+            <Button Margin="0,10,0,0" Content="Apply to View" Width="100" Click="apply_filters_click"/>
         </StackPanel>
     </DockPanel>
 </Page>
