@@ -76,13 +76,10 @@ class DockableExample(forms.WPFPanel):
         except Exception as e:
             print e.message
 
-    def add_filters():
+    def SetFilterVisibility():
         pass
 
-    def remove_filters():
-        pass
-
-    def edit_filters():
+    def SetFilterTransparency():
         pass
 
 
