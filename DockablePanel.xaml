@@ -39,13 +39,13 @@
                                 <ListBox x:Name="FilterName"/>
                             </GridViewColumn>
                             <GridViewColumn Width="100">
-                                <DataGridCheckBoxColumn x:Name="FilterVisibility"/>
+                                <CheckBox x:Name="FilterVisibility"/>
                             </GridViewColumn>
                             <GridViewColumn Width="100">
-                                <DataGridCheckBoxColumn x:Name="FilterTransparency"/>
+                                <CheckBox x:Name="FilterTransparency"/>
                             </GridViewColumn>
                             <GridViewColumn Width="100">
-                                <DataGridCheckBoxColumn x:Name="FilterHalfTone"/>
+                                <CheckBox x:Name="FilterHalfTone"/>
                             </GridViewColumn>
                         </GridView>
                     </ListView.View>
