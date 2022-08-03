@@ -35,17 +35,13 @@
                 <ListView>
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Width="200">
-                                <ListBox x:Name="FilterName"/>
+                            <GridViewColumn Width="260" DisplayMemberBinding="{Binding FilterName}" Header="Filter Name">
                             </GridViewColumn>
-                            <GridViewColumn Width="100">
-                                <CheckBox x:Name="FilterVisibility"/>
+                            <GridViewColumn Width="100" DisplayMemberBinding="{Binding FilterVisibility}" Header="Visibility">
                             </GridViewColumn>
-                            <GridViewColumn Width="100">
-                                <CheckBox x:Name="FilterTransparency"/>
+                            <GridViewColumn Width="100" DisplayMemberBinding="{Binding FilterTransparency}" Header="Transparency">
                             </GridViewColumn>
-                            <GridViewColumn Width="100">
-                                <CheckBox x:Name="FilterHalfTone"/>
+                            <GridViewColumn Width="100" DisplayMemberBinding="{Binding FilterHalfTone}" Header="Half Tone">
                             </GridViewColumn>
                         </GridView>
                     </ListView.View>
