@@ -81,7 +81,7 @@ class DockableExample(forms.WPFPanel):
 
     def apply_filters_click(self, sender, args):
         try:
-            self.get_active_filters_click().current_view.SetFilterVisibility = self.get_active_filters_click().FilterVisibility.ItemsSource
+            self.get_active_filters_click().current_view.SetFilterVisibility = self.get_active_filters_click().FilterVisibility
         except Exception as e:
             print e.message
 
