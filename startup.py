@@ -8,7 +8,10 @@ from pyrevit.framework import wpf, ObservableCollection
 
 sample_panel_id = "3110e336-f81c-4927-87da-4e0d30d4d64b"
 
-selected = []
+FilterName = []
+FilterVisibility = []
+FilterTransparency = []
+FilterHalfTone = []
 
 class _WPFPanelProvider(UI.IDockablePaneProvider):
     def __init__(self, panel_type, default_visible=True):
