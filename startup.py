@@ -38,7 +38,7 @@ def register_dockable_panel(panel_type, default_visible=True):
 
 class DockableExample(forms.WPFPanel):
     panel_source = op.join(op.dirname(__file__), "DockablePanel.xaml")
-    panel_title = "Dockable Pane Sample"
+    panel_title = "Active View Filter Visibility Manager"
     panel_id = sample_panel_id
     def __init__(self):
         wpf.LoadComponent(self, self.panel_source)
