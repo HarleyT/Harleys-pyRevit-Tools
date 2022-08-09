@@ -43,8 +43,7 @@
                             </GridViewColumn>
                             <GridViewColumn Width="80">
                                 <ListView>
-                                    <CheckBox x:Name="FilterTransparency" IsThreeState="True"
-                                              Checked="HandleCheck" Unchecked="HandleUnchecked" Indeterminate="HandleThirdState"/>
+                                    <CheckBox x:Name="FilterTransparency" IsThreeState="True"/>
                                 </ListView>
                             </GridViewColumn>
                             <GridViewColumn Width="80">
