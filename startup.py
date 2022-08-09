@@ -8,6 +8,7 @@ from pyrevit.framework import wpf, ObservableCollection
 
 sample_panel_id = "3110e336-f81c-4927-87da-4e0d30d4d64b"
 
+selected = []
 FilterName = []
 FilterVisibility = []
 FilterTransparency = []
@@ -47,10 +48,11 @@ class DockableExample(forms.WPFPanel):
         wpf.LoadComponent(self, self.panel_source)
         self.thread_id = framework.get_current_thread_id()
 
-        self.FilterName = []
-        self.FilterVisibility = []
-        self.FilterHalfTone = []
-        self.FilterTransparency = []
+        self.FilterName.ItemsSource = []
+        self.FilterVisibility.ItemsSource = []
+        self.FilterHalfTone.ItemsSource = []
+        self.FilterTransparency.ItemsSource = []
+        self.Filtername = self.FilterName.ItemsSource
 
     def get_active_filters_click(self, sender, args):
         try:
@@ -71,10 +73,10 @@ class DockableExample(forms.WPFPanel):
                 FilterTransparency.append(filterObject.Transparency)
                 FilterHalfTone.append(filterObject.Halftone)
 
-            self.FilterName = FilterName
-            self.FilterVisibility = FilterVisibility
-            self.FilterHalfTone = FilterHalfTone
-            self.FilterTransparency = FilterTransparency
+            self.FilterName.ItemsSource = FilterName
+            self.FilterVisibility.ItemsSource = FilterVisibility
+            self.FilterHalfTone.ItemsSource = FilterHalfTone
+            self.FilterTransparency.ItemsSource = FilterTransparency
 
         except Exception as e:
             print e.message
