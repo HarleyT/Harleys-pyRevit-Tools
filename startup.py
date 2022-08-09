@@ -52,7 +52,7 @@ class DockableExample(forms.WPFPanel):
         self.FilterVisibility.ItemsSource = []
         self.FilterHalfTone.ItemsSource = []
         self.FilterTransparency.ItemsSource = []
-        self.Filtername = self.FilterName.ItemsSource
+        self.FilterName = self.FilterName.ItemsSource
 
     def get_active_filters_click(self, sender, args):
         try:
