@@ -35,18 +35,29 @@
                 <ListView>
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Width="Auto">
-                                <ListView x:Name="FilterName"/>
+                            <GridViewColumn Header ="Filter Name" Width="305" DisplayMemberBinding ="{Binding FilterName}"/>
+                            <GridViewColumn Header ="Visibility" Width="85">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox x:Name = "FilterVisibility"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Width="80">
-                                <ListView x:Name="FilterVisibility"/>
+                            <GridViewColumn Header="Transparency" Width="85">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ListView x:Name="FilterTransparency"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Width="80">
-                                <ListView x:Name="FilterTransparency"/>
+                            <GridViewColumn Header="Half Tone" Width="85">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox x:Name = "FilterVisibility"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Width="80">
-                                <ListView x:Name="FilterHalfTone"/>
-                            </GridViewColumn>
+
                         </GridView>
                     </ListView.View>
                 </ListView>
