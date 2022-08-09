@@ -42,9 +42,7 @@
                                 <ListView x:Name="FilterVisibility"/>
                             </GridViewColumn>
                             <GridViewColumn Width="80">
-                                <ListView>
-                                    <CheckBox x:Name="FilterTransparency" IsThreeState="True"/>
-                                </ListView>
+                                <ListView x:Name="FilterTransparency"/>
                             </GridViewColumn>
                             <GridViewColumn Width="80">
                                 <ListView x:Name="FilterHalfTone"/>
