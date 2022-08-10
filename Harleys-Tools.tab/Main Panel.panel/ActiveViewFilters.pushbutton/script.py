@@ -127,11 +127,8 @@ class Command(ICommand):
         return True
 
 class ActiveFilters(Windows.Window, Reactive):
-    panel_source = op.join(op.dirname(__file__), "DockablePanel.xaml")
-    panel_title = "Active View Filter Visibility Manager"
-    panel_id = sample_panel_id
     def __init__(self):
-        wpf.LoadComponent(self, self.panel_source)
+        wpf.LoadComponent(self, xamlfile)
         self.thread_id = framework.get_current_thread_id()
 
         self.FilterName.ItemsSource = []
