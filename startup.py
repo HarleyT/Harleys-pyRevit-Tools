@@ -9,10 +9,6 @@ from pyrevit.framework import wpf, ObservableCollection
 sample_panel_id = "3110e336-f81c-4927-87da-4e0d30d4d64b"
 
 selected = []
-FilterName = []
-FilterVisibility = []
-FilterTransparency = []
-FilterHalfTone = []
 
 class _WPFPanelProvider(UI.IDockablePaneProvider):
     def __init__(self, panel_type, default_visible=True):
@@ -52,7 +48,6 @@ class DockableExample(forms.WPFPanel):
         self.FilterVisibility.ItemsSource = []
         self.FilterHalfTone.ItemsSource = []
         self.FilterTransparency.ItemsSource = []
-        self.FilterName = self.FilterName.ItemsSource
 
     def get_active_filters_click(self, sender, args):
         try:
@@ -94,7 +89,7 @@ def idling_eventhandler(sender, args):
     try: dockable_pane = UI.DockablePane(UI.DockablePaneId(System.Guid(sample_panel_id)))
     except: return
 
-    global selected
+    #global selected
 
     if HOST_APP.uidoc and dockable_pane.IsShown():
         try:
