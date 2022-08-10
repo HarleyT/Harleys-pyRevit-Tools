@@ -54,6 +54,8 @@ clr.AddReference('IronPython.Wpf')
 xamlfile = script.get_bundle_file('ui.xaml')
 
 # import WPF creator and base Window
+import System
+import os.path as op
 import wpf
 from System import Windows
 from System.Collections.ObjectModel import ObservableCollection
