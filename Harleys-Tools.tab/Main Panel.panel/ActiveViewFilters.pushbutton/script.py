@@ -1,28 +1,16 @@
 # -*- coding: utf-8 -*-
-__title__ = "Active View Filters"                           # Name of the button displayed in Revit UI
-__doc__ = """Version = 1.0
-Date    = 08.06.2022
+__title__ = "Active View Filter Manager"                           # Name of the button displayed in Revit UI
+__doc__ = """
 _____________________________________________________________________
 Description:
 Panel showing all filters for the Active View.
 _____________________________________________________________________
-Last update:
-- [08.06.2022] - 1.0 RELEASE
-_____________________________________________________________________
 To-Do:
 - Show all filters in active view
-- Make it a dockable panel
-- Add functionality of original filters (visibility on/off, projection/cut overrides etc.)
+- Add functionality (visibility on/off)
 _____________________________________________________________________
 Author: Harley Trappitt"""                                  # Button Description shown in Revit UI
 
-
-#   You need to use 'os' package to get all files in the given folder with 'os.listdir'.
-#   Then you can filter family files and iterate through them to open each and make a change.
-#ModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(path_to_rfa)
-#options = OpenOptions()
-#rvt_doc = app.OpenDocumentFile(ModelPath, options)
-#   Then make your changes to rvt_doc and close it.
 
 # ╦╔╦╗╔═╗╔═╗╦═╗╔╦╗╔═╗
 # ║║║║╠═╝║ ║╠╦╝ ║ ╚═╗
@@ -137,8 +125,12 @@ class Command(ICommand):
         return True
 
 class ActiveFilters(Windows.Window, Reactive):
+    panel_source = op.join(op.dirname(__file__), "DockablePanel.xaml")
+    panel_title = "Active View Filter Visibility Manager"
+    panel_id = sample_panel_id
     def __init__(self):
-        wpf.LoadComponent(self, xamlfile)
+        wpf.LoadComponent(self, self.panel_source)
+        self.thread_id = framework.get_current_thread_id()
 
         self.FilterName.ItemsSource = []
         self.FilterVisibility.ItemsSource = []
@@ -147,6 +139,7 @@ class ActiveFilters(Windows.Window, Reactive):
 
     def get_active_filters_click(self, sender, args):
         try:
+            doc = __revit__.ActiveUIDocument.Document
             current_view = doc.ActiveView
             current_filters = current_view.GetFilters()
             #uidoc.RefreshActiveView(current_view)
@@ -171,14 +164,11 @@ class ActiveFilters(Windows.Window, Reactive):
         except Exception as e:
             print e.message
 
-    def add_filters():
-        pass
-
-    def remove_filters():
-        pass
-
-    def edit_filters():
-        pass
+    def apply_filters_click(self, sender, args):
+        try:
+            self.get_active_filters_click().current_view.SetFilterVisibility = self.get_active_filters_click().FilterVisibility
+        except Exception as e:
+            print e.message
 
 # ╔╦╗╔═╗╦╔╗╔
 # ║║║╠═╣║║║║
