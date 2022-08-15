@@ -131,6 +131,7 @@ class ActiveFilters(forms.WPFPanel, Reactive):
         wpf.LoadComponent(self, xamlfile)
         self.thread_id = framework.get_current_thread_id()
 
+        self.FilterName = []
         self.FilterName.ItemsSource = []
         self.FilterVisibility.ItemsSource = []
         self.FilterHalfTone.ItemsSource = []
@@ -155,6 +156,7 @@ class ActiveFilters(forms.WPFPanel, Reactive):
                 FilterTransparency.append(filterObject.Transparency)
                 FilterHalfTone.append(filterObject.Halftone)
 
+            self.FilterName = FilterName
             self.FilterName.ItemsSource = FilterName
             self.FilterVisibility.ItemsSource = FilterVisibility
             self.FilterHalfTone.ItemsSource = FilterHalfTone
