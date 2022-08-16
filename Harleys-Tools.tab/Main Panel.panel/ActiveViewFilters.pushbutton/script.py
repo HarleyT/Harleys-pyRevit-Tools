@@ -126,7 +126,7 @@ class Command(ICommand):
     def CanExecute(self, parameter):
         return True
 
-class ActiveFilters(Reactive, Windows.Page):
+class ActiveFilters(Reactive, Windows.Window):
     def __init__(self):
         wpf.LoadComponent(self, xamlfile)
         self.thread_id = framework.get_current_thread_id()
