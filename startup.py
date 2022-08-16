@@ -44,13 +44,13 @@ class DockableExample(forms.WPFPanel):
         wpf.LoadComponent(self, self.panel_source)
         self.thread_id = framework.get_current_thread_id()
 
-        self.FilterName = []
+        #self.FilterName = []
         self.FilterName.ItemsSource = []
-        self.FilterVisibility = []
+        #self.FilterVisibility = []
         self.FilterVisibility.ItemsSource = []
-        self.FilterHalfTone = []
+        #self.FilterHalfTone = []
         self.FilterHalfTone.ItemsSource = []
-        self.FilterTransparency = []
+        #self.FilterTransparency = []
         self.FilterTransparency.ItemsSource = []
 
     def get_active_filters_click(self, sender, args):
@@ -72,13 +72,13 @@ class DockableExample(forms.WPFPanel):
                 FilterTransparency.append(filterObject.Transparency)
                 FilterHalfTone.append(filterObject.Halftone)
 
-            self.FilterName = FilterName
+            #self.FilterName = FilterName
             self.FilterName.ItemsSource = FilterName
-            self.FilterVisibility = FilterVisibility
+            #self.FilterVisibility = FilterVisibility
             self.FilterVisibility.ItemsSource = FilterVisibility
-            self.FilterHalfTone = FilterHalfTone
+            #self.FilterHalfTone = FilterHalfTone
             self.FilterHalfTone.ItemsSource = FilterHalfTone
-            self.FilterTransparency = FilterTransparency
+            #self.FilterTransparency = FilterTransparency
             self.FilterTransparency.ItemsSource = FilterTransparency
 
         except Exception as e:
