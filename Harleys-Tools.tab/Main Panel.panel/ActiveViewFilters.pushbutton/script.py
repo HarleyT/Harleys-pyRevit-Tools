@@ -132,13 +132,13 @@ class ActiveFilters(forms.WPFPanel, Reactive):
         self.thread_id = framework.get_current_thread_id()
 
         self.FilterName = []
-        self.FilterName.ItemsSource = []
+        #self.FilterName.ItemsSource = []
         self.FilterVisibility = []
-        self.FilterVisibility.ItemsSource = []
+        #self.FilterVisibility.ItemsSource = []
         self.FilterHalfTone = []
-        self.FilterHalfTone.ItemsSource = []
+        #self.FilterHalfTone.ItemsSource = []
         self.FilterTransparency = []
-        self.FilterTransparency.ItemsSource = []
+        #self.FilterTransparency.ItemsSource = []
 
     def get_active_filters_click(self, sender, args):
         try:
