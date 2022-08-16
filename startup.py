@@ -46,12 +46,12 @@ class DockableExample(forms.WPFPanel):
 
         self.FilterName = []
         #self.FilterName.ItemsSource = []
-        #self.FilterVisibility = []
-        self.FilterVisibility.ItemsSource = []
-        #self.FilterHalfTone = []
-        self.FilterHalfTone.ItemsSource = []
-        #self.FilterTransparency = []
-        self.FilterTransparency.ItemsSource = []
+        self.FilterVisibility = []
+        #self.FilterVisibility.ItemsSource = []
+        self.FilterHalfTone = []
+        #self.FilterHalfTone.ItemsSource = []
+        self.FilterTransparency = []
+        #self.FilterTransparency.ItemsSource = []
 
     def get_active_filters_click(self, sender, args):
         try:
@@ -74,12 +74,12 @@ class DockableExample(forms.WPFPanel):
 
             self.FilterName = FilterName
             #self.FilterName.ItemsSource = FilterName
-            #self.FilterVisibility = FilterVisibility
-            self.FilterVisibility.ItemsSource = FilterVisibility
-            #self.FilterHalfTone = FilterHalfTone
-            self.FilterHalfTone.ItemsSource = FilterHalfTone
-            #self.FilterTransparency = FilterTransparency
-            self.FilterTransparency.ItemsSource = FilterTransparency
+            self.FilterVisibility = FilterVisibility
+            #self.FilterVisibility.ItemsSource = FilterVisibility
+            self.FilterHalfTone = FilterHalfTone
+            #self.FilterHalfTone.ItemsSource = FilterHalfTone
+            self.FilterTransparency = FilterTransparency
+            #self.FilterTransparency.ItemsSource = FilterTransparency
 
         except Exception as e:
             print e.message
