@@ -126,7 +126,7 @@ class Command(ICommand):
     def CanExecute(self, parameter):
         return True
 
-class ActiveFilters(forms.WPFPanel, Reactive):
+class ActiveFilters(forms.WPFPanel, Reactive, Windows.Page):
     def __init__(self):
         wpf.LoadComponent(self, xamlfile)
         self.thread_id = framework.get_current_thread_id()
@@ -185,7 +185,7 @@ class ActiveFilters(forms.WPFPanel, Reactive):
     # START CODE HERE
 
 # Let's show the window (modal)
-#ActiveFilters().ShowDialog()
+ActiveFilters().ShowDialog()
 
 # AVOID  placing Transaction inside of your loops! It will drastically reduce perfomance of your script.
 #t = Transaction(doc,__title__)  # Transactions are context-like objects that guard any changes made to a Revit model.
