@@ -185,7 +185,7 @@ class ActiveFilters(forms.WPFPanel, Reactive):
     # START CODE HERE
 
 # Let's show the window (modal)
-ActiveFilters().ShowDialog()
+#ActiveFilters().ShowDialog()
 
 # AVOID  placing Transaction inside of your loops! It will drastically reduce perfomance of your script.
 #t = Transaction(doc,__title__)  # Transactions are context-like objects that guard any changes made to a Revit model.
