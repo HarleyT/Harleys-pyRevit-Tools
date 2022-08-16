@@ -44,8 +44,8 @@ class DockableExample(forms.WPFPanel):
         wpf.LoadComponent(self, self.panel_source)
         self.thread_id = framework.get_current_thread_id()
 
-        #self.FilterName = []
-        self.FilterName.ItemsSource = []
+        self.FilterName = []
+        #self.FilterName.ItemsSource = []
         #self.FilterVisibility = []
         self.FilterVisibility.ItemsSource = []
         #self.FilterHalfTone = []
@@ -72,8 +72,8 @@ class DockableExample(forms.WPFPanel):
                 FilterTransparency.append(filterObject.Transparency)
                 FilterHalfTone.append(filterObject.Halftone)
 
-            #self.FilterName = FilterName
-            self.FilterName.ItemsSource = FilterName
+            self.FilterName = FilterName
+            #self.FilterName.ItemsSource = FilterName
             #self.FilterVisibility = FilterVisibility
             self.FilterVisibility.ItemsSource = FilterVisibility
             #self.FilterHalfTone = FilterHalfTone
