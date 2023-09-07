@@ -1,6 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Harleys-Tools.extension",
+    "\\Harleys-Tools.extension\\Harleys-Tools.tab",
+    "\\Harleys-Tools.extension\\Harleys-Tools.tab\\Main Panel.panel",
+    "\\Harleys-Tools.extension\\Harleys-Tools.tab\\Main Panel.panel\\ActiveViewFilters.pushbutton"
   ],
+  "SelectedNode": "\\Harleys-Tools.extension\\Harleys-Tools.tab\\Main Panel.panel\\ActiveViewFilters.pushbutton\\script.py",
   "PreviewInSolutionExplorer": false
 }
