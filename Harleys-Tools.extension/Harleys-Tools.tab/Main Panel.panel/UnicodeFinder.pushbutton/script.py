@@ -11,8 +11,8 @@ from System import Windows
 
 
 # Import the XAML layout
-clr.AddReference('PresentationFramework')
-from System.Windows import Application, Window
+#clr.AddReference('PresentationFramework')
+#from System.Windows import Application, Window
 
 # Define a regular expression pattern to match Unicode characters
 unicode_pattern = re.compile('[^\x00-\x7F]+')
@@ -49,4 +49,5 @@ class MainWindow(Windows.Window):
         self.searchButton.Click += self.search_sheets_for_unicode
 
 if __name__ == '__main__':
-    Application().Run(MainWindow())
+    #Application().Run(MainWindow())
+    MainWindow().ShowDialog()
