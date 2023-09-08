@@ -1,13 +1,18 @@
 import clr
 clr.AddReference('RevitAPI')
+clr.AddReference('System.Windows.Forms')
+clr.AddReference('IronPython.Wpf')
 from Autodesk.Revit.DB import FilteredElementCollector, BuiltInCategory, BuiltInParameter
-from pyrevit import revit, script
+from pyrevit import revit, script, UI
 import re
 import wpf
+#xamlfile = script.get_bundle_file('ui.xaml')
+from System import Windows
+
 
 # Import the XAML layout
-clr.AddReference('PresentationFramework')
-from System.Windows import Application, Window
+#clr.AddReference('PresentationFramework')
+#from System.Windows import Application, Window
 
 # Define a regular expression pattern to match Unicode characters
 unicode_pattern = re.compile('[^\x00-\x7F]+')
@@ -40,7 +45,7 @@ def search_sheets_for_unicode(sender, e):
 # Create the main window
 class MainWindow(Window):
     def __init__(self):
-        wpf.LoadComponent(self, 'unicode_search.xaml')
+        wpf.LoadComponent(self, 'ui.xaml')
         self.searchButton.Click += self.search_sheets_for_unicode
 
 if __name__ == '__main__':

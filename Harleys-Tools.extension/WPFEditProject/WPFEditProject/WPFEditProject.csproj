@@ -7,4 +7,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Page Include="..\..\Harleys-Tools.tab\Main Panel.panel\UnicodeFinder.pushbutton\ui.xaml" Link="ui.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
 </Project>
