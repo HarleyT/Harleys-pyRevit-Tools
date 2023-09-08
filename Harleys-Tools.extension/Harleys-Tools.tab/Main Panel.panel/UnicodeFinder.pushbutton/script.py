@@ -6,7 +6,7 @@ from Autodesk.Revit.DB import FilteredElementCollector, BuiltInCategory, BuiltIn
 from pyrevit import revit, script, UI
 import re
 import wpf
-#xamlfile = script.get_bundle_file('ui.xaml')
+xamlfile = script.get_bundle_file('ui.xaml')
 from System import Windows
 
 
@@ -45,7 +45,7 @@ def search_sheets_for_unicode(sender, e):
 # Create the main window
 class MainWindow(Windows.Window):
     def __init__(self):
-        wpf.LoadComponent(self, 'ui.xaml')
+        wpf.LoadComponent(self, xamlfile)
         self.searchButton.Click += self.search_sheets_for_unicode
 
 if __name__ == '__main__':
