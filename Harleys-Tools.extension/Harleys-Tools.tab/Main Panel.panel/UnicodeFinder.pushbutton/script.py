@@ -43,7 +43,7 @@ def search_sheets_for_unicode(sender, e):
         resultTextBox.Text = "No sheets with Unicode characters found."
 
 # Create the main window
-class MainWindow(Window):
+class MainWindow(Window.Window):
     def __init__(self):
         wpf.LoadComponent(self, 'ui.xaml')
         self.searchButton.Click += self.search_sheets_for_unicode
