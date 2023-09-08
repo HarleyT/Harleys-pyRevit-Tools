@@ -46,7 +46,7 @@ def search_sheets_for_unicode(sender, e):
 class MainWindow(Windows.Window):
     def __init__(self):
         wpf.LoadComponent(self, xamlfile)
-        self.searchButton.Click += self.search_sheets_for_unicode
+        self.SearchButton_Click += self.search_sheets_for_unicode
 
 if __name__ == '__main__':
     #Application().Run(MainWindow())
