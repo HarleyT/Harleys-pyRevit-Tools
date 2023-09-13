@@ -58,6 +58,7 @@
 import clr
 clr.AddReference('System.Windows.Forms')
 clr.AddReference('IronPython.Wpf')
+import re
 
 # find the path of ui.xaml
 from pyrevit import UI
