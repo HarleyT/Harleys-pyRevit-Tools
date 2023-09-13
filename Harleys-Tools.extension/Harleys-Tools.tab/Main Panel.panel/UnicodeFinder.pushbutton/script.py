@@ -88,12 +88,6 @@ class MyWindow(Windows.Window):
     def __init__(self):
         wpf.LoadComponent(self, xamlfile)
 
-    # Function to check if a string contains Unicode characters
-    def contains_unicode(text):
-        # Define a regular expression pattern to match Unicode characters
-        unicode_pattern = re.compile('[^\x00-\x7F]+')
-        return bool(unicode_pattern.search(text))
-
     # Function to search for Unicode characters in sheet numbers
     def SearchButton_Click(self, sender, args):
         # Get all sheets in the current Revit project
@@ -102,11 +96,12 @@ class MyWindow(Windows.Window):
 
         # Initialize a list to store sheets with Unicode characters
         sheets_with_unicode = []
+        unicode_pattern = re.compile('[^\x00-\x7F]+')
 
         # Iterate through each sheet and check its sheet number
         for sheet in sheets:
             sheet_number = sheet.get_Parameter(BuiltInParameter.SHEET_NUMBER).AsString()
-            if contains_unicode(sheet_number):
+            if bool(unicode_pattern.search(sheet_number)):
                 sheets_with_unicode.append(sheet_number)
 
         # Display the sheets with Unicode characters in the resultTextBox
