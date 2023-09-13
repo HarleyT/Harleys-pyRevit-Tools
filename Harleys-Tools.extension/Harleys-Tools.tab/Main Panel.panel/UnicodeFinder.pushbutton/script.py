@@ -107,7 +107,7 @@ class MyWindow(Windows.Window):
 
         # Iterate through each sheet and check its sheet number
         for sheet in sheets:
-            sheet_number = sheet.get_Parameter(BuiltInParameter.SheetNumber).AsString()
+            sheet_number = sheet.get_Parameter(BuiltInParameter.SHEET_NUMBER).AsString()
             if contains_unicode(sheet_number):
                 sheets_with_unicode.append(sheet_number)
 
