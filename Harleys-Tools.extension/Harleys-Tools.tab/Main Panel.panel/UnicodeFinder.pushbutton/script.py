@@ -81,7 +81,7 @@ class MyWindow(Windows.Window):
         return bool(unicode_pattern.search(text))
 
     # Function to search for Unicode characters in sheet numbers
-    def search_sheets_for_unicode(sender, e):
+    def SearchButton_Click(sender, e):
         # Get all sheets in the current Revit project
         sheets_collector = FilteredElementCollector(revit.doc).OfCategory(BuiltInCategory.OST_Sheets)
         sheets = list(sheets_collector)
