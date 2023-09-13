@@ -68,12 +68,12 @@ xamlfile = script.get_bundle_file('ui.xaml')
 import wpf
 from System import Windows
 
+# Define a regular expression pattern to match Unicode characters
+unicode_pattern = re.compile('[^\x00-\x7F]+')
+
 class MyWindow(Windows.Window):
     def __init__(self):
         wpf.LoadComponent(self, xamlfile)
-
-    # Define a regular expression pattern to match Unicode characters
-    unicode_pattern = re.compile('[^\x00-\x7F]+')
 
     # Function to check if a string contains Unicode characters
     def contains_unicode(text):
