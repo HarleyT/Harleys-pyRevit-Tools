@@ -84,16 +84,14 @@ uidoc = __revit__.ActiveUIDocument          # UIDocument class from RevitAPI tha
 app = __revit__.Application                 # Represents the Autodesk Revit Application, providing access to documents, options and other application wide data and settings.
 PATH_SCRIPT = os.path.dirname(__file__)     # Absolute path to the folder where script is placed.
 
-
-# Define a regular expression pattern to match Unicode characters
-unicode_pattern = re.compile('[^\x00-\x7F]+')
-
 class MyWindow(Windows.Window):
     def __init__(self):
         wpf.LoadComponent(self, xamlfile)
 
     # Function to check if a string contains Unicode characters
     def contains_unicode(text):
+        # Define a regular expression pattern to match Unicode characters
+        unicode_pattern = re.compile('[^\x00-\x7F]+')
         return bool(unicode_pattern.search(text))
 
     # Function to search for Unicode characters in sheet numbers
