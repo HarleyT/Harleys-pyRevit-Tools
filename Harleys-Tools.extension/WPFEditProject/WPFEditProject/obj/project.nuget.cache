@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "evyFmWieQ1FpLYl7mYz0azDG8qlrb7Y9kBZn7TVIEWXaRoS+J+0b3R58kQ28Uo+3+lLJTc1KEi3lR6K6/dQ8Bw==",
+  "dgSpecHash": "PIt0SehgqN8Jh9PuBUFhPBF3jWdAvDFlwsVEGoA7gkDfF8w2pspk2hi7zxvYxi0ZsuOQDFO767ZDNQyflfgZlg==",
   "success": true,
   "projectFilePath": "C:\\Users\\htrappitt\\source\\repos\\HarleyT\\Harleys-pyRevit-Tools\\Harleys-Tools.extension\\WPFEditProject\\WPFEditProject\\WPFEditProject.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\htrappitt\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
+    "C:\\Users\\htrappitt\\.nuget\\packages\\system.drawing.common\\7.0.0\\system.drawing.common.7.0.0.nupkg.sha512",
+    "C:\\Users\\htrappitt\\.nuget\\packages\\wpf-ui\\2.1.0\\wpf-ui.2.1.0.nupkg.sha512"
+  ],
   "logs": []
 }
