@@ -1,0 +1,10 @@
+<Image
+    x:Name="pdso_concept"
+    Source="/Floor_Area-Data_Silo_Concept.png"
+    Width="auto"
+/>
+<Image
+    x:Name="bbb_logo"
+    Source="/bbb_logo.png"
+    Width="auto"
+/>

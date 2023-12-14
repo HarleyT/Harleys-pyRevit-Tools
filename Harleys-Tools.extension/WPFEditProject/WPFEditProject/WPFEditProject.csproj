@@ -12,6 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Include="..\..\Harleys-Tools.tab\Main Panel.panel\Testing.pulldown\wpfui-Test.pushbutton\Script.xaml" Link="Script.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="..\..\Harleys-Tools.tab\Main Panel.panel\Testing.pulldown\wpfui-Test.pushbutton\ui.xaml" Link="ui.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

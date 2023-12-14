@@ -2,6 +2,9 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
+    <Page Update="..\..\Harleys-Tools.tab\Main Panel.panel\Testing.pulldown\wpfui-Test.pushbutton\Script.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="..\..\Harleys-Tools.tab\Main Panel.panel\Testing.pulldown\wpfui-Test.pushbutton\ui.xaml">
       <SubType>Designer</SubType>
     </Page>
