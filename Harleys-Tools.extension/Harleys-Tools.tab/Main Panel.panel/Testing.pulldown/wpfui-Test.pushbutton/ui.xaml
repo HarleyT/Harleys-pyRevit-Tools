@@ -131,7 +131,7 @@
                                            Foreground="{StaticResource text_white}"
                                            Width="120"/>
 
-                                <TextBox x:Name="textbox"
+                                <TextBox x:Name="input_name"
                                          Width="150"
                                          TextWrapping="Wrap"
                                          TextAlignment="Center"

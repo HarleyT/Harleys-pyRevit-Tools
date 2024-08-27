@@ -50,10 +50,15 @@ app = __revit__.Application
 
 def say_hello(name):
     """Function to do something"""
-    UI.TaskDialog.Show(
-        "Hello World",
-        "Hello {}".format(name or "World!"),
-        )
+    forms.ask_for_string(
+        default='pyRevit',
+        prompt='Enter Name:',
+        title=__title__
+    )
+    # UI.TaskDialog.Show(
+    #     "Hello World",
+    #     "Hello {}".format(name or "World!"),
+    #     )
 
 class MyWindow(forms.WPFWindow):
     """GUI"""
@@ -63,7 +68,7 @@ class MyWindow(forms.WPFWindow):
 
     @property
     def name(self):
-        return self.textbox.Text
+        return self.input_name.Text
 
 
 

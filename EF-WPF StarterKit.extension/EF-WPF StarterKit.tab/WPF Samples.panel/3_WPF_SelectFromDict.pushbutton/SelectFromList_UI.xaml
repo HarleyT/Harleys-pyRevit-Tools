@@ -1,0 +1,52 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:av="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        mc:Ignorable="av"
+        Title="EF-WPF Sample Form" 
+        Height="700" Width="300" WindowStartupLocation="CenterScreen">
+
+    <StackPanel Margin="10">
+
+        <!-- Image -->
+        <Image Source="https://framerusercontent.com/images/LRmkkOk8c7TWErBSS6H9jhFklU.png" Height="30"  HorizontalAlignment="Center" Margin="0,0,0,10"/>
+
+        <!-- Card-Text-->
+        <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="10" Margin="0,0,0,10">
+            <StackPanel>
+                <TextBlock Text="EF-WPF SelectFromList" FontSize="14" FontWeight="Bold" Margin="0,0,0,10"/>
+                <TextBlock TextWrapping="Wrap"><Run Text="This is the base example for creating lists with checkboxes with multi-select option."/><LineBreak/><Run Text="This will show you how to populate list of items in the ListBox, How to create events on buttons and how to get your selection."/><LineBreak/><Run/><LineBreak/><Run FontWeight="Bold" Text="Happy Coding!"/><LineBreak/><Run Text="-Erik Frits"/></TextBlock>
+            </StackPanel>
+        </Border>
+
+        <!-- Separator -->
+        <Separator Margin="0,10,0,5"/>
+
+        <!-- Label-->
+        <Label Content="Select Views" FontSize="14" FontWeight="Bold"/>
+
+        <!-- List of Views with CheckBoxes -->
+        <ListBox x:Name="listBoxViews" SelectionMode="Extended" Height="250">
+            <!-- Example Item -->
+            <!-- <ListBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Content="View Name"/>
+                </StackPanel>
+            </ListBoxItem> -->
+        </ListBox>
+
+        <!-- Selection Buttons -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+            <Button Click="UIe_button_select_all" Content="Select All" Width="75" Height="25" Margin="5,0"/>
+            <Button Click="UIe_button_select_none" Content="Select None" Width="75" Height="25" Margin="5,0"/>
+        </StackPanel>
+
+        <!-- Separator -->
+        <Separator Margin="0,10,0,5"/>
+        
+        <!-- Button -->
+        <Button Click="UIe_button_run" Content="Submit!" Width="75" Height="25" Margin="0,10,0,0"/>
+
+    </StackPanel>
+
+</Window>
