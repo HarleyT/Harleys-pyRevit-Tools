@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-__title__   = "9.02 - Create Sheets and Viewports"
+__title__ = "9.02 - Create Sheets and Viewports"
 __doc__ = """Date    = 08.05.2024
 _____________________________________________________________________
 Description:
@@ -10,15 +10,16 @@ Author: Erik Frits"""
 # ╦╔╦╗╔═╗╔═╗╦═╗╔╦╗╔═╗
 # ║║║║╠═╝║ ║╠╦╝ ║ ╚═╗
 # ╩╩ ╩╩  ╚═╝╩╚═ ╩ ╚═╝ IMPORTS
-#==================================================
+# ==================================================
 from Autodesk.Revit.DB import *
+
 
 # ╦  ╦╔═╗╦═╗╦╔═╗╔╗ ╦  ╔═╗╔═╗
 # ╚╗╔╝╠═╣╠╦╝║╠═╣╠╩╗║  ║╣ ╚═╗
 #  ╚╝ ╩ ╩╩╚═╩╩ ╩╚═╝╩═╝╚═╝╚═╝ VARIABLES
-#==================================================
-uidoc  = __revit__.ActiveUIDocument
-doc    = __revit__.ActiveUIDocument.Document #type:Document
+# ==================================================
+uidoc = __revit__.ActiveUIDocument
+doc = __revit__.ActiveUIDocument.Document #type:Document
 
 
 # ╔═╗╦ ╦╔╗╔╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
