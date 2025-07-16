@@ -171,23 +171,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\htrappitt\\.nuget\\packages\\": {},
+    "C:\\Users\\Harley.Trappitt\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\htrappitt\\source\\repos\\HarleyT\\Harleys-pyRevit-Tools\\Harleys-Tools.extension\\WPFEditProject\\WPFEditProject\\WPFEditProject.csproj",
+      "projectUniqueName": "C:\\Users\\Harley.Trappitt\\OneDrive - Surbana Jurong Private Limited\\Documents\\GitHub\\Harleys-pyRevit-Tools\\Harleys-Tools.extension\\WPFEditProject\\WPFEditProject\\WPFEditProject.csproj",
       "projectName": "WPFEditProject",
-      "projectPath": "C:\\Users\\htrappitt\\source\\repos\\HarleyT\\Harleys-pyRevit-Tools\\Harleys-Tools.extension\\WPFEditProject\\WPFEditProject\\WPFEditProject.csproj",
-      "packagesPath": "C:\\Users\\htrappitt\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\htrappitt\\source\\repos\\HarleyT\\Harleys-pyRevit-Tools\\Harleys-Tools.extension\\WPFEditProject\\WPFEditProject\\obj\\",
+      "projectPath": "C:\\Users\\Harley.Trappitt\\OneDrive - Surbana Jurong Private Limited\\Documents\\GitHub\\Harleys-pyRevit-Tools\\Harleys-Tools.extension\\WPFEditProject\\WPFEditProject\\WPFEditProject.csproj",
+      "packagesPath": "C:\\Users\\Harley.Trappitt\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Harley.Trappitt\\OneDrive - Surbana Jurong Private Limited\\Documents\\GitHub\\Harleys-pyRevit-Tools\\Harleys-Tools.extension\\WPFEditProject\\WPFEditProject\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\htrappitt\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Harley.Trappitt\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -209,7 +209,13 @@
         "warnAsError": [
           "NU1605"
         ]
-      }
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net6.0-windows7.0": {
@@ -231,6 +237,24 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[6.0.36, 6.0.36]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[6.0.36, 6.0.36]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[6.0.36, 6.0.36]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[6.0.36, 6.0.36]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
@@ -239,7 +263,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300\\RuntimeIdentifierGraph.json"
       }
     }
   }

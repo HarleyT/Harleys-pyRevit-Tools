@@ -1,0 +1,7 @@
+
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        Title="HTML Viewer" Height="600" Width="800">
+    <Grid>
+        <WebBrowser Name="webViewer" />
+    </Grid>
+</Window>
