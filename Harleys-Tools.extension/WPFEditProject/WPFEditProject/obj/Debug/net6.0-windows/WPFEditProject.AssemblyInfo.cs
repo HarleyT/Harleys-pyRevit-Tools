@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WPFEditProject")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6977407c58689c4e16f7817c6567b26ee03d723d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8f0667ad016246390aae983076790c03b57b4c43")]
 [assembly: System.Reflection.AssemblyProductAttribute("WPFEditProject")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WPFEditProject")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
